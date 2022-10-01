@@ -4,6 +4,7 @@
 .header {
 	font-size: 0;
 	background-color: $color-modal-bg;
+	box-shadow: 0 24px 32px rgba($color-black, 0.04), 0 16px 24px rgba($color-black, 0.04), 0 4px 8px rgba($color-black, 0.04), 0 0 1px rgba($color-black, 0.04);
 
 	&__inner {
 		display: flex;
@@ -82,10 +83,10 @@
 
 			&_active,
 			&:hover {
-				color: var(--text-primary-color);
+				color: $color-primary-light;
 
 				svg {
-					fill: var(--text-primary-color);
+					fill: $color-primary-light;
 				}
 			}
 

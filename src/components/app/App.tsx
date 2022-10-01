@@ -1,13 +1,20 @@
 import React from 'react';
 import app from './app.module.scss';
 import AppHeader from '../header/Header';
+import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
+import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 
 const App = () => {
   return (
     <div className={app.wrapper}>
       <AppHeader/>
       <main className={app.main}>
-        Main content
+        <div className="container">
+          <div className={app.dashboard}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </div>
+        </div>
       </main>
     </div>
   );

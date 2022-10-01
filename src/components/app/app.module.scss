@@ -1,3 +1,6 @@
+@import "../../scss/utils/variables";
+@import "../../scss/utils/mixins";
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -6,4 +9,13 @@
 
 .main {
   flex: 1;
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+
+  @include media-up(lg) {
+    justify-content: space-between;
+  }
 }

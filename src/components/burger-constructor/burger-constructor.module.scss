@@ -1,0 +1,8 @@
+@import "../../scss/utils/variables";
+@import "../../scss/utils/mixins";
+
+.board {
+	@include media-up(lg) {
+		flex: 1 0 calc(50% - 20px);
+	}
+}
