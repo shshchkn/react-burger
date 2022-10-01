@@ -43,14 +43,14 @@ const HeaderLogo = () => {
 }
 
 type AccountLinkProps = {
-  text: string;
+  name: string;
 };
 
-const AccountLink = ({text}: AccountLinkProps) => {
+const AccountLink = ({name}: AccountLinkProps) => {
   return (
     <a href="#" className={`${header.header__account} text text_type_main-default text_color_inactive`}>
       <ProfileIcon type='secondary' />
-      {text}
+      {name}
     </a>
   );
 }
@@ -65,7 +65,7 @@ const AppHeader = () => {
             <NavItem name="Лента заказов" icon={<ListIcon type="secondary"/>} active={false} />
           </Nav>
           <HeaderLogo />
-          <AccountLink text="Личный кабинет"/>
+          <AccountLink name="Личный кабинет"/>
         </div>
       </div>
     </header>
