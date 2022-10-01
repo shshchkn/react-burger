@@ -43,14 +43,14 @@ const HeaderLogo = () => {
 }
 
 type AccountLinkProps = {
-  name: string;
+  name: string,
+  icon: React.ReactNode,
 };
 
-const AccountLink = ({name}: AccountLinkProps) => {
+const AccountLink = ({name, icon}: AccountLinkProps) => {
   return (
     <a href="#" className={`${header.header__account} text text_type_main-default text_color_inactive`}>
-      <ProfileIcon type='secondary' />
-      {name}
+      {icon}{name}
     </a>
   );
 }
@@ -65,7 +65,7 @@ const AppHeader = () => {
             <NavItem name="Лента заказов" icon={<ListIcon type="secondary"/>} active={false} />
           </Nav>
           <HeaderLogo />
-          <AccountLink name="Личный кабинет"/>
+          <AccountLink name="Личный кабинет" icon={<ProfileIcon type='secondary'/>}/>
         </div>
       </div>
     </header>

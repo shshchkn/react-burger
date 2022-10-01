@@ -3,7 +3,7 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import burgerIngredients from './burger-ingredients.module.scss';
 
-const TabBlock = () => {
+const TabsBlock = () => {
   const [current, setCurrent] = React.useState('one');
 
   return (
@@ -19,7 +19,7 @@ const BurgerIngredients = () => {
   return (
     <div className={`dashboard__ingredients ${burgerIngredients.ingredients} pt-10`}>
       <h1 className={`${burgerIngredients.ingredients__title} mb-5`}>Соберите бургер</h1>
-      <TabBlock />
+      <TabsBlock />
     </div>
   );
 }
