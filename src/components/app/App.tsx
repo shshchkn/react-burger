@@ -1,5 +1,7 @@
 import React from 'react';
+
 import app from './app.module.scss';
+
 import AppHeader from '../header/Header';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
@@ -11,7 +13,7 @@ const App = () => {
       <main className={app.main}>
         <div className="container">
           <div className={app.dashboard}>
-            <BurgerIngredients />
+            <BurgerIngredients title="Соберите бургер"/>
             <BurgerConstructor />
           </div>
         </div>

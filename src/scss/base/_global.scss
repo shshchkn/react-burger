@@ -21,4 +21,15 @@ body {
 	&--wide {
 		max-width: 1320px;
 	}
+
+	.tab {
+		min-width: auto;
+		width: 100%;
+	}
+
+	.constructor-element {
+		@include media-down(md) {
+			max-width: none;
+		}
+	}
 }

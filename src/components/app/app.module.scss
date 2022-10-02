@@ -8,12 +8,21 @@
 }
 
 .main {
-  flex: 1;
+  display: flex;
+
+  @include media-up(lg) {
+    height: calc(100vh - 82px);
+  }
+
+  @include media-up(xl) {
+    height: calc(100vh - 88px);
+  }
 }
 
 .dashboard {
   display: flex;
   flex-wrap: wrap;
+  height: 100%;
 
   @include media-up(lg) {
     justify-content: space-between;
