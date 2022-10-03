@@ -2,7 +2,7 @@ import React from "react";
 
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
-import header from './header.module.scss';
+import header from './AppHeader.module.scss';
 
 type NavProps = {
   children: React.ReactNode;
