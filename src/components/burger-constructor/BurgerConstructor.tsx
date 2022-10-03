@@ -1,4 +1,4 @@
-import React, {ReactPropTypes} from 'react';
+import React from 'react';
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import burgerConstructor from './burger-constructor.module.scss';
@@ -6,7 +6,7 @@ import burgerConstructor from './burger-constructor.module.scss';
 import data from '../../utils/data';
 
 type IngredientsItemProps = {
-  name: string;
+  name: string,
   price: number,
   image_mobile: string
 }
@@ -27,8 +27,7 @@ const IngredientsItem = (item: IngredientsItemProps) => {
 }
 
 const BurgerConstructor = () => {
-
-  const bun = data.filter(item => item.type === 'bun')[0];
+  const bun = data.find(item => item.type === 'bun');
   const items = data.filter(item => item.type !== 'bun');
 
   return (
@@ -38,9 +37,9 @@ const BurgerConstructor = () => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image_mobile}
+            text={`${bun!.name} (верх)`}
+            price={bun!.price}
+            thumbnail={bun!.image_mobile}
           />
         </div>
         <div className={`board__body ${burgerConstructor.items} custom-scroll mb-4`}>
@@ -50,9 +49,9 @@ const BurgerConstructor = () => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image_mobile}
+            text={`${bun!.name} (низ)`}
+            price={bun!.price}
+            thumbnail={bun!.image_mobile}
           />
         </div>
       </div>
