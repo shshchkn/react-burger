@@ -1,8 +1,8 @@
 import React from 'react';
 
-import app from './app.module.scss';
+import app from './App.module.scss';
 
-import AppHeader from '../header/Header';
+import AppHeader from '../app-header/AppHeader';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 
