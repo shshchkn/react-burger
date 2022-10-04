@@ -1,0 +1,30 @@
+@import "../../scss/utils/variables";
+@import "../../scss/utils/mixins";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+
+  @include media-up(lg) {
+    height: calc(100vh - 82px);
+  }
+
+  @include media-up(xl) {
+    height: calc(100vh - 88px);
+  }
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+
+  @include media-up(lg) {
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,113 @@
+@import "../../scss/utils/variables";
+@import "../../scss/utils/mixins";
+
+.ingredients {
+	display: flex;
+	flex-direction: column;
+
+	@include media-up(lg) {
+		height: 100%;
+		width: calc(40% - 10px);
+		margin-right: 20px;
+	}
+
+	@include media-up(xl) {
+		width: calc(50% - 20px);
+		margin-right: 40px;
+	}
+
+	&__title {
+		font-size: 24px;
+		line-height: 1.11;
+		color: $color-primary-light;
+
+		@include media-up(lg) {
+			font-size: 36px;
+		}
+	}
+
+	&__tabs {
+		display: flex;
+	}
+
+	&__section {
+		max-height: 630px;
+		margin-bottom: 52px;
+		overflow-y: auto;
+
+		@include media-up(lg) {
+			max-height: calc(100% - 52px);
+		}
+	}
+
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+
+		@include media-up(xl) {
+			padding: 0 16px;
+		}
+
+		&_item {
+			margin-bottom: 24px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			@include media-up(sm) {
+				margin-bottom: 0;
+
+				&:nth-child(odd) {
+					margin-right: 24px;
+				}
+
+				&:nth-child(n + 3) {
+					margin-top: 32px;
+				}
+			}
+		}
+	}
+}
+
+.card {
+	width: 100%;
+
+	@include media-up(sm) {
+		width: calc(50% - 12px);
+	}
+
+	&__link {
+		display: block;
+		position: relative;
+		text-align: center;
+		text-decoration: none;
+	}
+
+	&__image {
+		position: relative;
+		height: 0;
+		padding-top: 44.12%;
+
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+	}
+
+	&__price {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: $color-primary-light;
+	}
+
+	&__title {
+		min-height: 48px;
+		color: $color-primary-light;
+	}
+}

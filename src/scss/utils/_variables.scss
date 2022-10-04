@@ -1,0 +1,19 @@
+/* Media queries */
+$grid-breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1440px,
+);
+
+/* Fonts */
+$main-font: JetBrainsMono, -apple-system, system-ui, sans-serif;
+$extra-font: Iceland, -apple-system, system-ui, sans-serif;
+
+/* Colors */
+$color-black: 					#000000;
+$color-white: 					#ffffff;
+$color-modal-bg: 				#1C1C21;
+$color-primary-light:		#F2F2F3;
