@@ -1,6 +1,6 @@
 import React from 'react';
 
-import app from './App.module.scss';
+import app from './app.module.scss';
 
 import AppHeader from '../app-header/AppHeader';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';

@@ -1,12 +1,14 @@
-import React, {ReactPropTypes} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {Tab, Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+
+import Modal from "../modal/Modal";
 
 import burgerIngredients from './burger-ingredients.module.scss';
 
 import data from '../../utils/data';
 
 const TabsBlock = () => {
-  const [current, setCurrent] = React.useState('bun');
+  const [current, setCurrent] = useState('bun');
 
   const onTabClick = (current: string) => {
     setCurrent(current);
@@ -28,27 +30,25 @@ type IngredientProps = {
   name: string,
   image: string,
   price: number,
-  count: number
+  count: number,
+  showModal?: () => void
 }
 
-const Ingredient = ({_id, name, image, price, count}: IngredientProps) => {
-  const handleCardClick = (e: React.ChangeEvent<any>) => {
-    e.preventDefault();
-    console.log(`Clicked: ${name}`);
-  }
+const Ingredient = ({_id, name, image, price, count, showModal}: IngredientProps) => {
   return (
-    <li className={`${burgerIngredients.ingredients__list_item} ${burgerIngredients.card}`}>
-      <a href="#" className={burgerIngredients.card__link} title={name} onClick={handleCardClick}>
-        {count && <Counter count={count} size="default"/>}
-        <div className={`${burgerIngredients.card__image} mb-2 ml-4 mr-4`}>
-          <img src={image} alt={name}/>
-        </div>
-        <div className={`${burgerIngredients.card__price} mb-2`}>
-          <span className="text text_type_digits-default mr-2">{price}</span>
-          <CurrencyIcon type="primary" />
-        </div>
-        <p className={`${burgerIngredients.card__title} text text_type_main-default`}>{name}</p>
-      </a>
+    <li
+      className={`${burgerIngredients.ingredients__list_item} ${burgerIngredients.card}`}
+      onClick={showModal}
+      title={name}>
+      {count && <Counter count={count} size="default"/>}
+      <div className={`${burgerIngredients.card__image} mb-2 ml-4 mr-4`}>
+        <img src={image} alt={name}/>
+      </div>
+      <div className={`${burgerIngredients.card__price} mb-2`}>
+        <span className="text text_type_digits-default mr-2">{price}</span>
+        <CurrencyIcon type="primary" />
+      </div>
+      <p className={`${burgerIngredients.card__title} text text_type_main-default`}>{name}</p>
     </li>
   );
 }
@@ -56,15 +56,16 @@ const Ingredient = ({_id, name, image, price, count}: IngredientProps) => {
 type IngredientsProps = {
   title: string,
   type: string,
+  showModal?: () => void
 }
 
-const Ingredients = ({title, type}: IngredientsProps) => {
+const Ingredients = ({title, type, showModal}: IngredientsProps) => {
   return (
     <div className="ingredients__section_block ingredients__block mb-10" id={type}>
       <h2 className="ingredients__block_title text text_type_main-medium mb-6">{title}</h2>
       <ul className={`ingredients__block_list ${burgerIngredients.ingredients__list}`} role="list">
         {data.map((item) =>
-          (item.type === type && <Ingredient key={item._id} count={1} {...item}/>)
+          (item.type === type && <Ingredient showModal={showModal} key={item._id} count={1} {...item}/>)
         )}
       </ul>
     </div>
@@ -72,19 +73,30 @@ const Ingredients = ({title, type}: IngredientsProps) => {
 }
 
 type BurgerIngredientsProps = {
-  title: string
+  title: string,
 }
 
 const BurgerIngredients = ({title}: BurgerIngredientsProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  }
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  }
+
   return (
     <div className={`dashboard__ingredients ${burgerIngredients.ingredients} pt-10`}>
       <h1 className={`${burgerIngredients.ingredients__title} mb-5`}>{title}</h1>
       <TabsBlock />
       <div className={`${burgerIngredients.ingredients__section} custom-scroll mt-10`}>
-        <Ingredients title="Булки" type="bun"/>
-        <Ingredients title="Соусы" type="sauce"/>
-        <Ingredients title="Начинки" type="main"/>
+        <Ingredients showModal={handleOpenModal} title="Булки" type="bun"/>
+        <Ingredients showModal={handleOpenModal} title="Соусы" type="sauce"/>
+        <Ingredients showModal={handleOpenModal} title="Начинки" type="main"/>
       </div>
+      <Modal show={isOpen} onClose={handleCloseModal}> MODAL </Modal>
     </div>
   );
 }

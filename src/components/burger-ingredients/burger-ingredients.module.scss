@@ -72,16 +72,13 @@
 
 .card {
 	width: 100%;
+	display: block;
+	position: relative;
+	text-align: center;
+	cursor: pointer;
 
 	@include media-up(sm) {
 		width: calc(50% - 12px);
-	}
-
-	&__link {
-		display: block;
-		position: relative;
-		text-align: center;
-		text-decoration: none;
 	}
 
 	&__image {
