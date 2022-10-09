@@ -1,23 +1,26 @@
 @import "../../scss/utils/variables";
 @import "../../scss/utils/mixins";
 
-.ingredients__list {
-	&_item {
-		margin-bottom: 24px;
+.ingredients {
+	&__list {
 
-		&:last-child {
-			margin-bottom: 0;
-		}
+		&_item {
+			margin-bottom: 24px;
 
-		@include media-up(sm) {
-			margin-bottom: 0;
-
-			&:nth-child(odd) {
-				margin-right: 24px;
+			&:last-child {
+				margin-bottom: 0;
 			}
 
-			&:nth-child(n + 3) {
-				margin-top: 32px;
+			@include media-up(sm) {
+				margin-bottom: 0;
+
+				&:nth-child(odd) {
+					margin-right: 24px;
+				}
+
+				&:nth-child(n + 3) {
+					margin-top: 32px;
+				}
 			}
 		}
 	}

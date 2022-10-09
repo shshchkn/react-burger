@@ -1,34 +1,38 @@
+import React from "react";
+
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./products-item.module.scss";
 
 type IngredientTypes = {
-  _id: string,
-  name: string,
-  image: string,
-  price: number,
+  // _id: string,
+  // name: string,
+  // image: string,
+  // price: number,
+  item: any,
   count: number,
-  showModal?: () => void
+  showModal?: (item: any) => void,
 }
 
-const ProductsItem = ({_id, name, image, price, count, showModal}: IngredientTypes) => {
+const ProductsItem = (({item, count, showModal}: IngredientTypes) => {
+  const handleProductClick = () => showModal && showModal(item);
   return (
     <li
       className={`${styles.ingredients__list_item} ${styles.card}`}
-      onClick={showModal}
-      title={name}
-      data-id={_id}>
+      onClick={handleProductClick}
+      title={item.name}
+      data-id={item._id}>
       {count && <Counter count={count} size="default"/>}
       <div className={`${styles.card__image} mb-2 ml-4 mr-4`}>
-        <img src={image} alt={name}/>
+        <img src={item.image} alt={item.name}/>
       </div>
       <div className={`${styles.card__price} mb-2`}>
-        <span className="text text_type_digits-default mr-2">{price}</span>
+        <span className="text text_type_digits-default mr-2">{item.price}</span>
         <CurrencyIcon type="primary"/>
       </div>
-      <p className={`${styles.card__title} text text_type_main-default`}>{name}</p>
+      <p className={`${styles.card__title} text text_type_main-default`}>{item.name}</p>
     </li>
   );
-}
+});
 
 export default ProductsItem;

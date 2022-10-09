@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useMemo} from 'react';
-import {Tab, Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useState, useEffect, createRef, useRef, RefObject, EffectCallback} from 'react';
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import ProductsList from '../products-list/ProductsList';
-
 import Modal from "../modal/Modal";
+import IngredientDetails from "../ingredient-details/IngredientDetails";
 
 import styles from './burger-ingredients.module.scss';
 
@@ -25,22 +25,30 @@ const TabsBlock = () => {
   );
 }
 
-
 type BurgerIngredientsTypes = {
   title: string,
-  products?: Array<any> | null
+  products?: Array<any> | null,
 }
 
 const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
+  const handleOpenModal = (item: React.SetStateAction<null>) => {
+    setSelectedItem(item);
   }
 
   const handleCloseModal = () => {
-    setIsOpen(false);
+    setSelectedItem(null);
   }
+
+  useEffect(() => {
+    selectedItem && setIsOpen(true);
+
+    return () => {
+      selectedItem && setIsOpen(false);
+    }
+  }, [selectedItem])
 
   return (
     <div className={`dashboard__ingredients ${styles.ingredients} pt-10`}>
@@ -52,17 +60,7 @@ const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
         <ProductsList data={products} showModal={handleOpenModal} title="Начинки" type="main"/>
       </div>
       <Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
-        <div className="card card_modal">
-          <div className="card__image">
-          </div>
-          <h2 className="card__title">Биокотлета из марсианской Магнолии</h2>
-          <div className="card__info">
-            <div className="card__info_item">
-              <span className="card__info_name">Калории,ккал</span>
-              <span className="card__info_value">Калории,ккал</span>
-            </div>
-          </div>
-        </div>
+        {selectedItem && <IngredientDetails item={selectedItem} />}
       </Modal>
     </div>
   );

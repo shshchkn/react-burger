@@ -1,7 +1,11 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
+
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.scss';
+import done from './done.png';
+
+import Modal from "../modal/Modal";
 
 type IngredientsItemTypes = {
   name: string,
@@ -30,11 +34,26 @@ type stylesTypes = {
 
 const BurgerConstructor = ({products}: stylesTypes) => {
   const bun = useMemo(() => (
-    products && products!.find(item => item.type === 'bun')
+    products && products.find(item => item.type === 'bun')
   ), [products]);
+
   const items = useMemo(() => (
-    products && products!.filter(item => item.type !== 'bun')
+    products && products.filter(item => item.type !== 'bun')
   ), [products]);
+
+  const total = useMemo(() => (
+    items?.reduce((sum, current) => sum + current.price, 0)
+  ), [products]);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  }
+
+  const handleCloseModal = () => {
+    setIsOpen(false)
+  }
 
   return (
     <div className={`dashboard__constructor ${styles.board}`}>
@@ -69,11 +88,22 @@ const BurgerConstructor = ({products}: stylesTypes) => {
       </div>
       <div className={`${styles.total} mt-10`}>
         <div className={`${styles.total__price} mr-10`}>
-          <p className='text text_type_digits-medium mr-2'>610</p>
+          <p className='text text_type_digits-medium mr-2'>{bun.price * 2 + total}</p>
           <CurrencyIcon type='primary'/>
         </div>
-        <Button type="primary" size="large" htmlType="button">Оформить заказ</Button>
+        <Button type="primary" size="large" htmlType="button" onClick={handleOpenModal}>Оформить заказ</Button>
       </div>
+      <Modal show={isOpen} onClose={handleCloseModal} headerTitle={''}>
+        <div className={`${styles.order} mt-4 mb-8`}>
+          <div className="order__number text text_type_digits-large">034536</div>
+          <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
+          <div className={`${styles.order__icon} mb-15`}>
+            <img src={done} alt=""/>
+          </div>
+          <span className="text text_type_main-default mb-2">Ваш заказ начали готовить</span>
+          <span className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</span>
+        </div>
+      </Modal>
     </div>
   );
 }
