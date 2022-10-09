@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {InfoIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
+import loader from './loader.gif';
+
 import AppHeader from '../app-header/AppHeader';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
@@ -69,8 +71,19 @@ const App = () => {
         <main className={styles.main}>
           <div className="container">
             <div className={styles.dashboard}>
-              <BurgerIngredients products={data} title="Соберите бургер"/>
-              <BurgerConstructor products={data} />
+              {
+                loading
+                ? (
+                    <div className={styles.loading}>
+                      <img src={loader} alt=""/>
+                    </div>
+                  ) : (
+                    <>
+                      <BurgerIngredients products={data} title="Соберите бургер"/>
+                      <BurgerConstructor products={data} />
+                    </>
+                  )
+              }
             </div>
           </div>
         </main>

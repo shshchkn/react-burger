@@ -1,15 +1,17 @@
-import styles from "./products-list.module.scss";
 import React from "react";
+
+import styles from "./products-list.module.scss";
+
 import ProductsItem from "../products-item/ProductsItem";
 
-type IngredientsProps = {
+type IngredientsTypes = {
   title: string,
   type: string,
   showModal?: () => void,
   data?: Array<any> | null
 }
 
-const ProductsList = ({title, type, data, showModal}: IngredientsProps) => {
+const ProductsList = ({title, type, data, showModal}: IngredientsTypes) => {
   return (
     <div className="ingredients__section_block ingredients__block mb-10" id={type}>
       <h2 className="ingredients__block_title text text_type_main-medium mb-6">{title}</h2>

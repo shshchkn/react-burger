@@ -1,13 +1,13 @@
-import backdrop from './backdrop.module.scss';
+import styles from './backdrop.module.scss';
 
-type BackdropProps = {
+type BackdropTypes = {
   onClose?: () => void,
   show: boolean
 }
 
-const Backdrop = ({onClose, show}: BackdropProps) => {
+const Backdrop = ({onClose, show}: BackdropTypes) => {
   return (
-    <div className={`${backdrop.backdrop} ${show ? backdrop.shown : ''}`} onClick={onClose}></div>
+    <div className={`${styles.backdrop} ${show ? styles.shown : ''}`} onClick={onClose}></div>
   );
 }
 

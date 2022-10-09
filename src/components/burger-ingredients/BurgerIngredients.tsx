@@ -5,7 +5,7 @@ import ProductsList from '../products-list/ProductsList';
 
 import Modal from "../modal/Modal";
 
-import burgerIngredients from './burger-ingredients.module.scss';
+import styles from './burger-ingredients.module.scss';
 
 const TabsBlock = () => {
   const [current, setCurrent] = useState('bun');
@@ -17,7 +17,7 @@ const TabsBlock = () => {
   };
 
   return (
-    <div className={burgerIngredients.ingredients__tabs}>
+    <div className={styles.ingredients__tabs}>
       <Tab value="bun" active={current === 'bun'} onClick={onTabClick}>Булки</Tab>
       <Tab value="sauce" active={current === 'sauce'} onClick={onTabClick}>Соусы</Tab>
       <Tab value="main" active={current === 'main'} onClick={onTabClick}>Начинки</Tab>
@@ -26,12 +26,12 @@ const TabsBlock = () => {
 }
 
 
-type BurgerIngredientsProps = {
+type BurgerIngredientsTypes = {
   title: string,
   products?: Array<any> | null
 }
 
-const BurgerIngredients = ({title, products}: BurgerIngredientsProps) => {
+const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -43,10 +43,10 @@ const BurgerIngredients = ({title, products}: BurgerIngredientsProps) => {
   }
 
   return (
-    <div className={`dashboard__ingredients ${burgerIngredients.ingredients} pt-10`}>
-      <h1 className={`${burgerIngredients.ingredients__title} mb-5`}>{title}</h1>
+    <div className={`dashboard__ingredients ${styles.ingredients} pt-10`}>
+      <h1 className={`${styles.ingredients__title} mb-5`}>{title}</h1>
       <TabsBlock />
-      <div className={`${burgerIngredients.ingredients__section} custom-scroll mt-10`}>
+      <div className={`${styles.ingredients__section} custom-scroll mt-10`}>
         <ProductsList data={products} showModal={handleOpenModal} title="Булки" type="bun"/>
         <ProductsList data={products} showModal={handleOpenModal} title="Соусы" type="sauce"/>
         <ProductsList data={products} showModal={handleOpenModal} title="Начинки" type="main"/>

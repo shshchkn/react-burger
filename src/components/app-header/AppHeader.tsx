@@ -2,13 +2,13 @@ import React from "react";
 
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
-import styles from './AppHeader.module.scss';
+import styles from './app-header.module.scss';
 
-type NavProps = {
+type NavTypes = {
   children: React.ReactNode;
 };
 
-const Nav = ({children}: NavProps) => {
+const Nav = ({children}: NavTypes) => {
   return (
     <nav className={styles.header__nav}>
       <ul className={`${styles.header__nav_menu} menu`} role="list">
@@ -18,13 +18,13 @@ const Nav = ({children}: NavProps) => {
   );
 }
 
-type NavItemProps = {
+type NavItemTypes = {
   name: string,
   icon: React.ReactNode,
   active: boolean
 };
 
-const NavItem = ({name, icon, active}: NavItemProps) => {
+const NavItem = ({name, icon, active}: NavItemTypes) => {
   return (
     <li className={styles.menu__item}>
       <a href="#" className={`${styles.menu__item_link} text text_type_main-default text_color_inactive ${active ? styles.menu__item_link_active : ''}`}>
@@ -42,12 +42,12 @@ const HeaderLogo = () => {
   );
 }
 
-type AccountLinkProps = {
+type AccountLinkTypes = {
   name: string,
   icon: React.ReactNode,
 };
 
-const AccountLink = ({name, icon}: AccountLinkProps) => {
+const AccountLink = ({name, icon}: AccountLinkTypes) => {
   return (
     <a href="#" className={`${styles.header__account} text text_type_main-default text_color_inactive`}>
       {icon}{name}

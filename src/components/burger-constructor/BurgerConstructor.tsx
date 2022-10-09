@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import burgerConstructor from './burger-constructor.module.scss';
+import styles from './burger-constructor.module.scss';
 
 type IngredientsItemTypes = {
   name: string,
@@ -11,8 +11,8 @@ type IngredientsItemTypes = {
 
 const IngredientsItem = (item: IngredientsItemTypes) => {
   return (
-    <div className={burgerConstructor.item}>
-      <div className={`${burgerConstructor.item__drag} mr-2`}>
+    <div className={styles.item}>
+      <div className={`${styles.item__drag} mr-2`}>
         <DragIcon type="primary" />
       </div>
       <ConstructorElement
@@ -24,20 +24,20 @@ const IngredientsItem = (item: IngredientsItemTypes) => {
   );
 }
 
-type BurgerConstructorTypes = {
+type stylesTypes = {
   products?: Array<any> | null
 }
 
-const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
+const BurgerConstructor = ({products}: stylesTypes) => {
   const bun = useMemo(() => products && products!.find(item => item.type === 'bun'), [products]);
   const items = useMemo(() => products && products!.filter(item => item.type !== 'bun'), [products]);
 
   return (
-    <div className={`dashboard__constructor ${burgerConstructor.board}`}>
-      <div className={burgerConstructor.dropzone}>
+    <div className={`dashboard__constructor ${styles.board}`}>
+      <div className={styles.dropzone}>
         {
           bun &&
-          <div className={`board__top ${burgerConstructor.bun} ml-8 mb-4`}>
+          <div className={`board__top ${styles.bun} ml-8 mb-4`}>
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -47,12 +47,12 @@ const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
             />
           </div>
         }
-        <div className={`board__body ${burgerConstructor.items} custom-scroll mb-4`}>
+        <div className={`board__body ${styles.items} custom-scroll mb-4`}>
           {items && items.map(item => <IngredientsItem key={item._id} {...item}/>)}
         </div>
         {
           bun &&
-          <div className={`board__bottom ml-8 ${burgerConstructor.bun}`}>
+          <div className={`board__bottom ml-8 ${styles.bun}`}>
             <ConstructorElement
               type="bottom"
               isLocked={true}
@@ -63,8 +63,8 @@ const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
           </div>
         }
       </div>
-      <div className={`${burgerConstructor.total} mt-10`}>
-        <div className={`${burgerConstructor.total__price} mr-10`}>
+      <div className={`${styles.total} mt-10`}>
+        <div className={`${styles.total__price} mr-10`}>
           <p className='text text_type_digits-medium mr-2'>610</p>
           <CurrencyIcon type='primary'/>
         </div>

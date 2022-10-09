@@ -1,7 +1,8 @@
-import styles from "./products-item.module.scss";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-type IngredientProps = {
+import styles from "./products-item.module.scss";
+
+type IngredientTypes = {
   _id: string,
   name: string,
   image: string,
@@ -10,7 +11,7 @@ type IngredientProps = {
   showModal?: () => void
 }
 
-const ProductsItem = ({_id, name, image, price, count, showModal}: IngredientProps) => {
+const ProductsItem = ({_id, name, image, price, count, showModal}: IngredientTypes) => {
   return (
     <li
       className={`${styles.ingredients__list_item} ${styles.card}`}
