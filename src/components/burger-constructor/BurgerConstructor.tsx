@@ -1,17 +1,15 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import burgerConstructor from './burger-constructor.module.scss';
 
-import data from '../../utils/data';
-
-type IngredientsItemProps = {
+type IngredientsItemTypes = {
   name: string,
   price: number,
   image_mobile: string
 }
 
-const IngredientsItem = (item: IngredientsItemProps) => {
+const IngredientsItem = (item: IngredientsItemTypes) => {
   return (
     <div className={burgerConstructor.item}>
       <div className={`${burgerConstructor.item__drag} mr-2`}>
@@ -26,34 +24,44 @@ const IngredientsItem = (item: IngredientsItemProps) => {
   );
 }
 
-const BurgerConstructor = () => {
-  const bun = data.find(item => item.type === 'bun');
-  const items = data.filter(item => item.type !== 'bun');
+type BurgerConstructorTypes = {
+  products?: Array<any> | null
+}
+
+const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
+  const bun = useMemo(() => products && products!.find(item => item.type === 'bun'), [products]);
+  const items = useMemo(() => products && products!.filter(item => item.type !== 'bun'), [products]);
 
   return (
     <div className={`dashboard__constructor ${burgerConstructor.board}`}>
       <div className={burgerConstructor.dropzone}>
-        <div className={`board__top ${burgerConstructor.bun} ml-8 mb-4`}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${bun!.name} (верх)`}
-            price={bun!.price}
-            thumbnail={bun!.image_mobile}
-          />
-        </div>
+        {
+          bun &&
+          <div className={`board__top ${burgerConstructor.bun} ml-8 mb-4`}>
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${bun.name} (верх)`}
+              price={bun.price}
+              thumbnail={bun.image_mobile}
+            />
+          </div>
+        }
         <div className={`board__body ${burgerConstructor.items} custom-scroll mb-4`}>
-          {items.map(item => <IngredientsItem key={item._id} {...item}/>)}
+          {items && items.map(item => <IngredientsItem key={item._id} {...item}/>)}
         </div>
-        <div className={`board__bottom ml-8 ${burgerConstructor.bun}`}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${bun!.name} (низ)`}
-            price={bun!.price}
-            thumbnail={bun!.image_mobile}
-          />
-        </div>
+        {
+          bun &&
+          <div className={`board__bottom ml-8 ${burgerConstructor.bun}`}>
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${bun.name} (низ)`}
+              price={bun.price}
+              thumbnail={bun.image_mobile}
+            />
+          </div>
+        }
       </div>
       <div className={`${burgerConstructor.total} mt-10`}>
         <div className={`${burgerConstructor.total__price} mr-10`}>
