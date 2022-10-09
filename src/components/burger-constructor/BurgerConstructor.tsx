@@ -29,8 +29,12 @@ type stylesTypes = {
 }
 
 const BurgerConstructor = ({products}: stylesTypes) => {
-  const bun = useMemo(() => products && products!.find(item => item.type === 'bun'), [products]);
-  const items = useMemo(() => products && products!.filter(item => item.type !== 'bun'), [products]);
+  const bun = useMemo(() => (
+    products && products!.find(item => item.type === 'bun')
+  ), [products]);
+  const items = useMemo(() => (
+    products && products!.filter(item => item.type !== 'bun')
+  ), [products]);
 
   return (
     <div className={`dashboard__constructor ${styles.board}`}>
