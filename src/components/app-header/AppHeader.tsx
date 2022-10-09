@@ -2,7 +2,7 @@ import React from "react";
 
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
-import header from './AppHeader.module.scss';
+import styles from './AppHeader.module.scss';
 
 type NavProps = {
   children: React.ReactNode;
@@ -10,8 +10,8 @@ type NavProps = {
 
 const Nav = ({children}: NavProps) => {
   return (
-    <nav className={header.header__nav}>
-      <ul className={`${header.header__nav_menu} menu`} role="list">
+    <nav className={styles.header__nav}>
+      <ul className={`${styles.header__nav_menu} menu`} role="list">
         {children}
       </ul>
     </nav>
@@ -26,8 +26,8 @@ type NavItemProps = {
 
 const NavItem = ({name, icon, active}: NavItemProps) => {
   return (
-    <li className={header.menu__item}>
-      <a href="#" className={`${header.menu__item_link} text text_type_main-default text_color_inactive ${active ? header.menu__item_link_active : ''}`}>
+    <li className={styles.menu__item}>
+      <a href="#" className={`${styles.menu__item_link} text text_type_main-default text_color_inactive ${active ? styles.menu__item_link_active : ''}`}>
         {icon}{name}
       </a>
     </li>
@@ -36,8 +36,8 @@ const NavItem = ({name, icon, active}: NavItemProps) => {
 
 const HeaderLogo = () => {
   return (
-    <div className={header.header__logo}>
-      <a href="/" className={header.header__logo_link} title="Stellar Burger"><Logo/></a>
+    <div className={styles.header__logo}>
+      <a href="/" className={styles.header__logo_link} title="Stellar Burger"><Logo/></a>
     </div>
   );
 }
@@ -49,7 +49,7 @@ type AccountLinkProps = {
 
 const AccountLink = ({name, icon}: AccountLinkProps) => {
   return (
-    <a href="#" className={`${header.header__account} text text_type_main-default text_color_inactive`}>
+    <a href="#" className={`${styles.header__account} text text_type_main-default text_color_inactive`}>
       {icon}{name}
     </a>
   );
@@ -57,9 +57,9 @@ const AccountLink = ({name, icon}: AccountLinkProps) => {
 
 const AppHeader = () => {
   return (
-    <header className={`${header.header} pt-4 pb-4`}>
+    <header className={`${styles.header} pt-4 pb-4`}>
       <div className="container container--wide">
-        <div className={header.header__inner}>
+        <div className={styles.header__inner}>
           <Nav>
             <NavItem name="Конструктор" icon={<BurgerIcon type="secondary"/>} active={true} />
             <NavItem name="Лента заказов" icon={<ListIcon type="secondary"/>} active={false} />
