@@ -1,0 +1,13 @@
+@import "../../scss/utils/variables";
+@import "../../scss/utils/mixins";
+
+.ingredients {
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+
+		@include media-up(xl) {
+			padding: 0 16px;
+		}
+	}
+}
