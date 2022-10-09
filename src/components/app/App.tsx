@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {InfoIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
+import styles from './app.module.scss';
 import loader from './loader.gif';
 
 import AppHeader from '../app-header/AppHeader';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
-
-import styles from './app.module.scss';
 
 const dataUrl = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -46,7 +45,6 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
-
 
 const App = () => {
   const [state, setState] = useState({
