@@ -1,29 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
+import Tabs from "../tabs/Tabs";
 import ProductsList from '../products-list/ProductsList';
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 
 import styles from './burger-ingredients.module.scss';
-
-const TabsBlock = () => {
-  const [current, setCurrent] = useState('bun');
-
-  const onTabClick = (current: string) => {
-    setCurrent(current);
-    const element = document.getElementById(current);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <div className={styles.ingredients__tabs}>
-      <Tab value="bun" active={current === 'bun'} onClick={onTabClick}>Булки</Tab>
-      <Tab value="sauce" active={current === 'sauce'} onClick={onTabClick}>Соусы</Tab>
-      <Tab value="main" active={current === 'main'} onClick={onTabClick}>Начинки</Tab>
-    </div>
-  );
-}
 
 type BurgerIngredientsTypes = {
   title: string,
@@ -53,7 +35,7 @@ const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
   return (
     <div className={`dashboard__ingredients ${styles.ingredients} pt-10`}>
       <h1 className={`${styles.ingredients__title} mb-5`}>{title}</h1>
-      <TabsBlock />
+      <Tabs />
       <div className={`${styles.ingredients__section} custom-scroll mt-10`}>
         <ProductsList data={products} showModal={handleOpenModal} title="Булки" type="bun"/>
         <ProductsList data={products} showModal={handleOpenModal} title="Соусы" type="sauce"/>

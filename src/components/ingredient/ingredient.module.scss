@@ -1,0 +1,13 @@
+.item {
+	display: flex;
+	align-items: center;
+
+	&:not(:last-child) {
+		margin-bottom: 16px;
+	}
+
+	&__drag {
+		font-size: 0;
+		cursor: pointer;
+	}
+}

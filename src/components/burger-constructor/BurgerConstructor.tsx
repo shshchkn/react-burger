@@ -1,33 +1,12 @@
 import React, {useMemo, useState} from 'react';
 
-import {ConstructorElement, DragIcon, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-
-import OrderDetails from '../order-details/OrderDetails';
+import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.scss';
 
+import OrderDetails from '../order-details/OrderDetails';
+import Ingredient from "../ingredient/Ingredient";
 import Modal from "../modal/Modal";
-
-type IngredientsItemTypes = {
-  name: string,
-  price: number,
-  image_mobile: string
-}
-
-const IngredientsItem = (item: IngredientsItemTypes) => {
-  return (
-    <div className={styles.item}>
-      <div className={`${styles.item__drag} mr-2`}>
-        <DragIcon type="primary" />
-      </div>
-      <ConstructorElement
-        text={item.name}
-        price={item.price}
-        thumbnail={item.image_mobile}
-      />
-    </div>
-  );
-}
 
 type BurgerConstructorTypes = {
   products?: Array<any> | null
@@ -72,7 +51,7 @@ const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
           </div>
         }
         <div className={`board__body ${styles.items} custom-scroll mb-4`}>
-          {items && items.map(item => <IngredientsItem key={item._id} {...item}/>)}
+          {items && items.map(item => <Ingredient key={item._id} {...item}/>)}
         </div>
         {
           bun &&
