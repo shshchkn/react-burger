@@ -43,8 +43,8 @@ const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
   ), [products]);
 
   const total = useMemo(() => (
-    items?.reduce((sum, current) => sum + current.price, 0)
-  ), [products]);
+    items && items.reduce((sum, current) => sum + current.price, 0)
+  ), [items]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -94,9 +94,11 @@ const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
         </div>
         <Button type="primary" size="large" htmlType="button" onClick={handleOpenModal}>Оформить заказ</Button>
       </div>
-      <Modal show={isOpen} onClose={handleCloseModal} headerTitle={''}>
-        <OrderDetails />
-      </Modal>
+      {isOpen &&
+        <Modal show={isOpen} onClose={handleCloseModal} headerTitle={''}>
+          <OrderDetails />
+        </Modal>
+      }
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, createRef, useRef, RefObject, EffectCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import ProductsList from '../products-list/ProductsList';
@@ -59,9 +59,11 @@ const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
         <ProductsList data={products} showModal={handleOpenModal} title="Соусы" type="sauce"/>
         <ProductsList data={products} showModal={handleOpenModal} title="Начинки" type="main"/>
       </div>
-      <Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
-        {selectedItem && <IngredientDetails item={selectedItem} />}
-      </Modal>
+      {isOpen &&
+        <Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
+          {selectedItem && <IngredientDetails item={selectedItem} />}
+        </Modal>
+      }
     </div>
   );
 }

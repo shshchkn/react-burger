@@ -16,15 +16,14 @@ const App = () => {
   const [state, setState] = useState({
     data: null,
     loading: true
-  })
+  });
 
   useEffect(() => {
     const getProducts = () => fetch(`${API_URL}/ingredients`).then(checkApiResponse);
     getProducts()
       .then(res => setState({...state, data: res.data, loading: false}))
-      .catch(err => console.log(err))
-      // .finally(() => setState({...state, loading: false}));
-  }, []);
+      .catch(err => console.log(err));
+  }, [state]);
 
   const {data, loading} = state;
 

@@ -1,5 +1,5 @@
 import styles from "./order-details.module.scss";
-import done from "./done.png";
+import done from "../../images/done.png";
 
 const OrderDetails = () => {
   return (

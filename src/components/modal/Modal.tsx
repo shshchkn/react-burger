@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {createPortal} from 'react-dom';
 
 import styles from './modal.module.scss';
@@ -15,7 +15,6 @@ type ModalTypes = {
 }
 
 const Modal = ({children, headerTitle, show, onClose}: ModalTypes) => {
-  const [isOpen, setIsOpen] = useState(show);
 
   useEffect(() => {
     const closeOnEscape = (e: any) => e.key === "Escape" ? onClose && onClose() : null;
@@ -23,24 +22,17 @@ const Modal = ({children, headerTitle, show, onClose}: ModalTypes) => {
 
     if (show) {
       document.body.classList.add('no-scroll');
-      setIsOpen(true);
     }
 
     return () => {
       document.body.classList.remove('no-scroll');
       document.body.removeEventListener("keydown", closeOnEscape);
     }
-  }, [show]);
-
-  const onAnimationEnd = () => {
-    if (!show) setIsOpen(false);
-  };
-
-  if (!isOpen) return null;
+  }, [show, onClose]);
 
   return createPortal(
     <>
-      <div className={`${styles.popup} ${show ? styles.shown : ''}`} onAnimationEnd={onAnimationEnd}>
+      <div className={`${styles.popup} ${show ? styles.shown : ''}`}>
         <div className={styles.popup__header}>
           {headerTitle && headerTitle}
           <button className={styles.popup__close} onClick={onClose}>
