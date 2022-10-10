@@ -29,11 +29,11 @@ const IngredientsItem = (item: IngredientsItemTypes) => {
   );
 }
 
-type stylesTypes = {
+type BurgerConstructorTypes = {
   products?: Array<any> | null
 }
 
-const BurgerConstructor = ({products}: stylesTypes) => {
+const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
   const bun = useMemo(() => (
     products && products.find(item => item.type === 'bun')
   ), [products]);
@@ -89,7 +89,7 @@ const BurgerConstructor = ({products}: stylesTypes) => {
       </div>
       <div className={`${styles.total} mt-10`}>
         <div className={`${styles.total__price} mr-10`}>
-          <p className='text text_type_digits-medium mr-2'>{bun.price * 2 + total}</p>
+          <p className='text text_type_digits-medium mr-2'>{bun && bun.price * 2 + total}</p>
           <CurrencyIcon type='primary'/>
         </div>
         <Button type="primary" size="large" htmlType="button" onClick={handleOpenModal}>Оформить заказ</Button>

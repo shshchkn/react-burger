@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {createPortal} from 'react-dom';
 
-import loader from './loader.gif';
 import styles from './modal.module.scss';
 
 import ModalOverlay from '../modal-overlay/ModalOverlay';
@@ -17,7 +16,6 @@ type ModalTypes = {
 
 const Modal = ({children, headerTitle, show, onClose}: ModalTypes) => {
   const [isOpen, setIsOpen] = useState(show);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const closeOnEscape = (e: any) => e.key === "Escape" ? onClose && onClose() : null;
@@ -26,7 +24,6 @@ const Modal = ({children, headerTitle, show, onClose}: ModalTypes) => {
     if (show) {
       document.body.classList.add('no-scroll');
       setIsOpen(true);
-      setIsLoading(false);
     }
 
     return () => {
@@ -36,10 +33,7 @@ const Modal = ({children, headerTitle, show, onClose}: ModalTypes) => {
   }, [show]);
 
   const onAnimationEnd = () => {
-    if (!show) {
-      isOpen && setIsLoading(true);
-      setIsOpen(false);
-    }
+    if (!show) setIsOpen(false);
   };
 
   if (!isOpen) return null;
@@ -56,13 +50,7 @@ const Modal = ({children, headerTitle, show, onClose}: ModalTypes) => {
           </button>
         </div>
         <div className={styles.popup__body}>
-          {
-            isLoading
-              ? (<span className={styles.popup__loading}>
-                  <img src={loader} alt=""/>
-                </span>)
-              : children
-          }
+          {children}
         </div>
       </div>
       <ModalOverlay show={show} onClose={onClose}/>
