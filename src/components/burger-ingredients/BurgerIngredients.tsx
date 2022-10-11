@@ -37,9 +37,9 @@ const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
         <ProductsList data={products} showModal={handleOpenModal} title="Соусы" type="sauce"/>
         <ProductsList data={products} showModal={handleOpenModal} title="Начинки" type="main"/>
       </div>
-      {isOpen &&
+      {isOpen && selectedItem &&
         <Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
-          {selectedItem && <IngredientDetails item={selectedItem} />}
+          <IngredientDetails item={selectedItem} />
         </Modal>
       }
     </div>
