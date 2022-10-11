@@ -27,13 +27,9 @@ const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  }
+  const handleOpenModal = () => setIsOpen(true);
 
-  const handleCloseModal = () => {
-    setIsOpen(false)
-  }
+  const handleCloseModal = () => setIsOpen(false);
 
   return (
     <div className={`dashboard__constructor ${styles.board}`}>
