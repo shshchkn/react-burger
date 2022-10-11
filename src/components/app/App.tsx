@@ -37,13 +37,13 @@ const App = () => {
             <div className={styles.dashboard}>
               {
                 loading
-                  ? (<div className={styles.loading}>
-                      <img src={loader} alt=""/>
-                    </div>)
-                  : (<>
-                      <BurgerIngredients products={data} title="Соберите бургер"/>
-                      <BurgerConstructor products={data} />
-                    </>)
+                ? (<div className={styles.loading}>
+                    <img src={loader} alt=""/>
+                  </div>)
+                : (<>
+                    <BurgerIngredients products={data} title="Соберите бургер"/>
+                    <BurgerConstructor products={data} />
+                  </>)
               }
             </div>
           </div>

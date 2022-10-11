@@ -19,10 +19,7 @@ const Modal = ({children, headerTitle, show, onClose}: ModalTypes) => {
   useEffect(() => {
     const closeOnEscape = (e: any) => e.key === "Escape" ? onClose && onClose() : null;
     document.body.addEventListener("keydown", closeOnEscape);
-
-    if (show) {
-      document.body.classList.add('no-scroll');
-    }
+    document.body.classList.add('no-scroll');
 
     return () => {
       document.body.classList.remove('no-scroll');
