@@ -16,13 +16,9 @@ const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleOpenModal = (item: React.SetStateAction<null>) => {
-    setSelectedItem(item);
-  }
+  const handleOpenModal = (item: React.SetStateAction<null>) => setSelectedItem(item);
 
-  const handleCloseModal = () => {
-    setSelectedItem(null);
-  }
+  const handleCloseModal = () => setSelectedItem(null);
 
   useEffect(() => {
     selectedItem && setIsOpen(true);
