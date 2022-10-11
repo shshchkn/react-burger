@@ -22,8 +22,9 @@ const App = () => {
     const getProducts = () => fetch(`${API_URL}/ingredients`).then(checkApiResponse);
     getProducts()
       .then(res => setState({...state, data: res.data, loading: false}))
-      .catch(err => console.log(err));
-  }, [state]);
+      .catch(err => console.log(err))
+      // .finally(() => setState({...state, loading: false}));
+  }, []);
 
   const {data, loading} = state;
 
