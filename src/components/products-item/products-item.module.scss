@@ -1,0 +1,66 @@
+@import "../../scss/utils/variables";
+@import "../../scss/utils/mixins";
+
+.ingredients {
+	&__list {
+
+		&_item {
+			margin-bottom: 24px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			@include media-up(sm) {
+				margin-bottom: 0;
+
+				&:nth-child(odd) {
+					margin-right: 24px;
+				}
+
+				&:nth-child(n + 3) {
+					margin-top: 32px;
+				}
+			}
+		}
+	}
+}
+
+.card {
+	width: 100%;
+	display: block;
+	position: relative;
+	text-align: center;
+	cursor: pointer;
+
+	@include media-up(sm) {
+		width: calc(50% - 12px);
+	}
+
+	&__image {
+		position: relative;
+		height: 0;
+		padding-top: 44.12%;
+
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+	}
+
+	&__price {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: $color-primary-light;
+	}
+
+	&__title {
+		min-height: 48px;
+		color: $color-primary-light;
+	}
+}
