@@ -21,9 +21,9 @@ const App = () => {
   useEffect(() => {
     const getProducts = () => fetch(`${API_URL}/ingredients`).then(checkApiResponse);
     getProducts()
-      .then(res => setState({...state, data: res.data, loading: false}))
+      .then(res => setState((prevState) => ({ ...prevState, data: res.data})))
       .catch(err => console.log(err))
-      // .finally(() => setState({...state, loading: false}));
+      .finally(() => setState((prevState) => ({ ...prevState, loading: false })));
   }, []);
 
   const {data, loading} = state;
