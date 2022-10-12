@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 
 import Tabs from "../tabs/Tabs";
 import ProductsList from '../products-list/ProductsList';
@@ -13,11 +13,14 @@ type BurgerIngredientsTypes = {
 }
 
 const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
+  const buns = useMemo(() => products && products.filter(item => item.type === 'bun'), [products]);
+  const sauces = useMemo(() => products && products.filter(item => item.type === 'sauce'), [products]);
+  const mains = useMemo(() => products && products.filter(item => item.type === 'main'), [products]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleOpenModal = (item: React.SetStateAction<null>) => setSelectedItem(item);
-
   const handleCloseModal = () => setSelectedItem(null);
 
   useEffect(() => {
@@ -33,9 +36,9 @@ const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
       <h1 className={`${styles.ingredients__title} mb-5`}>{title}</h1>
       <Tabs />
       <div className={`${styles.ingredients__section} custom-scroll mt-10`}>
-        <ProductsList data={products} showModal={handleOpenModal} title="Булки" type="bun"/>
-        <ProductsList data={products} showModal={handleOpenModal} title="Соусы" type="sauce"/>
-        <ProductsList data={products} showModal={handleOpenModal} title="Начинки" type="main"/>
+        <ProductsList data={buns} showModal={handleOpenModal} title="Булки" type="bun"/>
+        <ProductsList data={sauces} showModal={handleOpenModal} title="Соусы" type="sauce"/>
+        <ProductsList data={mains} showModal={handleOpenModal} title="Начинки" type="main"/>
       </div>
       {isOpen && selectedItem &&
         <Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>

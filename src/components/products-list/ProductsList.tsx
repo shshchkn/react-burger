@@ -11,17 +11,14 @@ type IngredientsTypes = {
   data?: Array<any> | null,
 }
 
-const ProductsList = ({title, type, data, showModal}: IngredientsTypes) => {
+const ProductsList = ({title, data, type, showModal}: IngredientsTypes) => {
   return (
     <div className="ingredients__section_block ingredients__block mb-10" id={type}>
       <h2 className="ingredients__block_title text text_type_main-medium mb-6">{title}</h2>
-      <ul className={`ingredients__block_list ${styles.ingredients__list}`} role="list">
+      <ul className={`ingredients__block_list ${styles.ingredients__list}`}>
         {
           data &&
-          data.map(
-            (item) => item.type === type &&
-              <ProductsItem showModal={showModal} key={item._id} count={1} item={item}/>
-          )
+          data.map(item => <ProductsItem showModal={showModal} key={item._id} count={1} item={item}/>)
         }
       </ul>
     </div>
