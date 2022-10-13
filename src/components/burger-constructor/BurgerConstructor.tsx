@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useMemo, useState} from 'react';
 
 import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -13,8 +13,6 @@ import Modal from "../modal/Modal";
 const BurgerConstructor = () => {
 
   const data: any = useContext(DataContext);
-
-  useEffect(() => console.log(data), []);
 
   const bun = useMemo(() => (
     data && data.find((item: { type: string; }) => item.type === 'bun')
