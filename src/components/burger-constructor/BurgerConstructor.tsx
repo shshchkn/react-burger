@@ -1,28 +1,31 @@
-import React, {useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 
 import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.scss';
 
+import {DataContext} from "../../services/appContext";
+
 import OrderDetails from '../order-details/OrderDetails';
 import Ingredient from "../ingredient/Ingredient";
 import Modal from "../modal/Modal";
 
-type BurgerConstructorTypes = {
-  products?: Array<any> | null
-}
+const BurgerConstructor = () => {
 
-const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
+  const data: any = useContext(DataContext);
+
+  useEffect(() => console.log(data), []);
+
   const bun = useMemo(() => (
-    products && products.find(item => item.type === 'bun')
-  ), [products]);
+    data && data.find((item: { type: string; }) => item.type === 'bun')
+  ), [data]);
 
   const items = useMemo(() => (
-    products && products.filter(item => item.type !== 'bun')
-  ), [products]);
+    data && data.filter((item: { type: string; }) => item.type !== 'bun')
+  ), [data]);
 
   const total = useMemo(() => (
-    items && items.reduce((sum, current) => sum + current.price, 0)
+    items && items.reduce((sum: number, current: { price: number; }) => sum + current.price, 0)
   ), [items]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +50,7 @@ const BurgerConstructor = ({products}: BurgerConstructorTypes) => {
           </div>
         }
         <div className={`board__body ${styles.items} custom-scroll mb-4`}>
+          {/*@ts-ignore*/}
           {items && items.map(item => <Ingredient key={item._id} {...item}/>)}
         </div>
         {

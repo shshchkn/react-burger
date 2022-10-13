@@ -4,12 +4,6 @@ import styles from './ingredient-details.module.scss';
 
 type IngredientDetailsTypes = {
   item: any,
-  // image_large: string,
-  // name: string,
-  // calories: number,
-  // proteins: number,
-  // fat: number,
-  // carbohydrates: number,
 }
 
 const IngredientDetails = ({item}: IngredientDetailsTypes) => {

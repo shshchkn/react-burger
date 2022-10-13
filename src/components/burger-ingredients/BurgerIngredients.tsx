@@ -1,9 +1,11 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, useContext} from 'react';
 
 import Tabs from "../tabs/Tabs";
 import ProductsList from '../products-list/ProductsList';
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
+
+import {DataContext} from "../../services/appContext";
 
 import styles from './burger-ingredients.module.scss';
 
@@ -12,10 +14,15 @@ type BurgerIngredientsTypes = {
   products?: Array<any> | null,
 }
 
-const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
-  const buns = useMemo(() => products && products.filter(item => item.type === 'bun'), [products]);
-  const sauces = useMemo(() => products && products.filter(item => item.type === 'sauce'), [products]);
-  const mains = useMemo(() => products && products.filter(item => item.type === 'main'), [products]);
+const BurgerIngredients = ({title}: BurgerIngredientsTypes) => {
+  const data: any = useContext(DataContext);
+
+  // @ts-ignore
+  const buns = useMemo(() => data && data.filter(item => item.type === 'bun'), [data]);
+  // @ts-ignore
+  const sauces = useMemo(() => data && data.filter(item => item.type === 'sauce'), [data]);
+  // @ts-ignore
+  const mains = useMemo(() => data && data.filter(item => item.type === 'main'), [data]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
