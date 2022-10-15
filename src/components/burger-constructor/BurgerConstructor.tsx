@@ -1,8 +1,10 @@
-import React, {useContext, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useReducer, useState} from 'react';
 
 import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.scss';
+
+import {API_URL, checkApiResponse} from '../../utils/burger-api';
 
 import {DataContext} from "../../services/appContext";
 
@@ -10,27 +12,56 @@ import OrderDetails from '../order-details/OrderDetails';
 import Ingredient from "../ingredient/Ingredient";
 import Modal from "../modal/Modal";
 
-const BurgerConstructor = () => {
+const calculateTotalPrice = (items: Array<any> | null, bun: { price: number }) => {
+  const itemsPrice = items && items.reduce((sum: number, current: { price: number }) => sum + current.price, 0);
+  return {total: (bun.price * 2 + itemsPrice)}
+}
 
-  const data: any = useContext(DataContext);
+const setTotalPriceReducer = (state: { total: number }, action: { type: string }) => {
+  if (action.type === 'set_total_price') {
+    return {total: state.total};
+  }
+  throw Error('Unknown action: ' + action.type);
+}
+
+const BurgerConstructor = () => {
+  const {data, setData}: any = useContext(DataContext);
+  const products = data.products;
 
   const bun = useMemo(() => (
-    data && data.find((item: { type: string; }) => item.type === 'bun')
-  ), [data]);
+    products && products.find((item: { type: string }) => item.type === 'bun')
+  ), [products]);
 
   const items = useMemo(() => (
-    data && data.filter((item: { type: string; }) => item.type !== 'bun')
-  ), [data]);
+    products && products.filter((item: { type: string }) => item.type !== 'bun')
+  ), [products]);
 
-  const total = useMemo(() => (
-    items && items.reduce((sum: number, current: { price: number; }) => sum + current.price, 0)
-  ), [items]);
+  const [totalPrice, setTotalPrice] = useReducer(setTotalPriceReducer, calculateTotalPrice(items, bun), undefined);
+
+  useEffect(() => {
+    setTotalPrice({type: "set_total_price"});
+  }, [items]);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenModal = () => setIsOpen(true);
-
   const handleCloseModal = () => setIsOpen(false);
+
+  const handleSetOrder = () => {
+    const getOrder = () => fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify({'ingredients': products.map((item: { _id: string }) => item._id)})
+    }).then(checkApiResponse);
+
+    getOrder()
+      .then(res => res.success ? setData({...data, orderNumber: res.order.number}) : setData({...data, orderNumber: 0}))
+      .catch(err => console.log(err));
+
+    handleOpenModal();
+  }
+
+  const {total} = totalPrice;
 
   return (
     <div className={`dashboard__constructor ${styles.board}`}>
@@ -66,14 +97,14 @@ const BurgerConstructor = () => {
       </div>
       <div className={`${styles.total} mt-10`}>
         <div className={`${styles.total__price} mr-10`}>
-          <p className='text text_type_digits-medium mr-2'>{bun && bun.price * 2 + total}</p>
-          <CurrencyIcon type='primary'/>
+          <p className="text text_type_digits-medium mr-2">{total}</p>
+          <CurrencyIcon type="primary"/>
         </div>
-        <Button type="primary" size="large" htmlType="button" onClick={handleOpenModal}>Оформить заказ</Button>
+        <Button type="primary" size="large" htmlType="button" onClick={handleSetOrder}>Оформить заказ</Button>
       </div>
-      {isOpen &&
+      {isOpen && data.orderNumber &&
         <Modal show={isOpen} onClose={handleCloseModal} headerTitle={''}>
-          <OrderDetails />
+          <OrderDetails orderNumber={data.orderNumber}/>
         </Modal>
       }
     </div>

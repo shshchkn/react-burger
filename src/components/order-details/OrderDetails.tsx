@@ -1,10 +1,10 @@
 import styles from "./order-details.module.scss";
 import done from "../../images/done.png";
 
-const OrderDetails = () => {
+const OrderDetails = (props: {orderNumber: number}) => {
   return (
     <div className={`${styles.order} mt-4 mb-8`}>
-      <div className="order__number text text_type_digits-large">034536</div>
+      <div className="order__number text text_type_digits-large">{props.orderNumber}</div>
       <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
       <div className={`${styles.order__icon} mb-15`}>
         <img src={done} alt=""/>

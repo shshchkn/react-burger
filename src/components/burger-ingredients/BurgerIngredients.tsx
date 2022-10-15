@@ -15,14 +15,15 @@ type BurgerIngredientsTypes = {
 }
 
 const BurgerIngredients = ({title}: BurgerIngredientsTypes) => {
-  const data: any = useContext(DataContext);
+  const {data}: any = useContext(DataContext);
+  const products = data.products;
 
   // @ts-ignore
-  const buns = useMemo(() => data && data.filter(item => item.type === 'bun'), [data]);
+  const buns = useMemo(() => products && products.filter(item => item.type === 'bun'), [products]);
   // @ts-ignore
-  const sauces = useMemo(() => data && data.filter(item => item.type === 'sauce'), [data]);
+  const sauces = useMemo(() => products && products.filter(item => item.type === 'sauce'), [products]);
   // @ts-ignore
-  const mains = useMemo(() => data && data.filter(item => item.type === 'main'), [data]);
+  const mains = useMemo(() => products && products.filter(item => item.type === 'main'), [products]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
