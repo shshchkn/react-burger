@@ -2,11 +2,9 @@ import React from "react";
 
 import styles from './ingredient-details.module.scss';
 
-type IngredientDetailsTypes = {
-  item: any,
-}
+import {TIngredientDetails} from '../../utils/types';
 
-const IngredientDetails = ({item}: IngredientDetailsTypes) => {
+const IngredientDetails = (item: TIngredientDetails) => {
   return (
     <div className={`card ${styles.card_modal}`}>
       <div className={`${styles.card__image} mb-4`}>

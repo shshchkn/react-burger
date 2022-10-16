@@ -1,5 +1,3 @@
 export const API_URL = 'https://norma.nomoreparties.space/api';
-
-export function checkApiResponse(res) {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-}
+const checkApiResponse = res => res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+export const apiRequest = (url, options) => fetch(url, options).then(checkApiResponse);

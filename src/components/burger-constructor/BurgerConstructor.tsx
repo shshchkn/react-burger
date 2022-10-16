@@ -4,9 +4,11 @@ import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-deve
 
 import styles from './burger-constructor.module.scss';
 
-import {API_URL, checkApiResponse} from '../../utils/burger-api';
+import {API_URL, apiRequest} from '../../utils/burger-api';
 
 import {DataContext} from "../../services/appContext";
+
+import {TIngredient} from '../../utils/types';
 
 import OrderDetails from '../order-details/OrderDetails';
 import Ingredient from "../ingredient/Ingredient";
@@ -48,11 +50,11 @@ const BurgerConstructor = () => {
   const handleCloseModal = () => setIsOpen(false);
 
   const handleSetOrder = () => {
-    const getOrder = () => fetch(`${API_URL}/orders`, {
+    const getOrder = () => apiRequest(`${API_URL}/orders`, {
       method: 'POST',
       headers: { "Content-Type": "application/json"},
       body: JSON.stringify({'ingredients': products.map((item: { _id: string }) => item._id)})
-    }).then(checkApiResponse);
+    });
 
     getOrder()
       .then(res => res.success ? setData({...data, orderNumber: res.order.number}) : setData({...data, orderNumber: 0}))
@@ -79,8 +81,7 @@ const BurgerConstructor = () => {
           </div>
         }
         <div className={`board__body ${styles.items} custom-scroll mb-4`}>
-          {/*@ts-ignore*/}
-          {items && items.map(item => <Ingredient key={item._id} {...item}/>)}
+          {items && items.map((item: TIngredient) => <Ingredient key={item._id} {...item}/>)}
         </div>
         {
           bun &&
@@ -103,9 +104,9 @@ const BurgerConstructor = () => {
         <Button type="primary" size="large" htmlType="button" onClick={handleSetOrder}>Оформить заказ</Button>
       </div>
       {isOpen && data.orderNumber &&
-        <Modal show={isOpen} onClose={handleCloseModal} headerTitle={''}>
+        (<Modal show={isOpen} onClose={handleCloseModal} headerTitle={''}>
           <OrderDetails orderNumber={data.orderNumber}/>
-        </Modal>
+        </Modal>)
       }
     </div>
   );

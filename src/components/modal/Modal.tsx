@@ -5,16 +5,11 @@ import styles from './modal.module.scss';
 
 import ModalOverlay from '../modal-overlay/ModalOverlay';
 
+import {TModal} from "../../utils/types";
+
 const modalRoot = document.getElementById("modals");
 
-type ModalTypes = {
-  children: React.ReactNode,
-  show: boolean,
-  onClose?: () => void,
-  headerTitle: string
-}
-
-const Modal = ({children, headerTitle, show, onClose}: ModalTypes) => {
+const Modal = ({children, headerTitle, show, onClose}: TModal) => {
 
   useEffect(() => {
     const closeOnEscape = (e: any) => e.key === "Escape" ? onClose && onClose() : null;

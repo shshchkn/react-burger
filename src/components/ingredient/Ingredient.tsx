@@ -2,13 +2,9 @@ import styles from "./ingredient.module.scss";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 
-type IngredientTypes = {
-  name: string,
-  price: number,
-  image_mobile: string
-}
+import {TIngredient} from '../../utils/types';
 
-const Ingredient = (item: IngredientTypes) => {
+const Ingredient = (item: TIngredient) => {
   return (
     <div className={styles.item}>
       <div className={`${styles.item__drag} mr-2`}>

@@ -2,13 +2,15 @@ import React from "react";
 
 import styles from "./products-list.module.scss";
 
+import {TIngredient} from "../../utils/types";
+
 import ProductsItem from "../products-item/ProductsItem";
 
 type IngredientsTypes = {
   title: string,
   type: string,
-  showModal: (item: any) => void,
-  data?: Array<any> | null,
+  showModal?: (item: null) => void,
+  data: Array<TIngredient>,
 }
 
 const ProductsList = ({title, data, type, showModal}: IngredientsTypes) => {

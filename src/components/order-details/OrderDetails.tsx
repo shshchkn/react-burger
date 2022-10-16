@@ -7,7 +7,7 @@ const OrderDetails = (props: {orderNumber: number}) => {
       <div className="order__number text text_type_digits-large">{props.orderNumber}</div>
       <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
       <div className={`${styles.order__icon} mb-15`}>
-        <img src={done} alt=""/>
+        <img src={done} alt="Done"/>
       </div>
       <span className="text text_type_main-default mb-2">Ваш заказ начали готовить</span>
       <span className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</span>
