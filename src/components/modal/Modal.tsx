@@ -12,7 +12,7 @@ const modalRoot = document.getElementById("modals");
 const Modal = ({children, headerTitle, show, onClose}: TModal) => {
 
   useEffect(() => {
-    const closeOnEscape = (e: any) => e.key === "Escape" ? onClose && onClose() : null;
+    const closeOnEscape = (e: KeyboardEvent) => e.key === "Escape" ? onClose && onClose() : null;
     document.body.addEventListener("keydown", closeOnEscape);
     document.body.classList.add('no-scroll');
 
