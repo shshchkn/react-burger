@@ -8,7 +8,7 @@ export type TModal = {
 }
 
 export type TIngredientDetails = {
-  type?: object,
+  item?: object,
   _id?: string,
   price?: number,
   image_large?: string,

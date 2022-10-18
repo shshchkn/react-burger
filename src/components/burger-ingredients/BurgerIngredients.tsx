@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo, useContext} from 'react';
+import React, {useState, useEffect, useMemo, useContext, SetStateAction} from 'react';
 
 import Tabs from "../tabs/Tabs";
 import ProductsList from '../products-list/ProductsList';
@@ -23,7 +23,7 @@ const BurgerIngredients = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleOpenModal = (item: null) => setSelectedItem(item);
+  const handleOpenModal = (item: SetStateAction<null>) => setSelectedItem(item);
   const handleCloseModal = () => setSelectedItem(null);
 
   useEffect(() => {
@@ -33,6 +33,8 @@ const BurgerIngredients = () => {
       selectedItem && setIsOpen(false);
     }
   }, [selectedItem]);
+
+  console.log(selectedItem)
 
   return (
     <div className={`dashboard__ingredients ${styles.ingredients} pt-10`}>
@@ -46,7 +48,7 @@ const BurgerIngredients = () => {
       {isOpen &&
       selectedItem &&
       (<Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
-        <IngredientDetails type={selectedItem} />
+        <IngredientDetails {...(selectedItem as object)} />
       </Modal>)}
     </div>
   );
