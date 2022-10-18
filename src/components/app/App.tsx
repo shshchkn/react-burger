@@ -3,30 +3,28 @@ import React, {useEffect, useState} from 'react';
 import styles from './app.module.scss';
 import loader from '../../images/loader.gif';
 
-import checkApiResponse from '../../utils/burger-api';
+import {API_URL, apiRequest} from '../../utils/burger-api';
 
 import ErrorBoundary from '../error-boundry/ErrorBoundary';
 import AppHeader from '../app-header/AppHeader';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 
-const API_URL = 'https://norma.nomoreparties.space/api';
+import {DataContext} from "../../services/appContext";
 
 const App = () => {
-  const [state, setState] = useState({
-    data: null,
-    loading: true
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState({});
+
 
   useEffect(() => {
-    const getProducts = () => fetch(`${API_URL}/ingredients`).then(checkApiResponse);
+    const getProducts = () => apiRequest(`${API_URL}/ingredients`);
     getProducts()
-      .then(res => setState((prevState) => ({ ...prevState, data: res.data})))
+      .then(res => setData({...data, products: res.data}))
       .catch(err => console.log(err))
-      .finally(() => setState((prevState) => ({ ...prevState, loading: false })));
+      .finally(() => setIsLoading(false));
+  // eslint-disable-next-line
   }, []);
-
-  const {data, loading} = state;
 
   return (
     <div className={styles.wrapper}>
@@ -35,16 +33,16 @@ const App = () => {
         <main className={styles.main}>
           <div className="container">
             <div className={styles.dashboard}>
-              {
-                loading
-                ? (<div className={styles.loading}>
-                    <img src={loader} alt=""/>
-                  </div>)
-                : (<>
-                    <BurgerIngredients products={data} title="Соберите бургер"/>
-                    <BurgerConstructor products={data} />
-                  </>)
-              }
+                { isLoading ? (
+                  <div className={styles.loading}>
+                    <img src={loader} alt="Logo"/>
+                  </div>
+                ) : (
+                  <DataContext.Provider value={{data, setData}}>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                  </DataContext.Provider>
+                )}
             </div>
           </div>
         </main>

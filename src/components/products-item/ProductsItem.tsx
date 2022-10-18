@@ -20,8 +20,7 @@ const ProductsItem = (({item, count, showModal}: IngredientTypes) => {
     <li
       className={`${styles.ingredients__list_item} ${styles.card}`}
       onClick={handleProductClick}
-      title={item.name}
-      data-id={item._id}>
+      title={item.name}>
       {count && <Counter count={count} size="default"/>}
       <div className={`${styles.card__image} mb-2 ml-4 mr-4`}>
         <img src={item.image} alt={item.name}/>

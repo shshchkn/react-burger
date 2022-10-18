@@ -1,23 +1,29 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo, useContext, SetStateAction} from 'react';
 
 import Tabs from "../tabs/Tabs";
 import ProductsList from '../products-list/ProductsList';
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 
+import {DataContext} from "../../services/appContext";
+
 import styles from './burger-ingredients.module.scss';
 
-type BurgerIngredientsTypes = {
-  title: string,
-  products?: Array<any> | null,
-}
+const BurgerIngredients = () => {
+  const {data}: any = useContext(DataContext);
+  const products = data.products;
 
-const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
+  // @ts-ignore
+  const buns = useMemo(() => products && products.filter(item => item.type === 'bun'), [products]);
+  // @ts-ignore
+  const sauces = useMemo(() => products && products.filter(item => item.type === 'sauce'), [products]);
+  // @ts-ignore
+  const mains = useMemo(() => products && products.filter(item => item.type === 'main'), [products]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleOpenModal = (item: React.SetStateAction<null>) => setSelectedItem(item);
-
+  const handleOpenModal = (item: SetStateAction<null>) => setSelectedItem(item);
   const handleCloseModal = () => setSelectedItem(null);
 
   useEffect(() => {
@@ -26,22 +32,24 @@ const BurgerIngredients = ({title, products}: BurgerIngredientsTypes) => {
     return () => {
       selectedItem && setIsOpen(false);
     }
-  }, [selectedItem])
+  }, [selectedItem]);
+
+  console.log(selectedItem)
 
   return (
     <div className={`dashboard__ingredients ${styles.ingredients} pt-10`}>
-      <h1 className={`${styles.ingredients__title} mb-5`}>{title}</h1>
+      <h1 className={`${styles.ingredients__title} mb-5`}>Соберите бургер</h1>
       <Tabs />
       <div className={`${styles.ingredients__section} custom-scroll mt-10`}>
-        <ProductsList data={products} showModal={handleOpenModal} title="Булки" type="bun"/>
-        <ProductsList data={products} showModal={handleOpenModal} title="Соусы" type="sauce"/>
-        <ProductsList data={products} showModal={handleOpenModal} title="Начинки" type="main"/>
+        <ProductsList data={buns} showModal={handleOpenModal} title="Булки" type="bun"/>
+        <ProductsList data={sauces} showModal={handleOpenModal} title="Соусы" type="sauce"/>
+        <ProductsList data={mains} showModal={handleOpenModal} title="Начинки" type="main"/>
       </div>
-      {isOpen && selectedItem &&
-        <Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
-          <IngredientDetails item={selectedItem} />
-        </Modal>
-      }
+      {isOpen &&
+      selectedItem &&
+      (<Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
+        <IngredientDetails {...(selectedItem as object)} />
+      </Modal>)}
     </div>
   );
 }
