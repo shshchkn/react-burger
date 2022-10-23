@@ -102,7 +102,7 @@ const BurgerConstructor = () => {
 
   return (
     <div className={`dashboard__constructor ${styles.board}`}>
-      <div className={`${styles.dropzone} ${isHover ? styles.isHover : ''} ${!cartItems && !cartBun ? styles.isEmpty : ''}`} ref={dropTarget}>
+      <div className={`${styles.dropzone} ${isHover ? styles.isHover : ''} ${!cartItems.length && !cartBun ? styles.isEmpty : ''}`} ref={dropTarget}>
         {cartBun &&
           (<div className={`board__top ${styles.bun} ml-8`}>
             <ConstructorElement
@@ -114,7 +114,7 @@ const BurgerConstructor = () => {
             />
           </div>)}
 
-        {!cartItems && !cartBun && (<p className={styles.dropzoneNotice}>Перетащите ингредиенты</p>)}
+        {!cartItems.length && !cartBun && (<p className={styles.dropzoneNotice}>Перетащите ингредиенты</p>)}
 
         <div className={`board__body ${styles.items} custom-scroll mt-4 mb-4`}>
           {cartItems && cartItems.map((item: TIngredient, id: number) => renderItems(item, id))}
