@@ -18,10 +18,12 @@ export type TIngredientDetails = {
   proteins?: number,
   fat?: number,
   carbohydrates?: number,
+  reduce?: void,
 }
 
 export type TIngredient = {
   _id: string,
+  // id: any,
   price: number,
   image_large: string,
   image_mobile: string,
@@ -30,4 +32,8 @@ export type TIngredient = {
   proteins: number,
   fat: number,
   carbohydrates: number,
+  type: string,
+  dragId: number,
+  index: number,
+  // moveCard: (dragIndex: number, hoverIndex: number) => void
 }

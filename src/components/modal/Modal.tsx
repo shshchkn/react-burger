@@ -1,12 +1,8 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {createPortal} from 'react-dom';
-
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-
 import styles from './modal.module.scss';
-
 import ModalOverlay from '../modal-overlay/ModalOverlay';
-
 import {TModal} from "../../utils/types";
 
 const modalRoot = document.getElementById("modals");

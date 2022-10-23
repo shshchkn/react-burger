@@ -1,55 +1,46 @@
-import React, {useState, useEffect, useMemo, useContext, SetStateAction} from 'react';
+import React, {useEffect, useMemo} from 'react';
 
 import Tabs from "../tabs/Tabs";
 import ProductsList from '../products-list/ProductsList';
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 
-import {DataContext} from "../../services/appContext";
-
 import styles from './burger-ingredients.module.scss';
+import {useDispatch, useSelector} from "react-redux";
+import {getItems, REMOVE_INGREDIENT_DETAILS} from "../../services/actions";
+import {RootState} from "../../index";
+import {TIngredient} from "../../utils/types";
 
 const BurgerIngredients = () => {
-  const {data}: any = useContext(DataContext);
-  const products = data.products;
-
-  // @ts-ignore
-  const buns = useMemo(() => products && products.filter(item => item.type === 'bun'), [products]);
-  // @ts-ignore
-  const sauces = useMemo(() => products && products.filter(item => item.type === 'sauce'), [products]);
-  // @ts-ignore
-  const mains = useMemo(() => products && products.filter(item => item.type === 'main'), [products]);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  const handleOpenModal = (item: SetStateAction<null>) => setSelectedItem(item);
-  const handleCloseModal = () => setSelectedItem(null);
+  const dispatch: any = useDispatch();
+  const {items} = useSelector((store: RootState) => store.ingredients);
+  const {openModal, details} = useSelector((store: RootState) => store.ingredientDetails);
 
   useEffect(() => {
-    selectedItem && setIsOpen(true);
+    !items.length && dispatch(getItems());
+  }, [dispatch, items]);
 
-    return () => {
-      selectedItem && setIsOpen(false);
-    }
-  }, [selectedItem]);
+  const buns = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'bun'), [items]);
+  const sauces = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'sauce'), [items]);
+  const mains = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'main'), [items]);
 
-  console.log(selectedItem)
+  const handleCloseModal = () => dispatch({type: REMOVE_INGREDIENT_DETAILS});
 
   return (
     <div className={`dashboard__ingredients ${styles.ingredients} pt-10`}>
       <h1 className={`${styles.ingredients__title} mb-5`}>Соберите бургер</h1>
       <Tabs />
       <div className={`${styles.ingredients__section} custom-scroll mt-10`}>
-        <ProductsList data={buns} showModal={handleOpenModal} title="Булки" type="bun"/>
-        <ProductsList data={sauces} showModal={handleOpenModal} title="Соусы" type="sauce"/>
-        <ProductsList data={mains} showModal={handleOpenModal} title="Начинки" type="main"/>
+        <ProductsList data={buns} title="Булки" type="bun"/>
+        <ProductsList data={sauces} title="Соусы" type="sauce"/>
+        <ProductsList data={mains} title="Начинки" type="main"/>
       </div>
-      {isOpen &&
-      selectedItem &&
-      (<Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
-        <IngredientDetails {...(selectedItem as object)} />
-      </Modal>)}
+      {
+        openModal && details &&
+        (<Modal headerTitle="Детали ингредиента" show={openModal} onClose={handleCloseModal}>
+          <IngredientDetails />
+        </Modal>)
+      }
     </div>
   );
 }

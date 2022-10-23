@@ -6,6 +6,7 @@
 
 		&_item {
 			margin-bottom: 24px;
+			transition: opacity 0.3s;
 
 			&:last-child {
 				margin-bottom: 0;
