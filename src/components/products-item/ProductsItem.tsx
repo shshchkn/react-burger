@@ -1,20 +1,22 @@
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./products-item.module.scss";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {GET_INGREDIENT_DETAILS} from '../../services/actions';
 import {TIngredient} from "../../utils/types";
-import {useRef} from "react";
+import {useCallback, useEffect, useRef} from "react";
 import {useDrag} from "react-dnd";
+import {RootState} from "../../index";
 
 type IngredientTypes = {
-  item: TIngredient,
-  count: number,
+  count: () => number,
 }
 
 const ProductsItem = ((item: TIngredient,) => {
   const {name, image_large, price} = item;
   const dispatch = useDispatch();
+  const {items} = useSelector((store: RootState) => store.ingredients);
+  const {cartItems, cartBun} = useSelector((store: RootState) => store.cart);
 
   const getItemDetails = (item: TIngredient) => dispatch({type: GET_INGREDIENT_DETAILS, item});
 
@@ -26,6 +28,11 @@ const ProductsItem = ((item: TIngredient,) => {
     })
   });
 
+  const count = useCallback(() => {
+    if (cartBun && item._id === cartBun._id) return 2;
+    return cartItems.length && cartItems.filter((el: TIngredient) => el._id === item._id).length;
+  }, [cartItems, cartBun]);
+
   return (
     <li
       className={`${styles.ingredients__list_item} ${styles.card}`}
@@ -34,7 +41,7 @@ const ProductsItem = ((item: TIngredient,) => {
       ref={dragRef}
       title={name}
       style={{opacity: opacity}}>
-      {<Counter count={1} size="default"/>}
+      {count() !== 0 && <Counter count={count()} size="default"/>}
       <div className={`${styles.card__image} mb-2 ml-4 mr-4`}>
         <img src={image_large} alt={name}/>
       </div>
