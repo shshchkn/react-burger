@@ -4,18 +4,13 @@ import styles from "./products-item.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {GET_INGREDIENT_DETAILS} from '../../services/actions';
 import {TIngredient} from "../../utils/types";
-import {useCallback, useEffect, useRef} from "react";
+import {useCallback} from "react";
 import {useDrag} from "react-dnd";
 import {RootState} from "../../index";
-
-type IngredientTypes = {
-  count: () => number,
-}
 
 const ProductsItem = ((item: TIngredient,) => {
   const {name, image_large, price} = item;
   const dispatch = useDispatch();
-  const {items} = useSelector((store: RootState) => store.ingredients);
   const {cartItems, cartBun} = useSelector((store: RootState) => store.cart);
 
   const getItemDetails = (item: TIngredient) => dispatch({type: GET_INGREDIENT_DETAILS, item});
@@ -31,7 +26,7 @@ const ProductsItem = ((item: TIngredient,) => {
   const count = useCallback(() => {
     if (cartBun && item._id === cartBun._id) return 2;
     return cartItems.length && cartItems.filter((el: TIngredient) => el._id === item._id).length;
-  }, [cartItems, cartBun]);
+  }, [item._id, cartItems, cartBun]);
 
   return (
     <li
