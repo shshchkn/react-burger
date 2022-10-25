@@ -1,7 +1,5 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
 
-import {useInView} from 'react-intersection-observer';
-
 import ProductsList from '../products-list/ProductsList';
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
@@ -12,20 +10,41 @@ import {getItems, REMOVE_INGREDIENT_DETAILS} from "../../services/actions";
 import {RootState} from "../../index";
 import {TIngredient} from "../../utils/types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const dispatch: any = useDispatch();
   const {items} = useSelector((store: RootState) => store.ingredients);
   const {openModal, details} = useSelector((store: RootState) => store.ingredientDetails);
-  const listInnerRef = useRef(null);
 
   const onTabClick = (current: string) => {
     setCurrent(current);
     const element = document.getElementById(current);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+    element && element?.scrollIntoView({behavior: 'smooth'});
   };
+
+  const inViewOptions = {
+    threshold: 0.2,
+    root: scrollRef.current,
+    rootMargin: '0px 0px 90% 0px'
+  }
+
+  const [bunsRef, inViewBuns] = useInView(inViewOptions);
+  const [mainsRef, inViewFilling] = useInView(inViewOptions);
+  const [saucesRef, inViewSauces] = useInView(inViewOptions);
+
+  useEffect(() => {
+    if (inViewBuns) {
+      setCurrent("bun");
+    } else if (inViewSauces) {
+      setCurrent("sauce");
+    } else if (inViewFilling) {
+      setCurrent("main");
+    }
+  }, [inViewBuns, inViewFilling, inViewSauces]);
 
   useEffect(() => {
     !items.length && dispatch(getItems());
@@ -45,10 +64,16 @@ const BurgerIngredients = () => {
         <Tab value="sauce" active={current === 'sauce'} onClick={onTabClick}>Соусы</Tab>
         <Tab value="main" active={current === 'main'} onClick={onTabClick}>Начинки</Tab>
       </div>
-      <div className={`${styles.ingredients__section} custom-scroll mt-10`} ref={listInnerRef}>
-        <ProductsList data={buns} title="Булки" type="bun"/>
-        <ProductsList data={sauces} title="Соусы" type="sauce"/>
-        <ProductsList data={mains} title="Начинки" type="main"/>
+      <div className={`${styles.ingredients__section} custom-scroll mt-10`} ref={scrollRef}>
+        <div ref={bunsRef}>
+          <ProductsList data={buns} title="Булки" type="bun"/>
+        </div>
+        <div ref={saucesRef}>
+          <ProductsList data={sauces} title="Соусы" type="sauce"/>
+        </div>
+        <div ref={mainsRef}>
+          <ProductsList data={mains} title="Начинки" type="main"/>
+        </div>
       </div>
       {openModal && details &&
         (<Modal headerTitle="Детали ингредиента" show={openModal} onClose={handleCloseModal}>

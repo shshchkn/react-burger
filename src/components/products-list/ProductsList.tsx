@@ -6,7 +6,7 @@ import ProductsItem from "../products-item/ProductsItem";
 type IngredientsTypes = {
   title: string,
   type: string,
-  data: Array<TIngredient>,
+  data: TIngredient[],
 }
 
 const ProductsList = ({title, data, type}: IngredientsTypes) => {
@@ -18,6 +18,6 @@ const ProductsList = ({title, data, type}: IngredientsTypes) => {
       <ul className={`ingredients__block_list ${styles.ingredients__list}`}>{content}</ul>
     </div>
   );
-}
+};
 
 export default ProductsList;
