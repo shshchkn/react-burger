@@ -12,6 +12,7 @@ import Modal from "../modal/Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {useDrop} from "react-dnd";
+import classNames from "classnames/bind";
 
 import {v4 as uuidv4} from 'uuid';
 
@@ -66,21 +67,27 @@ const BurgerConstructor = () => {
   });
 
   const renderItems = useCallback(
-    (item: TIngredient, index: number) => {
-      return (
-        <Ingredient
-          key={item.dragId}
-          index={index}
-          item={item}
-          moveCard={moveCard}
-        />
-      )
-    }, [moveCard]);
+  (item: TIngredient, index: number) => {
+    return (
+      <Ingredient
+        key={item.dragId}
+        index={index}
+        item={item}
+        moveCard={moveCard}
+      />
+    )
+  }, [moveCard]);
+
+  let cx = classNames.bind(styles);
+  const dropZoneClass = cx('dropzone', {
+    'isHover': isHover,
+    'isEmpty': !cartItems.length && !cartBun
+  });
 
   return (
     <div className={`dashboard__constructor ${styles.board}`}>
       <div
-        className={`${styles.dropzone} ${isHover ? styles.isHover : ''} ${!cartItems.length && !cartBun ? styles.isEmpty : ''}`}
+        className={dropZoneClass}
         ref={dropTarget}>
         {cartBun &&
           (<div className={`board__top ${styles.bun} ml-8`}>
