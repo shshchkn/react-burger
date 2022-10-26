@@ -2,13 +2,12 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import styles from "./ingredient.module.scss";
 import {TIngredient} from '../../utils/types';
 import {useDispatch} from "react-redux";
-import {REMOVE_CART_ITEM} from "../../services/actions";
+import {REMOVE_CART_ITEM} from "../../services/actions/cart";
 import {useDrag, useDrop} from "react-dnd";
 import type { Identifier, XYCoord } from 'dnd-core'
 import {useRef} from "react";
 
 export interface IngredientProps {
-  // id: any,
   item: TIngredient,
   index: number,
   moveCard: (dragIndex: number, hoverIndex: number) => void

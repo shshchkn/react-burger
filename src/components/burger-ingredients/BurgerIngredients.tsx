@@ -6,7 +6,8 @@ import IngredientDetails from "../ingredient-details/IngredientDetails";
 
 import styles from './burger-ingredients.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {getItems, REMOVE_INGREDIENT_DETAILS} from "../../services/actions";
+import {REMOVE_INGREDIENT_DETAILS} from "../../services/actions/ingredientDetails";
+import {getItems} from "../../services/actions/ingredients";
 import {RootState} from "../../index";
 import {TIngredient} from "../../utils/types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -18,7 +19,7 @@ const BurgerIngredients = () => {
 
   const dispatch: any = useDispatch();
   const {items} = useSelector((store: RootState) => store.ingredients);
-  const {openModal, details} = useSelector((store: RootState) => store.ingredientDetails);
+  const {details} = useSelector((store: RootState) => store.ingredientDetails);
 
   const onTabClick = (current: string) => {
     setCurrent(current);
@@ -75,8 +76,8 @@ const BurgerIngredients = () => {
           <ProductsList data={mains} title="Начинки" type="main"/>
         </div>
       </div>
-      {openModal && details &&
-        (<Modal headerTitle="Детали ингредиента" show={openModal} onClose={handleCloseModal}>
+      {details &&
+        (<Modal headerTitle="Детали ингредиента" onClose={handleCloseModal}>
           <IngredientDetails />
         </Modal>)}
     </div>

@@ -2,12 +2,11 @@ import styles from './modal-overlay.module.scss';
 
 type ModalOverlayTypes = {
   onClose?: () => void,
-  show: boolean
 }
 
-const ModalOverlay = ({onClose, show}: ModalOverlayTypes) => {
+const ModalOverlay = ({onClose}: ModalOverlayTypes) => {
   return (
-    <div className={`${styles.backdrop} ${show ? styles.shown : ''}`} onClick={onClose}></div>
+    <div className={styles.backdrop} onClick={onClose}></div>
   );
 }
 

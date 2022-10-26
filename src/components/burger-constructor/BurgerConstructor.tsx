@@ -20,15 +20,15 @@ import {
   ADD_CART_BUN,
   ADD_CART_ITEM,
   UPDATE_CART,
-  totalPriceSelector,
-  getOrderedItems,
-  CLOSE_ORDER, CLEAN_CART
-} from '../../services/actions';
+  CLEAN_CART
+} from '../../services/actions/cart';
+import { totalPriceSelector } from '../../services/actions'
+import { getOrderedItems, CLOSE_ORDER, } from '../../services/actions/order';
 
 const BurgerConstructor = () => {
   const dispatch: any = useDispatch();
   const {cartBun, cartItems} = useSelector((store: RootState) => store.cart);
-  const {orderNumber, openModal} = useSelector((store: RootState) => store.order);
+  const {orderNumber} = useSelector((store: RootState) => store.order);
   const cartTotalPrice = useSelector(totalPriceSelector);
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
@@ -40,7 +40,7 @@ const BurgerConstructor = () => {
   }, [cartItems, dispatch]);
 
   const handleSetOrder = useCallback(() => {
-    cartBun && cartItems.length && dispatch(getOrderedItems([cartBun, ...cartItems, cartBun]));
+    cartBun && dispatch(getOrderedItems([cartBun, ...cartItems, cartBun]));
   }, [cartBun, cartItems, dispatch]);
 
   const handleCloseModal = () => {
@@ -122,11 +122,17 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium mr-2">{cartTotalPrice}</p>
           <CurrencyIcon type="primary"/>
         </div>
-        <Button type="primary" size="large" htmlType="button" onClick={handleSetOrder}>Оформить заказ</Button>
+        <Button type="primary" size="large" htmlType="button" onClick={handleSetOrder} disabled={!cartBun}>Оформить заказ</Button>
       </div>
-      {orderNumber && openModal &&
-        (<Modal show={openModal} onClose={handleCloseModal} headerTitle={''}> <OrderDetails orderNumber={orderNumber}/>
-        </Modal>)}
+      {
+        orderNumber &&
+        (<Modal
+          onClose={handleCloseModal}
+          headerTitle={''}
+        >
+          <OrderDetails orderNumber={orderNumber}/>
+        </Modal>)
+      }
     </div>
   );
 }
