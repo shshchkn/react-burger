@@ -2,7 +2,6 @@ import React from "react";
 
 export type TModal = {
   children: React.ReactNode,
-  show: boolean,
   onClose?: () => void,
   headerTitle: string
 }
@@ -23,7 +22,6 @@ export type TIngredientDetails = {
 
 export type TIngredient = {
   _id: string,
-  // id: any,
   price: number,
   image_large: string,
   image_mobile: string,
@@ -34,6 +32,5 @@ export type TIngredient = {
   carbohydrates: number,
   type: string,
   dragId: number,
-  index: number,
-  // moveCard: (dragIndex: number, hoverIndex: number) => void
+  index: number
 }
