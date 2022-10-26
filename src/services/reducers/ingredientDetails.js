@@ -1,11 +1,10 @@
 import {
   GET_INGREDIENT_DETAILS,
   REMOVE_INGREDIENT_DETAILS
-} from "../actions";
+} from "../actions/ingredientDetails";
 
 const initialState = {
-  details: null,
-  openModal: false
+  details: null
 }
 
 export const ingredientDetailsReducer = (state = initialState, action) => {
@@ -13,15 +12,13 @@ export const ingredientDetailsReducer = (state = initialState, action) => {
     case GET_INGREDIENT_DETAILS: {
       return {
         ...state,
-        details: action.item,
-        openModal: true
+        details: action.item
       };
     }
     case REMOVE_INGREDIENT_DETAILS: {
       return {
         ...state,
-        details: null,
-        openModal: false
+        details: null
       };
     }
     default: {

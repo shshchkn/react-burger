@@ -4,7 +4,7 @@ import {
   REMOVE_CART_ITEM,
   UPDATE_CART,
   CLEAN_CART,
-} from "../actions";
+} from "../actions/cart";
 
 const initialState = {
   cartItems: [],
@@ -19,11 +19,6 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cartBun: action.item
-        // cartBun: {
-        //   name: action.item.name,
-        //   price: action.item.price,
-        //   image_mobile: action.item.image_mobile
-        // }
       };
     }
     case ADD_CART_ITEM: {

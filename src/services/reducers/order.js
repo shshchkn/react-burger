@@ -3,13 +3,12 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_FILED,
   CLOSE_ORDER
-} from "../actions";
+} from "../actions/order";
 
 const initialState = {
   orderNumber: null,
   orderRequest: false,
-  orderFailed: false,
-  openModal: false
+  orderFailed: false
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -18,8 +17,7 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         orderRequest: true,
-        orderFailed: false,
-        openModal: false
+        orderFailed: false
       };
     }
     case GET_ORDER_SUCCESS: {
@@ -28,8 +26,7 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderRequest: false,
         orderNumber: action.orderNumber,
-        orderFailed: false,
-        openModal: true
+        orderFailed: false
       };
     }
     case GET_ORDER_FILED: {
@@ -43,7 +40,7 @@ export const orderReducer = (state = initialState, action) => {
     case CLOSE_ORDER: {
       return {
         ...state,
-        openModal: false
+        orderNumber: null
       };
     }
     default: {
