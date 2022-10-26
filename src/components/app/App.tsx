@@ -1,30 +1,18 @@
-import React, {useEffect, useState} from 'react';
-
 import styles from './app.module.scss';
 import loader from '../../images/loader.gif';
-
-import {API_URL, apiRequest} from '../../utils/burger-api';
 
 import ErrorBoundary from '../error-boundry/ErrorBoundary';
 import AppHeader from '../app-header/AppHeader';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 
-import {DataContext} from "../../services/appContext";
+import {useSelector} from "react-redux";
+import {RootState} from "../../index";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState({});
-
-
-  useEffect(() => {
-    const getProducts = () => apiRequest(`${API_URL}/ingredients`);
-    getProducts()
-      .then(res => setData({...data, products: res.data}))
-      .catch(err => console.log(err))
-      .finally(() => setIsLoading(false));
-  // eslint-disable-next-line
-  }, []);
+  const {itemsRequest, itemsFiled} = useSelector((store: RootState) => store.ingredients);
 
   return (
     <div className={styles.wrapper}>
@@ -33,16 +21,16 @@ const App = () => {
         <main className={styles.main}>
           <div className="container">
             <div className={styles.dashboard}>
-                { isLoading ? (
-                  <div className={styles.loading}>
-                    <img src={loader} alt="Logo"/>
-                  </div>
-                ) : (
-                  <DataContext.Provider value={{data, setData}}>
-                    <BurgerIngredients />
-                    <BurgerConstructor />
-                  </DataContext.Provider>
-                )}
+              { itemsRequest || itemsFiled ? (
+                <div className={styles.loading}>
+                  {itemsRequest ? <img src={loader} alt="Logo"/> : <p>Ошибка загрузки данных!</p>}
+                </div>
+              ) : (
+                <DndProvider backend={HTML5Backend}>
+                  <BurgerIngredients />
+                  <BurgerConstructor />
+                </DndProvider>
+              )}
             </div>
           </div>
         </main>

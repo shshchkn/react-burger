@@ -21,7 +21,33 @@
 .dropzone {
 	display: flex;
 	flex-direction: column;
-	//height: 100%;
+	flex: 1;
+	//min-height: 274px;
+	margin-bottom: auto;
+	position: relative;
+	border: 1px dashed transparent;
+	transition: all 0.3s;
+}
+
+.dropzoneNotice {
+	margin: auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: opacity 0.3s;
+}
+
+.isEmpty {
+	border-color: $color-accent;
+}
+
+.isHover {
+	border-color: rgba($color-accent, 0.5);
+
+	.dropzoneNotice {
+		opacity: 0.5;
+	}
 }
 
 .bun {
@@ -33,6 +59,7 @@
 	overflow-y: auto;
 	padding-right: 4px;
 	max-height: calc(100vh - 536px);
+	min-height: 80px;
 }
 
 .total {
@@ -40,6 +67,7 @@
 	align-items: center;
 	justify-content: flex-end;
 	padding-right: 16px;
+	flex-shrink: 0;
 
 	&__price {
 		display: flex;

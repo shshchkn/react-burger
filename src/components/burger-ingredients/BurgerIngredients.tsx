@@ -1,55 +1,85 @@
-import React, {useState, useEffect, useMemo, useContext, SetStateAction} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
-import Tabs from "../tabs/Tabs";
 import ProductsList from '../products-list/ProductsList';
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 
-import {DataContext} from "../../services/appContext";
-
 import styles from './burger-ingredients.module.scss';
+import {useDispatch, useSelector} from "react-redux";
+import {REMOVE_INGREDIENT_DETAILS} from "../../services/actions/ingredientDetails";
+import {getItems} from "../../services/actions/ingredients";
+import {RootState} from "../../index";
+import {TIngredient} from "../../utils/types";
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
-  const {data}: any = useContext(DataContext);
-  const products = data.products;
+  const [current, setCurrent] = useState('bun');
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // @ts-ignore
-  const buns = useMemo(() => products && products.filter(item => item.type === 'bun'), [products]);
-  // @ts-ignore
-  const sauces = useMemo(() => products && products.filter(item => item.type === 'sauce'), [products]);
-  // @ts-ignore
-  const mains = useMemo(() => products && products.filter(item => item.type === 'main'), [products]);
+  const dispatch: any = useDispatch();
+  const {items} = useSelector((store: RootState) => store.ingredients);
+  const {details} = useSelector((store: RootState) => store.ingredientDetails);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const onTabClick = (current: string) => {
+    setCurrent(current);
+    const element = document.getElementById(current);
+    element && element?.scrollIntoView({behavior: 'smooth'});
+  };
 
-  const handleOpenModal = (item: SetStateAction<null>) => setSelectedItem(item);
-  const handleCloseModal = () => setSelectedItem(null);
+  const inViewOptions = {
+    threshold: 0.2,
+    root: scrollRef.current,
+    rootMargin: '0px 0px 90% 0px'
+  }
+
+  const [bunsRef, inViewBuns] = useInView(inViewOptions);
+  const [mainsRef, inViewFilling] = useInView(inViewOptions);
+  const [saucesRef, inViewSauces] = useInView(inViewOptions);
 
   useEffect(() => {
-    selectedItem && setIsOpen(true);
-
-    return () => {
-      selectedItem && setIsOpen(false);
+    if (inViewBuns) {
+      setCurrent("bun");
+    } else if (inViewSauces) {
+      setCurrent("sauce");
+    } else if (inViewFilling) {
+      setCurrent("main");
     }
-  }, [selectedItem]);
+  }, [inViewBuns, inViewFilling, inViewSauces]);
 
-  console.log(selectedItem)
+  useEffect(() => {
+    !items.length && dispatch(getItems());
+  }, [dispatch, items]);
+
+  const buns = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'bun'), [items]);
+  const sauces = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'sauce'), [items]);
+  const mains = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'main'), [items]);
+
+  const handleCloseModal = () => dispatch({type: REMOVE_INGREDIENT_DETAILS});
 
   return (
     <div className={`dashboard__ingredients ${styles.ingredients} pt-10`}>
       <h1 className={`${styles.ingredients__title} mb-5`}>Соберите бургер</h1>
-      <Tabs />
-      <div className={`${styles.ingredients__section} custom-scroll mt-10`}>
-        <ProductsList data={buns} showModal={handleOpenModal} title="Булки" type="bun"/>
-        <ProductsList data={sauces} showModal={handleOpenModal} title="Соусы" type="sauce"/>
-        <ProductsList data={mains} showModal={handleOpenModal} title="Начинки" type="main"/>
+      <div className={styles.tabs}>
+        <Tab value="bun" active={current === 'bun'} onClick={onTabClick}>Булки</Tab>
+        <Tab value="sauce" active={current === 'sauce'} onClick={onTabClick}>Соусы</Tab>
+        <Tab value="main" active={current === 'main'} onClick={onTabClick}>Начинки</Tab>
       </div>
-      {isOpen &&
-      selectedItem &&
-      (<Modal headerTitle="Детали ингредиента" show={isOpen} onClose={handleCloseModal}>
-        <IngredientDetails {...(selectedItem as object)} />
-      </Modal>)}
+      <div className={`${styles.ingredients__section} custom-scroll mt-10`} ref={scrollRef}>
+        <div ref={bunsRef}>
+          <ProductsList data={buns} title="Булки" type="bun"/>
+        </div>
+        <div ref={saucesRef}>
+          <ProductsList data={sauces} title="Соусы" type="sauce"/>
+        </div>
+        <div ref={mainsRef}>
+          <ProductsList data={mains} title="Начинки" type="main"/>
+        </div>
+      </div>
+      {details &&
+        (<Modal headerTitle="Детали ингредиента" onClose={handleCloseModal}>
+          <IngredientDetails />
+        </Modal>)}
     </div>
   );
 }

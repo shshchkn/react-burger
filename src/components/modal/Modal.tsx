@@ -1,17 +1,13 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {createPortal} from 'react-dom';
-
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-
 import styles from './modal.module.scss';
-
 import ModalOverlay from '../modal-overlay/ModalOverlay';
-
 import {TModal} from "../../utils/types";
 
 const modalRoot = document.getElementById("modals");
 
-const Modal = ({children, headerTitle, show, onClose}: TModal) => {
+const Modal = ({children, headerTitle, onClose}: TModal) => {
 
   useEffect(() => {
     const closeOnEscape = (e: KeyboardEvent) => e.key === "Escape" ? onClose && onClose() : null;
@@ -22,11 +18,11 @@ const Modal = ({children, headerTitle, show, onClose}: TModal) => {
       document.body.classList.remove('no-scroll');
       document.body.removeEventListener("keydown", closeOnEscape);
     }
-  }, [show, onClose]);
+  }, [onClose]);
 
   return createPortal(
     <>
-      <div className={`${styles.popup} ${show ? styles.shown : ''}`}>
+      <div className={styles.popup}>
         <div className={styles.popup__header}>
           {headerTitle || null}
           <button className={styles.popup__close} onClick={onClose}>
@@ -37,7 +33,7 @@ const Modal = ({children, headerTitle, show, onClose}: TModal) => {
           {children}
         </div>
       </div>
-      <ModalOverlay show={show} onClose={onClose}/>
+      <ModalOverlay onClose={onClose}/>
     </>,
     modalRoot!
   );
