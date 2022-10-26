@@ -3,15 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './components/app/App';
 import { Provider } from 'react-redux';
-import { rootReducer } from './services/reducers';
-import thunk from 'redux-thunk';
-import {configureStore} from "@reduxjs/toolkit";
-
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-  devTools: process.env.NODE_ENV !== 'production',
-});
+import {store} from "./services/store";
 
 export type RootState = ReturnType<typeof store.getState>
 
