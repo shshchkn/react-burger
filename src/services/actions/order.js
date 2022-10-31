@@ -2,7 +2,7 @@ import {API_URL, apiRequest} from "../../utils/burger-api";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
-export const GET_ORDER_FILED = 'GET_ORDER_FILED';
+export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 export const CLOSE_ORDER = 'CLOSE_ORDER';
 
 export const getOrderedItems = (items) => dispatch => {
@@ -21,7 +21,7 @@ export const getOrderedItems = (items) => dispatch => {
           orderNumber: res.order.number
         });
       } else {
-        dispatch({type: GET_ORDER_FILED});
+        dispatch({type: GET_ORDER_FAILED});
       }
     })
     .catch(err => console.log(err));

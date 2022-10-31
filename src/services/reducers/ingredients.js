@@ -7,7 +7,7 @@ import {
 const initialState = {
   items: [],
   itemsRequest: false,
-  itemsFiled: false,
+  itemsFailed: false,
 }
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -16,7 +16,7 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         itemsRequest: true,
-        itemsFiled: false
+        itemsFailed: false
       };
     }
     case GET_ITEMS_SUCCESS: {
@@ -24,14 +24,14 @@ export const ingredientsReducer = (state = initialState, action) => {
         ...state,
         itemsRequest: false,
         items: action.items,
-        itemsFiled: false
+        itemsFailed: false
       };
     }
     case GET_ITEMS_FAILED: {
       return {
         ...state,
         itemsRequest: false,
-        itemsFiled: true
+        itemsFailed: true
       };
     }
     default: {
