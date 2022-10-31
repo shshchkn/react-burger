@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import ErrorBoundary from '../error-boundry/ErrorBoundary';
 import AppHeader from '../app-header/AppHeader';
 import styles from './app.module.scss';
@@ -21,32 +21,16 @@ const App = () => {
           <AppHeader/>
           <main className={styles.main}>
             <div className="container">
-              <Switch>
-                <Route path="/" exact>
-                  <HomePage />
-                </Route>
-                <Route path="/login" exact>
-                  <LoginPage />
-                </Route>
-                <Route path="/register" exact>
-                  <RegisterPage />
-                </Route>
-                <Route path="/forgot-password" exact>
-                  <ForgotPasswordPage />
-                </Route>
-                <Route path="/reset-password" exact>
-                  <ResetPasswordPage />
-                </Route>
-                <Route path="/profile" exact>
-                  <ProfilePage />
-                </Route>
-                <Route path="/ingredients/:id" exact>
-                  <IngredientPage />
-                </Route>
-                <Route>
-                  <NotFoundPage />
-                </Route>
-              </Switch>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path={`/ingredients/:id`} element={<IngredientPage />} />
+                <Route element={<NotFoundPage />} />
+              </Routes>
             </div>
           </main>
         </Router>
