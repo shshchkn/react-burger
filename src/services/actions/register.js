@@ -19,6 +19,7 @@ export const registerRequest = form => async dispatch => {
       body: JSON.stringify(form)
     })
     .then(data => {
+      console.log(data)
       data.success && dispatch({type: REGISTER_USER_SUCCESS});
     })
     .catch(error => {

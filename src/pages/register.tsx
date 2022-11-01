@@ -1,14 +1,27 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {handleChangeInput} from "../utils/helpers";
 import {Link} from "react-router-dom";
+import {AppDispatch} from "../index";
+import {useDispatch} from "react-redux";
+import {registerRequest} from "../services/actions/register";
 
 export const RegisterPage = () => {
+  const dispatch: AppDispatch = useDispatch();
+
   const [register, setRegister] = useState({
     name: '',
     email: '',
     password: ''
   });
+
+  const onRegisterSubmit = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
+    register.name &&
+    register.email &&
+    register.password &&
+    dispatch(registerRequest(register));
+  }, [dispatch, register]);
 
   const formContent = (
     <form className="form mb-20">
@@ -17,7 +30,7 @@ export const RegisterPage = () => {
           type={'text'}
           placeholder={'Имя'}
           onChange={e => handleChangeInput(e, register, setRegister)}
-          value={register.email}
+          value={register.name}
           name={'name'}
           error={false}
           errorText={'Ошибка'}
@@ -42,7 +55,7 @@ export const RegisterPage = () => {
           value={register.password}
           name={'password'} />
       </div>
-      <Button type="primary" size="medium" htmlType="button">
+      <Button type="primary" size="medium" htmlType="button" onClick={onRegisterSubmit}>
         Зарегистрироваться
       </Button>
     </form>

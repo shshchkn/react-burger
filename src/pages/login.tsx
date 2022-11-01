@@ -1,13 +1,23 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {Link} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {handleChangeInput} from "../utils/helpers";
+import {useDispatch} from "react-redux";
+import {loginRequest} from "../services/actions/login";
+import {AppDispatch} from "../index";
 
 export const LoginPage = () => {
+  const dispatch: AppDispatch = useDispatch();
+
   const [login, setLogin] = useState({
     email: '',
     password: ''
   });
+
+  const onLoginSubmit = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
+    login.email && login.password && dispatch(loginRequest(login));
+  }, [dispatch, login]);
 
   const formContent = (
     <form className="form mb-20">
@@ -29,7 +39,7 @@ export const LoginPage = () => {
           value={login.password}
           name={'password'} />
       </div>
-      <Button type="primary" size="medium" htmlType="button">
+      <Button type="primary" size="medium" htmlType="button" onClick={onLoginSubmit}>
         Войти
       </Button>
     </form>

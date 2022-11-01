@@ -79,8 +79,8 @@ export const updateTokenRequest = callback => async dispatch => {
     })
     .then(data => {
       if (data.success) {
-        setCookie('accessToken', data.accessToken);
-        setCookie('refreshToken', data.refreshToken);
+        setCookie('accessToken', data.accessToken, {expires: 86400});
+        setCookie('refreshToken', data.refreshToken, {expires: 86400});
         dispatch(callback);
       }
     })

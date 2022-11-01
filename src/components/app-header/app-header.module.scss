@@ -82,7 +82,7 @@
 				padding: 0;
 			}
 
-			&_active,
+			&.active,
 			&:hover {
 				color: $color-primary-light;
 
@@ -98,3 +98,11 @@
 		}
 	}
 }
+
+//.active {
+//  color: $color-primary-light;
+//
+//  svg {
+//    fill: $color-primary-light;
+//  }
+//}

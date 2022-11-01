@@ -22,13 +22,13 @@ const App = () => {
           <main className={styles.main}>
             <div className="container">
               <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                <Route path="/reset-password" element={<ResetPasswordPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path={`/ingredients/:id`} element={<IngredientPage />} />
+                <Route index element={<HomePage />} />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="register" element={<RegisterPage />} />
+                <Route path="forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="reset-password" element={<ResetPasswordPage />} />
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="ingredients/:id" element={<IngredientPage />} />
                 <Route element={<NotFoundPage />} />
               </Routes>
             </div>

@@ -20,10 +20,11 @@ export const loginRequest = form => async dispatch => {
       body: JSON.stringify(form)
     })
     .then(data => {
+      console.log(data)
       if (data.success) {
-        setCookie('accessToken', data.accessToken)
-        setCookie('refreshToken', data.refreshToken);
-        dispatch({type: LOGIN_USER_SUCCESS});
+        setCookie('accessToken', data.accessToken, {expires: 86400});
+        setCookie('refreshToken', data.refreshToken, {expires: 86400});
+        dispatch({type: LOGIN_USER_SUCCESS, user: data.user});
       }
     })
     .catch(error => {
