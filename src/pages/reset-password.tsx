@@ -1,20 +1,34 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {handleChangeInput} from "../utils/helpers";
 import {Link} from "react-router-dom";
+import {AppDispatch, RootState} from "../index";
+import {useDispatch, useSelector} from "react-redux";
+import {resetPasswordRequest} from "../services/actions/reset-password";
 
 export const ResetPasswordPage = () => {
+  const {resetPasswordFailed} = useSelector((store: RootState) => store.user)
+  const dispatch: AppDispatch = useDispatch();
   const [reset, setReset] = useState({
     password: '',
     token: ''
   });
+
+  const onResetPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
+    reset.password &&
+    reset.token &&
+    dispatch(resetPasswordRequest(reset));
+  }, [dispatch, reset]);
+
+  console.log(reset)
 
   const formContent = (
     <form className="form mb-20">
       <div className="mb-6">
         <PasswordInput
           placeholder="Введите новый пароль"
-          onChange={e => handleChangeInput(e, reset.password, setReset)}
+          onChange={e => handleChangeInput(e, reset, setReset)}
           value={reset.password}
           name={'password'} />
       </div>
@@ -22,15 +36,15 @@ export const ResetPasswordPage = () => {
         <Input
           type={'text'}
           placeholder={'Введите код из письма'}
-          onChange={e => handleChangeInput(e, reset.token, setReset)}
+          onChange={e => handleChangeInput(e, reset, setReset)}
           value={reset.token}
           name={'token'}
-          error={false}
+          error={resetPasswordFailed}
           errorText={'Ошибка'}
           size={'default'}
         />
       </div>
-      <Button type="primary" size="medium" htmlType="button">
+      <Button type="primary" size="medium" htmlType="button" onClick={onResetPasswordSubmit}>
         Сохранить
       </Button>
     </form>

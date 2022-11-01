@@ -2,11 +2,12 @@ import React, {useCallback, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {handleChangeInput} from "../utils/helpers";
 import {Link} from "react-router-dom";
-import {AppDispatch} from "../index";
-import {useDispatch} from "react-redux";
+import {AppDispatch, RootState} from "../index";
+import {useDispatch, useSelector} from "react-redux";
 import {registerRequest} from "../services/actions/register";
 
 export const RegisterPage = () => {
+  const {registerFailed} = useSelector((store: RootState) => store.user);
   const dispatch: AppDispatch = useDispatch();
 
   const [register, setRegister] = useState({
@@ -32,7 +33,7 @@ export const RegisterPage = () => {
           onChange={e => handleChangeInput(e, register, setRegister)}
           value={register.name}
           name={'name'}
-          error={false}
+          error={registerFailed}
           errorText={'Ошибка'}
           size={'default'}
         />
@@ -44,7 +45,7 @@ export const RegisterPage = () => {
           onChange={e => handleChangeInput(e, register, setRegister)}
           value={register.email}
           name={'email'}
-          error={false}
+          error={registerFailed}
           errorText={'Ошибка'}
           size={'default'}
         />

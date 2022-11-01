@@ -1,10 +1,19 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {handleChangeInput} from "../utils/helpers";
 import {Link} from "react-router-dom";
+import {AppDispatch, RootState} from "../index";
+import {useDispatch, useSelector} from "react-redux";
+import {forgotPasswordRequest} from "../services/actions/forgot-password";
 
 export const ForgotPasswordPage = () => {
+  const {forgotPasswordFailed} = useSelector((store: RootState) => store.user);
+  const dispatch: AppDispatch = useDispatch();
   const [email, setEmail] = useState('');
+
+  const onForgotPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
+    email && dispatch(forgotPasswordRequest(email));
+  }, [dispatch, email]);
 
   const formContent = (
     <form className="form mb-20">
@@ -12,15 +21,15 @@ export const ForgotPasswordPage = () => {
         <Input
           type={'email'}
           placeholder={'Укажите e-mail'}
-          onChange={e => handleChangeInput(e, email, setEmail)}
+          onChange={e => setEmail(e.target.value)}
           value={email}
           name={'email'}
-          error={false}
+          error={forgotPasswordFailed}
           errorText={'Ошибка'}
           size={'default'}
         />
       </div>
-      <Button type="primary" size="medium" htmlType="button">
+      <Button type="primary" size="medium" htmlType="button" onClick={onForgotPasswordSubmit}>
         Восстановить
       </Button>
     </form>

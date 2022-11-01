@@ -2,11 +2,12 @@ import React, {useCallback, useState} from "react";
 import {Link} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {handleChangeInput} from "../utils/helpers";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loginRequest} from "../services/actions/login";
-import {AppDispatch} from "../index";
+import {AppDispatch, RootState} from "../index";
 
 export const LoginPage = () => {
+  const {loginFailed} = useSelector((store: RootState) => store.user);
   const dispatch: AppDispatch = useDispatch();
 
   const [login, setLogin] = useState({
@@ -19,6 +20,8 @@ export const LoginPage = () => {
     login.email && login.password && dispatch(loginRequest(login));
   }, [dispatch, login]);
 
+  console.log(login)
+
   const formContent = (
     <form className="form mb-20">
       <div className="mb-6">
@@ -28,7 +31,7 @@ export const LoginPage = () => {
           onChange={e => handleChangeInput(e, login, setLogin)}
           value={login.email}
           name={'email'}
-          error={false}
+          error={loginFailed}
           errorText={'Ошибка'}
           size={'default'}
         />
