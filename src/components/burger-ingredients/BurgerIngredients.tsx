@@ -1,12 +1,9 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
 
 import ProductsList from '../products-list/ProductsList';
-import Modal from "../modal/Modal";
-import IngredientDetails from "../ingredient-details/IngredientDetails";
 
 import styles from './burger-ingredients.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {REMOVE_INGREDIENT_DETAILS} from "../../services/actions/ingredientDetails";
 import {RootState} from "../../index";
 import {TIngredient} from "../../utils/types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -15,10 +12,7 @@ import {useInView} from "react-intersection-observer";
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  const dispatch: any = useDispatch();
   const {items} = useSelector((store: RootState) => store.ingredients);
-  const {details} = useSelector((store: RootState) => store.ingredientDetails);
 
   const onTabClick = (current: string) => {
     setCurrent(current);
@@ -50,8 +44,6 @@ const BurgerIngredients = () => {
   const sauces = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'sauce'), [items]);
   const mains = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'main'), [items]);
 
-  const handleCloseModal = () => dispatch({type: REMOVE_INGREDIENT_DETAILS});
-
   return (
     <div className={`dashboard__ingredients ${styles.ingredients} pt-10`}>
       <h1 className={`${styles.ingredients__title} mb-5`}>Соберите бургер</h1>
@@ -71,10 +63,6 @@ const BurgerIngredients = () => {
           <ProductsList data={mains} title="Начинки" type="main"/>
         </div>
       </div>
-      {details &&
-        (<Modal headerTitle="Детали ингредиента" onClose={handleCloseModal}>
-          <IngredientDetails />
-        </Modal>)}
     </div>
   );
 }
