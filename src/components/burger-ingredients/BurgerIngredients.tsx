@@ -7,7 +7,6 @@ import IngredientDetails from "../ingredient-details/IngredientDetails";
 import styles from './burger-ingredients.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {REMOVE_INGREDIENT_DETAILS} from "../../services/actions/ingredientDetails";
-import {getItems} from "../../services/actions/ingredients";
 import {RootState} from "../../index";
 import {TIngredient} from "../../utils/types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -46,10 +45,6 @@ const BurgerIngredients = () => {
       setCurrent("main");
     }
   }, [inViewBuns, inViewFilling, inViewSauces]);
-
-  useEffect(() => {
-    !items.length && dispatch(getItems());
-  }, [dispatch, items]);
 
   const buns = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'bun'), [items]);
   const sauces = useMemo(() => items && items.filter((item: TIngredient) => item.type === 'sauce'), [items]);

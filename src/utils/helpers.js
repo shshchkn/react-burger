@@ -37,7 +37,7 @@ export const setCookie = (name, value, props) => {
 }
 
 export const deleteCookie = name => {
-  setCookie(name, null, { expires: -1 });
+  setCookie(name, null, {expires: -1});
 }
 
 export const deserializeQuery = (query, noQuestionMark = false) => {

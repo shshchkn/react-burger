@@ -1,7 +1,3 @@
-export const NotFoundPage = () => {
-  return (
-    <div className="notFound">
-      <h1 className="notFoundTitle">404</h1>
-    </div>
-  );
-}
+import NotFound from "../components/not-found/not-found";
+
+export const NotFoundPage = () => <NotFound />;

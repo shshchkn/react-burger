@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, redirect} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {handleChangeInput} from "../utils/helpers";
 import {useDispatch, useSelector} from "react-redux";
@@ -19,8 +19,6 @@ export const LoginPage = () => {
     e.preventDefault();
     login.email && login.password && dispatch(loginRequest(login));
   }, [dispatch, login]);
-
-  console.log(login)
 
   const formContent = (
     <form className="form mb-20">
@@ -46,7 +44,7 @@ export const LoginPage = () => {
         Войти
       </Button>
     </form>
-  )
+  );
 
   return (
     <div className="form-block">
