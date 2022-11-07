@@ -1,24 +1,18 @@
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./products-item.module.scss";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {TIngredient} from "../../utils/types";
 import {useCallback} from "react";
 import {useDrag} from "react-dnd";
 import {RootState} from "../../index";
-import {getItemDetails} from "../../services/actions/ingredientDetails";
 import {Link, useLocation} from "react-router-dom";
 
 const ProductsItem = ((item: TIngredient,) => {
   const location = useLocation();
   const {name, image_large, price} = item;
-  const dispatch = useDispatch();
   const {cartItems, cartBun} = useSelector((store: RootState) => store.cart);
   const ingredientId = item['_id'];
-
-  const getDetails = useCallback(() => {
-    dispatch(getItemDetails(item));
-  }, [item, dispatch])
 
   const [{opacity}, dragRef] = useDrag({
     type: "items",
@@ -36,7 +30,6 @@ const ProductsItem = ((item: TIngredient,) => {
   return (
     <li
       className={`${styles.ingredients__list_item} ${styles.card}`}
-      onClick={getDetails}
       draggable
       ref={dragRef}
       title={name}
