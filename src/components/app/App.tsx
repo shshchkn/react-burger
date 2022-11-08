@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
 import ErrorBoundary from '../error-boundry/ErrorBoundary';
 import AppHeader from '../app-header/AppHeader';
 import styles from './app.module.scss';

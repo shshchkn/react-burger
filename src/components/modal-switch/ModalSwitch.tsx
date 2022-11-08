@@ -1,10 +1,8 @@
 import {
   Routes,
   Route,
-  Link,
   useLocation,
-  useNavigate,
-  useParams,
+  useNavigate
 } from "react-router-dom";
 import {
   HomePage,
@@ -20,6 +18,7 @@ import Modal from "../modal/Modal";
 import {useDispatch} from "react-redux";
 import {REMOVE_INGREDIENT_DETAILS} from "../../services/actions/ingredientDetails";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
+import ProtectedRoute from "../../hocs/protected-route/ProtectedRoute";
 
 const ModalSwitch = () => {
   const dispatch = useDispatch();
@@ -40,7 +39,13 @@ const ModalSwitch = () => {
         <Route path="register" element={<RegisterPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
         <Route path="reset-password" element={<ResetPasswordPage />} />
-        <Route path="profile" element={<ProfilePage />} />
+
+        <Route path="profile" element={(
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        )} />
+
         <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

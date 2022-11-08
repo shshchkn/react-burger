@@ -3,7 +3,7 @@ import {useEffect, useMemo, useRef, useState} from 'react';
 import ProductsList from '../products-list/ProductsList';
 
 import styles from './burger-ingredients.module.scss';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState} from "../../index";
 import {TIngredient} from "../../utils/types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";

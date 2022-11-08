@@ -40,7 +40,7 @@ const AppHeader = () => {
               <Logo/>
             </Link>
           </div>
-          <NavLink to="login" className={accountClasses} >
+          <NavLink to="profile" className={accountClasses} >
             <ProfileIcon type='secondary'/> Личный кабинет
           </NavLink>
         </div>

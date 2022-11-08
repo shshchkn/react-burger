@@ -10,5 +10,5 @@ export const rootReducer = combineReducers({
   cart: cartReducer,
   ingredientDetails: ingredientDetailsReducer,
   order: orderReducer,
-  user: userReducer
+  user: userReducer,
 });

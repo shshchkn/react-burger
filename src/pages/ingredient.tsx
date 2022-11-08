@@ -9,7 +9,7 @@ export const IngredientPage = () => {
   const {items} = useSelector((store: RootState) => store.ingredients);
   const {id} = useParams<{ id?: string }>();
   const ingredient = items.length > 0 ? items.find((el: TIngredient) => el._id === id) ?? null : null;
-  console.log(ingredient)
+
   return (
     ingredient ? (
       <>

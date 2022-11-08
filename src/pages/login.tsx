@@ -1,5 +1,5 @@
-import React, {useCallback, useState} from "react";
-import {Link, redirect} from "react-router-dom";
+import React, {useCallback, useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {handleChangeInput} from "../utils/helpers";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,7 +7,8 @@ import {loginRequest} from "../services/actions/login";
 import {AppDispatch, RootState} from "../index";
 
 export const LoginPage = () => {
-  const {loginFailed} = useSelector((store: RootState) => store.user);
+  const navigate = useNavigate();
+  const {loginFailed, user} = useSelector((store: RootState) => store.user);
   const dispatch: AppDispatch = useDispatch();
 
   const [login, setLogin] = useState({
@@ -19,6 +20,10 @@ export const LoginPage = () => {
     e.preventDefault();
     login.email && login.password && dispatch(loginRequest(login));
   }, [dispatch, login]);
+
+  useEffect(() => {
+    !loginFailed && user && navigate('/');
+  }, [user, loginFailed, navigate]);
 
   const formContent = (
     <form className="form mb-20">
