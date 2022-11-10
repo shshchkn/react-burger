@@ -1,24 +1,27 @@
-import {useEffect} from "react";
-import {Navigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../../index";
-import {getUserRequest} from "../../services/actions/user";
+import {Navigate, Outlet, useLocation} from "react-router-dom";
 import {getCookie} from "../../utils/helpers";
 
-const ProtectedRoute = ({ children }: {children: JSX.Element}) => {
-  const dispatch: AppDispatch = useDispatch();
+const ProtectedRoute = () => {
+  const {pathname} = useLocation();
   const token = getCookie('accessToken');
-  const {user} = useSelector((store: RootState) => store.user);
 
-  useEffect(() => {
-    token && !user && dispatch(getUserRequest());
-  }, [user, token, dispatch]);
-
-  if (!token) {
-    return <Navigate to="/login" />;
-  } else {
-    return user && children;
+  if (
+    token !== undefined && (
+      pathname === '/register' ||
+      pathname === '/forgot-password' ||
+      pathname === '/reset-password'
+    ) ||
+    !token && (
+      pathname === '/profile' ||
+      pathname === '/profile/orders' ||
+      pathname === '/profile/orders/:id'
+    )
+  ) {
+    return <Navigate to="/login" replace />
   }
+
+  return <Outlet />;
+
 }
 
 export default ProtectedRoute;

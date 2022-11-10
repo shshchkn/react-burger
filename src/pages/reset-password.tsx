@@ -1,18 +1,23 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {handleChangeInput} from "../utils/helpers";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {AppDispatch, RootState} from "../index";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordRequest} from "../services/actions/reset-password";
 
 export const ResetPasswordPage = () => {
-  const {resetPasswordFailed} = useSelector((store: RootState) => store.user)
+  const navigate = useNavigate();
+  const {forgotPasswordSuccess, resetPasswordFailed} = useSelector((store: RootState) => store.user)
   const dispatch: AppDispatch = useDispatch();
   const [reset, setReset] = useState({
     password: '',
     token: ''
   });
+
+  useEffect(() => {
+    !forgotPasswordSuccess && navigate('/login');
+  }, [forgotPasswordSuccess, navigate]);
 
   const onResetPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -20,8 +25,6 @@ export const ResetPasswordPage = () => {
     reset.token &&
     dispatch(resetPasswordRequest(reset));
   }, [dispatch, reset]);
-
-  console.log(reset)
 
   const formContent = (
     <form className="form mb-20">

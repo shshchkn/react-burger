@@ -15,10 +15,12 @@ export const logoutRequest = () => async dispatch => {
       body: JSON.stringify({'token': getCookie('refreshToken')})
     })
     .then(data => {
-      if (data.success) {
+      console.log(data)
+      if (data.ok) {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
         dispatch({type: LOGOUT_USER_SUCCESS});
+        console.log('Logout')
       }
     })
     .catch(error => {

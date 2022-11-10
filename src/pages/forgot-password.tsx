@@ -1,19 +1,21 @@
 import React, {useCallback, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {AppDispatch, RootState} from "../index";
 import {useDispatch, useSelector} from "react-redux";
 import {forgotPasswordRequest} from "../services/actions/forgot-password";
 
 export const ForgotPasswordPage = () => {
-  const {forgotPasswordFailed} = useSelector((store: RootState) => store.user);
+  const {forgotPasswordSuccess, forgotPasswordFailed} = useSelector((store: RootState) => store.user);
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [email, setEmail] = useState('');
 
   const onForgotPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     email && dispatch(forgotPasswordRequest(email));
-  }, [dispatch, email]);
+    forgotPasswordSuccess && navigate('/reset-password');
+  }, [dispatch, email, forgotPasswordSuccess, navigate]);
 
   const formContent = (
     <form className="form mb-20">

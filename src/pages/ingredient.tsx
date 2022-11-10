@@ -5,6 +5,8 @@ import IngredientDetails from "../components/ingredient-details/IngredientDetail
 import {RootState} from "../index";
 import {TIngredient} from "../utils/types";
 
+import styles from "../components/ingredient-details/ingredient-details.module.scss";
+
 export const IngredientPage = () => {
   const {items} = useSelector((store: RootState) => store.ingredients);
   const {id} = useParams<{ id?: string }>();
@@ -12,10 +14,10 @@ export const IngredientPage = () => {
 
   return (
     ingredient ? (
-      <>
+      <div className={`${styles.page} mt-30`}>
         <h1 className={`text text_type_main-large`}>Детали ингредиента</h1>
         <IngredientDetails />
-      </>
+      </div>
     ) : (
       <NotFoundPage/>
     )

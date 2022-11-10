@@ -10,6 +10,7 @@ import {getItems} from "../../services/actions/ingredients";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
+  const {user} = useSelector((store: RootState) => store.user);
   const {items} = useSelector((store: RootState) => store.ingredients);
 
   useEffect(() => {

@@ -1,14 +1,15 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {handleChangeInput} from "../utils/helpers";
+import {getCookie, handleChangeInput} from "../utils/helpers";
 import {useDispatch, useSelector} from "react-redux";
 import {loginRequest} from "../services/actions/login";
 import {AppDispatch, RootState} from "../index";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const {loginFailed, user} = useSelector((store: RootState) => store.user);
+  const token = getCookie('accessToken');
+  const {loginFailed} = useSelector((store: RootState) => store.user);
   const dispatch: AppDispatch = useDispatch();
 
   const [login, setLogin] = useState({
@@ -16,14 +17,15 @@ export const LoginPage = () => {
     password: ''
   });
 
+  useEffect(() => {
+    token !== undefined && navigate('/');
+  }, [token, navigate]);
+
   const onLoginSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     login.email && login.password && dispatch(loginRequest(login));
-  }, [dispatch, login]);
-
-  useEffect(() => {
-    !loginFailed && user && navigate('/');
-  }, [user, loginFailed, navigate]);
+    !loginFailed && navigate('/');
+  }, [dispatch, login, loginFailed, navigate]);
 
   const formContent = (
     <form className="form mb-20">

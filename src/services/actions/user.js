@@ -21,9 +21,10 @@ export const getUserRequest = () => async dispatch => {
     })
     .then(data => {
       data.success && dispatch({type: GET_USER_SUCCESS, user: data.user});
+      console.log(data)
     })
     .catch(error => {
-      if (error.message === 'jwt expired') {
+      if (error.message || error.message === 'jwt expired') {
         dispatch(updateTokenRequest(getUserRequest()));
       } else {
         dispatch({type: GET_USER_FAILED});
@@ -79,9 +80,10 @@ export const updateTokenRequest = callback => async dispatch => {
     })
     .then(data => {
       if (data.success) {
-        setCookie('accessToken', data.accessToken, {expires: 86400});
-        setCookie('refreshToken', data.refreshToken, {expires: 86400});
+        setCookie('accessToken', data.accessToken, {expires: 1200});
+        setCookie('refreshToken', data.refreshToken, {expires: 1200});
         dispatch(callback);
+        console.log(data)
       }
     })
     .catch(error => {

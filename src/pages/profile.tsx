@@ -1,5 +1,5 @@
+import Profile from "../components/profile/Profile";
+
 export const ProfilePage = () => {
-  return (
-    <h1>Profile</h1>
-  );
-}
+  return <Profile/>;
+};
