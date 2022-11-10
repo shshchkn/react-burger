@@ -6,16 +6,16 @@ const ProtectedRoute = () => {
   const token = getCookie('accessToken');
 
   if (
-    token !== undefined && (
+    (token !== undefined && (
       pathname === '/register' ||
       pathname === '/forgot-password' ||
       pathname === '/reset-password'
-    ) ||
-    !token && (
+    )) ||
+    (!token && (
       pathname === '/profile' ||
       pathname === '/profile/orders' ||
       pathname === '/profile/orders/:id'
-    )
+    ))
   ) {
     return <Navigate to="/login" replace />
   }

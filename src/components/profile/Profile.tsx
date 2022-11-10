@@ -17,17 +17,23 @@ const Profile = () => {
     !logoutFailed && navigate('/login');
   };
 
+  const linkClasses = ({ isActive } : { isActive: boolean }) => {
+    return isActive
+      ? `${styles.profileMenuLink} ${styles.active} text text_type_main-medium text_color_inactive`
+      : `${styles.profileMenuLink} text text_type_main-medium text_color_inactive`;
+  }
+
   return (
     <div className={`${styles.profile} mt-30`}>
       <div className={`${styles.profileSidebar}`}>
         <ul className={styles.profileMenu}>
           <li className={styles.profileMenuItem}>
-            <NavLink to="/profile" className={`${styles.profileMenuLink} text text_type_main-medium text_color_inactive`} end>
+            <NavLink to="/profile" className={linkClasses} end>
               Профиль
             </NavLink>
           </li>
           <li className={styles.profileMenuItem}>
-            <NavLink to="/profile/orders" className={`${styles.profileMenuLink} text text_type_main-medium text_color_inactive`}>
+            <NavLink to="/profile/orders" className={linkClasses}>
               История заказов
             </NavLink>
           </li>
