@@ -9,7 +9,7 @@ import {AppDispatch, RootState} from "../index";
 export const LoginPage = () => {
   const navigate = useNavigate();
   const token = getCookie('accessToken');
-  const {loginFailed} = useSelector((store: RootState) => store.user);
+  const {loginFailed, logoutRequest} = useSelector((store: RootState) => store.user);
   const dispatch: AppDispatch = useDispatch();
 
   const [login, setLogin] = useState({
@@ -18,8 +18,8 @@ export const LoginPage = () => {
   });
 
   useEffect(() => {
-    token !== undefined && navigate('/');
-  }, [token, navigate]);
+    !logoutRequest && token !== undefined && navigate('/');
+  }, [token, logoutRequest, navigate]);
 
   const onLoginSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
