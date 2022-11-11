@@ -22,8 +22,8 @@ export const loginRequest = form => async dispatch => {
     .then(data => {
       console.log(data)
       if (data.success) {
-        setCookie('accessToken', data.accessToken, {expires: 86400});
-        setCookie('refreshToken', data.refreshToken, {expires: 86400});
+        setCookie('accessToken', data.accessToken, {'max-age': 86400});
+        setCookie('refreshToken', data.refreshToken, {'max-age': 86400});
         dispatch({type: LOGIN_USER_SUCCESS, user: data.user});
       }
     })

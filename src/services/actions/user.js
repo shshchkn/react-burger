@@ -80,8 +80,8 @@ export const updateTokenRequest = callback => async dispatch => {
     })
     .then(data => {
       if (data.success) {
-        setCookie('accessToken', data.accessToken, {expires: 1200});
-        setCookie('refreshToken', data.refreshToken, {expires: 1200});
+        setCookie('accessToken', data.accessToken, {'max-age': 1200});
+        setCookie('refreshToken', data.refreshToken, {'max-age': 1200});
         dispatch(callback);
         console.log(data)
       }

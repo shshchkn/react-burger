@@ -43,6 +43,7 @@ const Profile = () => {
             </button>
           </li>
         </ul>
+        <p className={`${styles.notice} text text_type_main-default text_color_inactive mt-20`}>В этом разделе вы можете изменить свои персональные данные</p>
       </div>
       <div className="profile-content">
         <Outlet />
