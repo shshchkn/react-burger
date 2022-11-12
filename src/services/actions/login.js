@@ -20,10 +20,9 @@ export const loginRequest = form => async dispatch => {
       body: JSON.stringify(form)
     })
     .then(data => {
-      console.log(data)
       if (data.success) {
-        setCookie('accessToken', data.accessToken, {'max-age': 86400});
-        setCookie('refreshToken', data.refreshToken, {'max-age': 86400});
+        setCookie('accessToken', data.accessToken, {'max-age': 1200});
+        setCookie('refreshToken', data.refreshToken, {'max-age': 1200});
         dispatch({type: LOGIN_USER_SUCCESS, user: data.user});
       }
     })

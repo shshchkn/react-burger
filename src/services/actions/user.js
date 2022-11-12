@@ -21,7 +21,6 @@ export const getUserRequest = () => async dispatch => {
     })
     .then(data => {
       data.success && dispatch({type: GET_USER_SUCCESS, user: data.user});
-      console.log(data)
     })
     .catch(error => {
       if (error.message || error.message === 'jwt expired') {
@@ -38,7 +37,7 @@ export const getUserRequest = () => async dispatch => {
 export const updateUserRequest = form => async dispatch => {
   dispatch({type: GET_USER_REQUEST});
   return await apiRequest(`${API_AUTH_URL}/user`, {
-    method: 'POST',
+    method: 'PATCH',
     mode: 'cors',
     cache: 'no-cache',
     credentials: 'same-origin',
@@ -52,6 +51,7 @@ export const updateUserRequest = form => async dispatch => {
   })
     .then(data => {
       data.success && dispatch({type: GET_USER_SUCCESS, user: data.user});
+      console.log(data, form)
     })
     .catch(error => {
       if (error.message === 'jwt expired') {
@@ -80,8 +80,8 @@ export const updateTokenRequest = callback => async dispatch => {
     })
     .then(data => {
       if (data.success) {
-        setCookie('accessToken', data.accessToken, {'max-age': 1200});
-        setCookie('refreshToken', data.refreshToken, {'max-age': 1200});
+        setCookie('accessToken', data.accessToken);
+        setCookie('refreshToken', data.refreshToken);
         dispatch(callback);
         console.log(data)
       }

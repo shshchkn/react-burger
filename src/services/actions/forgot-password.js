@@ -20,7 +20,9 @@ export const forgotPasswordRequest = form => async dispatch => {
   })
     .then(data => {
       console.log(data)
-      data.success && dispatch({type: FORGOT_PASSWORD_USER_SUCCESS});
+      if (data.success) {
+        dispatch({type: FORGOT_PASSWORD_USER_SUCCESS});
+      }
     })
     .catch(error => {
       dispatch({type: FORGOT_PASSWORD_USER_FAILED});

@@ -7,19 +7,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../index";
 import {useEffect} from "react";
 import {getItems} from "../../services/actions/ingredients";
-import {getUserRequest} from "../../services/actions/user";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
-  const {user} = useSelector((store: RootState) => store.user);
   const {items} = useSelector((store: RootState) => store.ingredients);
 
-  console.log(user)
-
   useEffect(() => {
-    user === null && dispatch(getUserRequest());
     !items.length && dispatch(getItems());
-  }, [dispatch, user, items]);
+  }, [dispatch, items]);
 
   return (
     <div className={styles.wrapper}>

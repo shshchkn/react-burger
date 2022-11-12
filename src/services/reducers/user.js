@@ -157,6 +157,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         forgotPasswordRequest: true,
+        forgotPasswordSuccess: false,
         forgotPasswordFailed: false
       };
     }
@@ -172,6 +173,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         forgotPasswordRequest: false,
+        forgotPasswordSuccess: false,
         forgotPasswordFailed: true
       };
     }
