@@ -8,7 +8,7 @@ import {resetPasswordRequest} from "../services/actions/reset-password";
 
 export const ResetPasswordPage = () => {
   const navigate = useNavigate();
-  const {forgotPasswordSuccess} = useSelector((store: RootState) => store.user)
+  const {forgotPasswordSuccess, resetPasswordSuccess} = useSelector((store: RootState) => store.user)
   const dispatch: AppDispatch = useDispatch();
   const [reset, setReset] = useState({
     password: '',
@@ -16,13 +16,11 @@ export const ResetPasswordPage = () => {
   });
 
   useEffect(() => {
-    !forgotPasswordSuccess && navigate('/login');
-  }, [forgotPasswordSuccess, navigate]);
+    (!forgotPasswordSuccess || resetPasswordSuccess) && navigate('/login');
+  }, [forgotPasswordSuccess, resetPasswordSuccess, navigate]);
 
   const onResetPasswordSubmit = useCallback(() => {
-    reset.password &&
-    reset.token &&
-    dispatch(resetPasswordRequest(reset));
+    reset.password && reset.token && dispatch(resetPasswordRequest(reset.password, reset.token));
   }, [dispatch, reset]);
 
   const formContent = (
