@@ -8,7 +8,7 @@ import {resetPasswordRequest} from "../services/actions/reset-password";
 
 export const ResetPasswordPage = () => {
   const navigate = useNavigate();
-  const {forgotPasswordSuccess, resetPasswordFailed} = useSelector((store: RootState) => store.user)
+  const {forgotPasswordSuccess} = useSelector((store: RootState) => store.user)
   const dispatch: AppDispatch = useDispatch();
   const [reset, setReset] = useState({
     password: '',
@@ -19,8 +19,7 @@ export const ResetPasswordPage = () => {
     !forgotPasswordSuccess && navigate('/login');
   }, [forgotPasswordSuccess, navigate]);
 
-  const onResetPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const onResetPasswordSubmit = useCallback(() => {
     reset.password &&
     reset.token &&
     dispatch(resetPasswordRequest(reset));
@@ -42,7 +41,6 @@ export const ResetPasswordPage = () => {
           onChange={e => handleChangeInput(e, reset, setReset)}
           value={reset.token}
           name={'token'}
-          error={resetPasswordFailed}
           errorText={'Ошибка'}
           size={'default'}
         />
