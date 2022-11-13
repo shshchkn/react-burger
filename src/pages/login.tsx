@@ -1,7 +1,6 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {getCookie} from "../utils/helpers";
 import {useDispatch, useSelector} from "react-redux";
 import {loginRequest} from "../services/actions/login";
 import {AppDispatch, RootState} from "../index";
@@ -9,15 +8,10 @@ import {useForm} from "../hooks/useForm";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const token = getCookie('accessToken');
-  const {loginFailed, logoutRequest} = useSelector((store: RootState) => store.user);
+  const {loginFailed} = useSelector((store: RootState) => store.user);
   const dispatch: AppDispatch = useDispatch();
 
   const {values, handleChange} = useForm({});
-
-  useEffect(() => {
-    token !== undefined && navigate('/');
-  }, [token, logoutRequest, navigate]);
 
   const onLoginSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();

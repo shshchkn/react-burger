@@ -37,12 +37,15 @@ const ModalSwitch = () => {
     <>
       <Routes location={state?.backgroundLocation || location}>
         <Route index element={<HomePage />} />
-        <Route path="login" element={<LoginPage />} />
 
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute anonymous={true} />}>
+          <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="reset-password" element={<ResetPasswordPage />} />
+        </Route>
+
+        <Route element={<ProtectedRoute anonymous={false} />}>
           <Route path="profile/*" element={<ProfilePage />}>
             <Route index element={<ProfileForm />} />
             <Route path="orders" element={<ProfileOrders />} />
