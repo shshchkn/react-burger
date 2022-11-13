@@ -1,0 +1,9 @@
+.form {
+  width: 100%;
+  max-width: 480px;
+
+  &Buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

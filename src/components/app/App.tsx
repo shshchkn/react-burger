@@ -1,39 +1,32 @@
-import styles from './app.module.scss';
-import loader from '../../images/loader.gif';
-
+import {BrowserRouter as Router} from 'react-router-dom';
 import ErrorBoundary from '../error-boundry/ErrorBoundary';
 import AppHeader from '../app-header/AppHeader';
-import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
-import BurgerConstructor from '../burger-constructor/BurgerConstructor';
-
-import {useSelector} from "react-redux";
-import {RootState} from "../../index";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import styles from './app.module.scss';
+import ModalSwitch from "../modal-switch/ModalSwitch";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../../index";
+import {useEffect} from "react";
+import {getItems} from "../../services/actions/ingredients";
 
 const App = () => {
-  const {itemsRequest, itemsFiled} = useSelector((store: RootState) => store.ingredients);
+  const dispatch: AppDispatch = useDispatch();
+  const {items} = useSelector((store: RootState) => store.ingredients);
+
+  useEffect(() => {
+    !items.length && dispatch(getItems());
+  }, [dispatch, items]);
 
   return (
     <div className={styles.wrapper}>
       <ErrorBoundary>
-        <AppHeader/>
-        <main className={styles.main}>
-          <div className="container">
-            <div className={styles.dashboard}>
-              { itemsRequest || itemsFiled ? (
-                <div className={styles.loading}>
-                  {itemsRequest ? <img src={loader} alt="Logo"/> : <p>Ошибка загрузки данных!</p>}
-                </div>
-              ) : (
-                <DndProvider backend={HTML5Backend}>
-                  <BurgerIngredients />
-                  <BurgerConstructor />
-                </DndProvider>
-              )}
+        <Router>
+          <AppHeader/>
+          <main className={styles.main}>
+            <div className="container">
+              <ModalSwitch />
             </div>
-          </div>
-        </main>
+          </main>
+        </Router>
       </ErrorBoundary>
     </div>
   );

@@ -24,9 +24,13 @@ import {
 } from '../../services/actions/cart';
 import { totalPriceSelector } from '../../services/actions'
 import { getOrderedItems, CLOSE_ORDER, } from '../../services/actions/order';
+import {getCookie} from "../../utils/helpers";
+import {useNavigate} from "react-router-dom";
 
 const BurgerConstructor = () => {
+  const token = getCookie('accessToken');
   const dispatch: any = useDispatch();
+  const navigate = useNavigate();
   const {cartBun, cartItems} = useSelector((store: RootState) => store.cart);
   const {orderNumber} = useSelector((store: RootState) => store.order);
   const cartTotalPrice = useSelector(totalPriceSelector);
@@ -40,8 +44,18 @@ const BurgerConstructor = () => {
   }, [cartItems, dispatch]);
 
   const handleSetOrder = useCallback(() => {
-    cartBun && dispatch(getOrderedItems([cartBun, ...cartItems, cartBun]));
-  }, [cartBun, cartItems, dispatch]);
+    if (token) {
+      cartBun && dispatch(getOrderedItems([cartBun, ...cartItems, cartBun]));
+    } else {
+      navigate('/login');
+    }
+  }, [
+    cartBun,
+    cartItems,
+    dispatch,
+    token,
+    navigate
+  ]);
 
   const handleCloseModal = () => {
     dispatch({type: CLOSE_ORDER});

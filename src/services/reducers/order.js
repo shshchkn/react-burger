@@ -1,7 +1,7 @@
 import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
-  GET_ORDER_FILED,
+  GET_ORDER_FAILED,
   CLOSE_ORDER
 } from "../actions/order";
 
@@ -29,7 +29,7 @@ export const orderReducer = (state = initialState, action) => {
         orderFailed: false
       };
     }
-    case GET_ORDER_FILED: {
+    case GET_ORDER_FAILED: {
       return {
         ...state,
         orderRequest: false,
