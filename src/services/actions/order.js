@@ -11,7 +11,7 @@ export const getOrderedItems = (items) => dispatch => {
     method: 'POST',
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify({'ingredients': items.map(item => item._id)})
-  })
+  });
 
   getOrder()
     .then(res => {
