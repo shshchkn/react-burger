@@ -1,10 +1,11 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {getCookie, handleChangeInput} from "../utils/helpers";
+import {getCookie} from "../utils/helpers";
 import {useDispatch, useSelector} from "react-redux";
 import {loginRequest} from "../services/actions/login";
 import {AppDispatch, RootState} from "../index";
+import {useForm} from "../hooks/useForm";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -12,29 +13,26 @@ export const LoginPage = () => {
   const {loginFailed, logoutRequest} = useSelector((store: RootState) => store.user);
   const dispatch: AppDispatch = useDispatch();
 
-  const [login, setLogin] = useState({
-    email: '',
-    password: ''
-  });
+  const {values, handleChange} = useForm({});
 
   useEffect(() => {
-    !logoutRequest && token !== undefined && navigate('/');
+    token !== undefined && navigate('/');
   }, [token, logoutRequest, navigate]);
 
   const onLoginSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
-    login.email && login.password && dispatch(loginRequest(login));
+    values.email && values.password && dispatch(loginRequest(values));
     !loginFailed && navigate('/');
-  }, [dispatch, login, loginFailed, navigate]);
+  }, [dispatch, values, loginFailed, navigate]);
 
   const formContent = (
-    <form className="form mb-20">
+    <form className="form mb-20" onSubmit={onLoginSubmit}>
       <div className="mb-6">
         <Input
           type={'email'}
           placeholder={'E-mail'}
-          onChange={e => handleChangeInput(e, login, setLogin)}
-          value={login.email}
+          onChange={handleChange}
+          value={values?.email || ''}
           name={'email'}
           error={loginFailed}
           errorText={'Ошибка'}
@@ -43,11 +41,11 @@ export const LoginPage = () => {
       </div>
       <div className="mb-6">
         <PasswordInput
-          onChange={e => handleChangeInput(e, login, setLogin)}
-          value={login.password}
+          onChange={handleChange}
+          value={values?.password || ''}
           name={'password'} />
       </div>
-      <Button type="primary" size="medium" htmlType="button" onClick={onLoginSubmit}>
+      <Button type="primary" size="medium" htmlType="submit">
         Войти
       </Button>
     </form>

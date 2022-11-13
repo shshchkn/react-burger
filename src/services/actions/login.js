@@ -1,4 +1,4 @@
-import {API_AUTH_URL, apiRequest} from "../../utils/burger-api";
+import {apiRequest, BASE_URL} from "../../utils/burger-api";
 import {setCookie} from "../../utils/helpers";
 
 export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
@@ -7,7 +7,7 @@ export const LOGIN_USER_FAILED = 'LOGIN_USER_FAILED';
 
 export const loginRequest = form => async dispatch => {
   dispatch({type: LOGIN_USER_REQUEST});
-  return await apiRequest(`${API_AUTH_URL}/login`, {
+  return await apiRequest(`${BASE_URL}/auth/login`, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
