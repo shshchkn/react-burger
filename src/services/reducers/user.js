@@ -36,6 +36,7 @@ import {
 
 const initialState = {
   user: null,
+  isLoggedIn: false,
 
   userRequest: false,
   userFailed: false,
@@ -72,6 +73,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userRequest: false,
+        isLoggedIn: true,
         user: action.user,
         userFailed: false
       };
@@ -79,6 +81,7 @@ export const userReducer = (state = initialState, action) => {
     case GET_USER_FAILED: {
       return {
         ...state,
+        isLoggedIn: false,
         userRequest: false,
         userFailed: true
       };
@@ -118,6 +121,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loginRequest: false,
+        isLoggedIn: true,
         user: action.user,
         loginFailed: false
       };
@@ -126,6 +130,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loginRequest: false,
+        isLoggedIn: false,
         loginFailed: true
       };
     }
@@ -141,6 +146,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         logoutRequest: false,
+        isLoggedIn: false,
         user: null,
         logoutFailed: false
       };

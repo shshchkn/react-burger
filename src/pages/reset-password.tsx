@@ -1,49 +1,48 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {handleChangeInput} from "../utils/helpers";
 import {Link, useNavigate} from "react-router-dom";
 import {AppDispatch, RootState} from "../index";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordRequest} from "../services/actions/reset-password";
+import {useForm} from "../hooks/useForm";
 
 export const ResetPasswordPage = () => {
   const navigate = useNavigate();
   const {forgotPasswordSuccess, resetPasswordSuccess} = useSelector((store: RootState) => store.user)
   const dispatch: AppDispatch = useDispatch();
-  const [reset, setReset] = useState({
-    password: '',
-    token: ''
-  });
+
+  const {values, handleChange} = useForm({});
 
   useEffect(() => {
     (!forgotPasswordSuccess || resetPasswordSuccess) && navigate('/login');
   }, [forgotPasswordSuccess, resetPasswordSuccess, navigate]);
 
-  const onResetPasswordSubmit = useCallback(() => {
-    reset.password && reset.token && dispatch(resetPasswordRequest(reset.password, reset.token));
-  }, [dispatch, reset]);
+  const onResetPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
+    values.password && values.token && dispatch(resetPasswordRequest(values.password, values.token));
+  }, [dispatch, values]);
 
   const formContent = (
-    <form className="form mb-20">
+    <form className="form mb-20" onSubmit={onResetPasswordSubmit}>
       <div className="mb-6">
         <PasswordInput
           placeholder="Введите новый пароль"
-          onChange={e => handleChangeInput(e, reset, setReset)}
-          value={reset.password}
+          onChange={handleChange}
+          value={values.password || ''}
           name={'password'} />
       </div>
       <div className="mb-6">
         <Input
           type={'text'}
           placeholder={'Введите код из письма'}
-          onChange={e => handleChangeInput(e, reset, setReset)}
-          value={reset.token}
+          onChange={handleChange}
+          value={values.token || ''}
           name={'token'}
           errorText={'Ошибка'}
           size={'default'}
         />
       </div>
-      <Button type="primary" size="medium" htmlType="button" onClick={onResetPasswordSubmit}>
+      <Button type="primary" size="medium" htmlType="submit">
         Сохранить
       </Button>
     </form>

@@ -2,17 +2,25 @@ import React from "react";
 import {Navigate, Outlet, useLocation} from "react-router-dom";
 import {getCookie} from "../../utils/helpers";
 
-const ProtectedRoute = ({anonymous = false }) => {
-  const isLoggedIn = getCookie('accessToken');
+const ProtectedRoute = () => {
+  const token = getCookie('accessToken');
   const location = useLocation();
   const from = location.state?.from || '/';
 
-  if (anonymous && isLoggedIn) {
+  if (token !== undefined && (
+    location.pathname === '/register' ||
+    location.pathname === '/forgot-password' ||
+    location.pathname === '/reset-password'
+  )) {
     return <Navigate to={ from } />;
   }
 
-  if (!anonymous && !isLoggedIn) {
-    return <Navigate to="/login" state={{ from: location}}/>;
+  if (!token && (
+    location.pathname === '/profile' ||
+    location.pathname === '/profile/orders' ||
+    location.pathname === '/profile/orders/:id'
+  )) {
+    return <Navigate to="/login" state={{ from: location }}/>;
   }
 
   return <Outlet />;
