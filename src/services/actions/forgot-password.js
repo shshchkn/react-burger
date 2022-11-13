@@ -1,4 +1,4 @@
-import {API_URL, apiRequest} from "../../utils/burger-api";
+import {BASE_URL, apiRequest} from "../../utils/burger-api";
 
 export const FORGOT_PASSWORD_USER_REQUEST = 'FORGOT_PASSWORD_USER_REQUEST';
 export const FORGOT_PASSWORD_USER_SUCCESS = 'FORGOT_PASSWORD_USER_SUCCESS';
@@ -6,7 +6,7 @@ export const FORGOT_PASSWORD_USER_FAILED = 'FORGOT_PASSWORD_USER_FAILED';
 
 export const forgotPasswordRequest = form => async dispatch => {
   dispatch({type: FORGOT_PASSWORD_USER_REQUEST});
-  return await apiRequest(`${API_URL}/password-reset`, {
+  return await apiRequest(`${BASE_URL}/password-reset`, {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',

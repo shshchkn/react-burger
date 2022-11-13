@@ -1,4 +1,4 @@
-import {API_URL, apiRequest} from "../../utils/burger-api";
+import {BASE_URL, apiRequest} from "../../utils/burger-api";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -7,7 +7,7 @@ export const CLOSE_ORDER = 'CLOSE_ORDER';
 
 export const getOrderedItems = (items) => dispatch => {
   dispatch({type: GET_ORDER_REQUEST});
-  const getOrder = () => apiRequest(`${API_URL}/orders`, {
+  const getOrder = () => apiRequest(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify({'ingredients': items.map(item => item._id)})
