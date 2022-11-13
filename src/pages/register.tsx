@@ -1,37 +1,34 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {handleChangeInput} from "../utils/helpers";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {AppDispatch, RootState} from "../index";
 import {useDispatch, useSelector} from "react-redux";
 import {registerRequest} from "../services/actions/register";
+import {useForm} from "../hooks/useForm";
 
 export const RegisterPage = () => {
   const {registerFailed} = useSelector((store: RootState) => store.user);
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [register, setRegister] = useState({
-    name: '',
-    email: '',
-    password: ''
-  });
+  const {values, handleChange} = useForm({});
 
   const onRegisterSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
-    register.name &&
-    register.email &&
-    register.password &&
-    dispatch(registerRequest(register));
-  }, [dispatch, register]);
+    values.name &&
+    values.email &&
+    values.password &&
+    dispatch(registerRequest(values, navigate));
+  }, [dispatch, values, navigate]);
 
   const formContent = (
-    <form className="form mb-20">
+    <form className="form mb-20" onSubmit={onRegisterSubmit}>
       <div className="mb-6">
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={e => handleChangeInput(e, register, setRegister)}
-          value={register.name}
+          onChange={handleChange}
+          value={values?.name || ''}
           name={'name'}
           error={registerFailed}
           errorText={'Ошибка'}
@@ -42,8 +39,8 @@ export const RegisterPage = () => {
         <Input
           type={'email'}
           placeholder={'E-mail'}
-          onChange={e => handleChangeInput(e, register, setRegister)}
-          value={register.email}
+          onChange={handleChange}
+          value={values?.email || ''}
           name={'email'}
           error={registerFailed}
           errorText={'Ошибка'}
@@ -52,11 +49,11 @@ export const RegisterPage = () => {
       </div>
       <div className="mb-6">
         <PasswordInput
-          onChange={e => handleChangeInput(e, register, setRegister)}
-          value={register.password}
+          onChange={handleChange}
+          value={values?.password || ''}
           name={'password'} />
       </div>
-      <Button type="primary" size="medium" htmlType="button" onClick={onRegisterSubmit}>
+      <Button type="primary" size="medium" htmlType="submit">
         Зарегистрироваться
       </Button>
     </form>
