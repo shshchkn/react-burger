@@ -64,7 +64,8 @@ const ProfileForm = () => {
     });
   }, [profileState]);
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
     dispatch(updateUserRequest({
       'name': profileState.name.value,
       'email': profileState.email.value,
@@ -87,7 +88,7 @@ const ProfileForm = () => {
   }, [profileState, user?.name, user?.email]);
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={onSubmit}>
       <div className="mb-6">
         <Input
           type={'text'}
@@ -143,7 +144,7 @@ const ProfileForm = () => {
         <Button type="secondary" extraClass="mr-5 ml-auto" size="medium" htmlType={"button"} onClick={onReset}>
           Отмена
         </Button>
-        <Button type="primary" size="medium" htmlType={"button"} onClick={onSubmit}>
+        <Button type="primary" size="medium" htmlType={"submit"}>
           Сохранить
         </Button>
       </div>

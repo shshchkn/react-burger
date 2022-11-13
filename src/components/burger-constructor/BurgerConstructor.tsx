@@ -33,7 +33,6 @@ const BurgerConstructor = () => {
   const navigate = useNavigate();
   const {cartBun, cartItems} = useSelector((store: RootState) => store.cart);
   const {orderNumber} = useSelector((store: RootState) => store.order);
-  const {isLoggedIn} = useSelector((store: RootState) => store.user);
   const cartTotalPrice = useSelector(totalPriceSelector);
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
@@ -55,7 +54,6 @@ const BurgerConstructor = () => {
     cartItems,
     dispatch,
     token,
-    isLoggedIn,
     navigate
   ]);
 

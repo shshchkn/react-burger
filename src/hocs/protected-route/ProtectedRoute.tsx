@@ -20,7 +20,7 @@ const ProtectedRoute = () => {
     location.pathname === '/profile/orders' ||
     location.pathname === '/profile/orders/:id'
   )) {
-    return <Navigate to="/login" state={{ from: location }}/>;
+    return <Navigate to="/login" state={{ from: location }} />;
   }
 
   return <Outlet />;
