@@ -1,4 +1,4 @@
-import {API_AUTH_URL, apiRequest} from "../../utils/burger-api";
+import {BASE_URL, apiRequest} from "../../utils/burger-api";
 import {deleteCookie, getCookie, setCookie} from "../../utils/helpers";
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
@@ -7,7 +7,7 @@ export const GET_USER_FAILED = 'GET_USER_FAILED';
 
 export const getUserRequest = () => async dispatch => {
   dispatch({type: GET_USER_REQUEST});
-  return await apiRequest(`${API_AUTH_URL}/user`, {
+  return await apiRequest(`${BASE_URL}/auth/user`, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -36,7 +36,7 @@ export const getUserRequest = () => async dispatch => {
 
 export const updateUserRequest = form => async dispatch => {
   dispatch({type: GET_USER_REQUEST});
-  return await apiRequest(`${API_AUTH_URL}/user`, {
+  return await apiRequest(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     mode: 'cors',
     cache: 'no-cache',
@@ -66,7 +66,7 @@ export const updateUserRequest = form => async dispatch => {
 };
 
 export const updateTokenRequest = callback => async dispatch => {
-  return await fetch(`${API_AUTH_URL}/token`, {
+  return await fetch(`${BASE_URL}/auth/token`, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
