@@ -15,8 +15,6 @@ const ProtectedRoute = ({anonymous = false}) => {
     return <Navigate to="/login" state={{ from: location}}/>;
   }
 
-  console.log(anonymous)
-
   return <Outlet />;
 }
 
