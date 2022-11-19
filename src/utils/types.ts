@@ -1,22 +1,54 @@
 import React from "react";
+import {store} from "../services/store";
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch;
 
 export type TModal = {
-  children: React.ReactNode,
-  onClose?: () => void,
-  headerTitle: string
+  readonly children: React.ReactNode,
+  readonly onClose: () => void,
+  readonly headerTitle: string
 }
 
 export type TIngredient = {
-  _id: string,
-  price: number,
-  image_large: string,
-  image_mobile: string,
-  name: string,
-  calories: number,
-  proteins: number,
-  fat: number,
-  carbohydrates: number,
-  type: string,
-  dragId: number,
+  readonly _id: string,
+  readonly price: number,
+  readonly image: string,
+  readonly image_large: string,
+  readonly image_mobile: string,
+  readonly name: string,
+  readonly calories: number,
+  readonly proteins: number,
+  readonly fat: number,
+  readonly carbohydrates: number,
+  readonly type: string,
+}
+
+export type TIngredientDetails = {
+  details?: TIngredient
+}
+
+export type TIngredientSingle = TIngredient & {
+  readonly dragId: number,
   index: number
+}
+
+export type TIngredientProps = {
+  item: TIngredientSingle,
+  index: number,
+  moveCard: (dragIndex: number, hoverIndex: number) => void
+}
+
+export type TIngredientsTypes = {
+  readonly title: string,
+  readonly type: string,
+  readonly data: TIngredient[],
+}
+
+export type TModalOverlay = {
+  onClose: () => void,
+}
+
+export type TOrderDetails = {
+  readonly orderNumber: number
 }

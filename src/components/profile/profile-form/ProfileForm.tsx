@@ -4,7 +4,7 @@ import {getCookie} from "../../../utils/helpers";
 
 import styles from "./profile-form.module.scss";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../../../index";
+import {AppDispatch, RootState} from "../../../utils/types";
 import {getUserRequest, updateUserRequest} from "../../../services/actions/user";
 
 const ProfileForm = () => {

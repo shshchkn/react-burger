@@ -3,12 +3,12 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import styles from "./products-item.module.scss";
 import {useSelector} from "react-redux";
 import {TIngredient} from "../../utils/types";
-import {useCallback} from "react";
+import {FC, useCallback} from "react";
 import {useDrag} from "react-dnd";
-import {RootState} from "../../index";
+import {RootState} from "../../utils/types";
 import {Link, useLocation} from "react-router-dom";
 
-const ProductsItem = ((item: TIngredient,) => {
+const ProductsItem: FC<TIngredient> = item => {
   const location = useLocation();
   const {name, image_large, price} = item;
   const {cartItems, cartBun} = useSelector((store: RootState) => store.cart);
@@ -52,6 +52,6 @@ const ProductsItem = ((item: TIngredient,) => {
       </Link>
     </li>
   );
-});
+};
 
 export default ProductsItem;

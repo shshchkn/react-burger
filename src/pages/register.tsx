@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {AppDispatch, RootState} from "../index";
+import {AppDispatch, RootState} from "../utils/types";
 import {useDispatch, useSelector} from "react-redux";
 import {registerRequest} from "../services/actions/register";
 import {useForm} from "../hooks/useForm";

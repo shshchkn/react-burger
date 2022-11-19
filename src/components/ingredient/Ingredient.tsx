@@ -1,34 +1,28 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.scss";
-import {TIngredient} from '../../utils/types';
+import {AppDispatch, TIngredientProps, TIngredientSingle} from '../../utils/types';
 import {useDispatch} from "react-redux";
 import {REMOVE_CART_ITEM} from "../../services/actions/cart";
-import {useDrag, useDrop} from "react-dnd";
+import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 import type { Identifier, XYCoord } from 'dnd-core'
 import {useRef} from "react";
 
-export interface IngredientProps {
-  item: TIngredient,
-  index: number,
-  moveCard: (dragIndex: number, hoverIndex: number) => void
-}
-
-const Ingredient = ({item, index, moveCard}: IngredientProps) => {
-  const dispatch = useDispatch();
+const Ingredient = ({item, index, moveCard}: TIngredientProps) => {
+  const dispatch: AppDispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null)
 
   const removeCartItem = () => {
     dispatch({type: REMOVE_CART_ITEM, item});
   }
 
-  const [{ handlerId }, drop] = useDrop<TIngredient, void, { handlerId: Identifier | null }>({
+  const [{ handlerId }, drop] = useDrop<TIngredientSingle, void, { handlerId: Identifier | null }>({
     accept: 'cartItems',
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       }
     },
-    hover(item: TIngredient, monitor) {
+    hover(item: TIngredientSingle, monitor: DropTargetMonitor<TIngredientSingle, void>)  {
       if (!ref.current) return;
 
       const dragIndex = item.index;

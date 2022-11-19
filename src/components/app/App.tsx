@@ -4,7 +4,7 @@ import AppHeader from '../app-header/AppHeader';
 import styles from './app.module.scss';
 import ModalSwitch from "../modal-switch/ModalSwitch";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch, RootState} from "../../utils/types";
 import {useEffect} from "react";
 import {getItems} from "../../services/actions/ingredients";
 

@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {NotFoundPage} from "./not-found";
 import IngredientDetails from "../components/ingredient-details/IngredientDetails";
-import {RootState} from "../index";
+import {RootState} from "../utils/types";
 import {TIngredient} from "../utils/types";
 
 import styles from "../components/ingredient-details/ingredient-details.module.scss";

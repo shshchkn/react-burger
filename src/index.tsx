@@ -5,9 +5,6 @@ import App from './components/app/App';
 import { Provider } from 'react-redux';
 import {store} from "./services/store";
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch;
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

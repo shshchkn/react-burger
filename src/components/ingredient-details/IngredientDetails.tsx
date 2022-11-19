@@ -1,10 +1,10 @@
 import styles from './ingredient-details.module.scss';
 import {useSelector} from "react-redux";
-import {RootState} from "../../index";
-import {TIngredient} from "../../utils/types";
+import {RootState, TIngredient, TIngredientDetails} from "../../utils/types";
 import {useParams} from "react-router-dom";
+import {FC} from "react";
 
-const IngredientDetails = ({details}: { details?: TIngredient }) => {
+const IngredientDetails: FC<TIngredientDetails> = ({details}) => {
   const {id} = useParams<{ id?: string }>();
   const {items} = useSelector((store: RootState) => store.ingredients);
 

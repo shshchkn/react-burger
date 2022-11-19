@@ -1,10 +1,8 @@
 import styles from './modal-overlay.module.scss';
+import {TModalOverlay} from "../../utils/types";
+import {FC} from "react";
 
-type ModalOverlayTypes = {
-  onClose?: () => void,
-}
-
-const ModalOverlay = ({onClose}: ModalOverlayTypes) => {
+const ModalOverlay: FC<TModalOverlay> = ({onClose}) => {
   return (
     <div className={styles.backdrop} onClick={onClose}></div>
   );

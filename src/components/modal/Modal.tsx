@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {FC, useEffect} from 'react';
 import {createPortal} from 'react-dom';
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './modal.module.scss';
@@ -7,7 +7,7 @@ import {TModal} from "../../utils/types";
 
 const modalRoot = document.getElementById("modals");
 
-const Modal = ({children, headerTitle, onClose}: TModal) => {
+const Modal: FC<TModal> = ({children, headerTitle, onClose}) => {
 
   useEffect(() => {
     const closeOnEscape = (e: KeyboardEvent) => e.key === "Escape" ? onClose && onClose() : null;

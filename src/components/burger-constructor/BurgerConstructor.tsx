@@ -4,13 +4,13 @@ import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-deve
 
 import styles from './burger-constructor.module.scss';
 
-import {TIngredient} from '../../utils/types';
+import {AppDispatch, TIngredientSingle} from '../../utils/types';
 
 import OrderDetails from '../order-details/OrderDetails';
 import Ingredient from "../ingredient/Ingredient";
 import Modal from "../modal/Modal";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../index";
+import {RootState} from "../../utils/types";
 import {useDrop} from "react-dnd";
 import classNames from "classnames/bind";
 
@@ -29,7 +29,7 @@ import {useNavigate} from "react-router-dom";
 
 const BurgerConstructor = () => {
   const token = getCookie('accessToken');
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const {cartBun, cartItems} = useSelector((store: RootState) => store.cart);
   const {orderNumber} = useSelector((store: RootState) => store.order);
@@ -64,7 +64,7 @@ const BurgerConstructor = () => {
 
   const [{isHover}, dropTarget] = useDrop({
     accept: 'items',
-    drop(item: TIngredient) {
+    drop(item: TIngredientSingle) {
       item.type !== 'bun'
         ? dispatch({
           type: ADD_CART_ITEM,
@@ -81,7 +81,7 @@ const BurgerConstructor = () => {
   });
 
   const renderItems = useCallback(
-  (item: TIngredient, index: number) => {
+  (item: TIngredientSingle, index: number) => {
     return (
       <Ingredient
         key={item.dragId}
@@ -117,7 +117,7 @@ const BurgerConstructor = () => {
         {!cartItems.length && !cartBun && (<p className={styles.dropzoneNotice}>Перетащите ингредиенты</p>)}
 
         <div className={`board__body ${styles.items} custom-scroll mt-4 mb-4`}>
-          {cartItems && cartItems.map((item: TIngredient, id: number) => renderItems(item, id))}
+          {cartItems && cartItems.map((item: TIngredientSingle, id: number) => renderItems(item, id))}
         </div>
 
         {cartBun &&
