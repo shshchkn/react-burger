@@ -4,14 +4,16 @@ import {
   GET_ORDER_FAILED,
   CLOSE_ORDER
 } from "../actions/order";
+import {TOrderActions, TOrderState} from "../types/order";
 
-const initialState = {
+const initialState: TOrderState = {
   orderNumber: null,
   orderRequest: false,
-  orderFailed: false
+  orderFailed: false,
+  openModal: false
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TOrderActions) => {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {

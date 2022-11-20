@@ -56,3 +56,23 @@ export type TOrderDetails = {
 export type TSetCookieOptions = {
   [name: string]: string | number
 }
+
+export type TUser = {
+  readonly name?: string,
+  readonly email?: string
+}
+
+export type TProfileUser = {
+  readonly name: {
+    value: string,
+    disabled: boolean
+  },
+  readonly email: {
+    value: string,
+    disabled: boolean
+  },
+  readonly password: {
+    value: string,
+    disabled: boolean
+  }
+}
