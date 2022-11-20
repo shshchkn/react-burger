@@ -2,10 +2,9 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 
 import styles from "./products-item.module.scss";
 import {useSelector} from "react-redux";
-import {TIngredient} from "../../utils/types";
 import {FC, useCallback} from "react";
 import {useDrag} from "react-dnd";
-import {RootState} from "../../utils/types";
+import {RootState, TIngredient} from "../../services/types";
 import {Link, useLocation} from "react-router-dom";
 
 const ProductsItem: FC<TIngredient> = item => {
@@ -23,8 +22,8 @@ const ProductsItem: FC<TIngredient> = item => {
   });
 
   const count = useCallback(() => {
-    if (cartBun && item._id === cartBun._id) return 2;
-    return cartItems.length && cartItems.filter((el: TIngredient) => el._id === item._id).length;
+    if (cartBun && item._id === cartBun['_id']) return 2;
+    return cartItems && [...cartItems].filter((el: TIngredient) => el._id === item._id).length;
   }, [item._id, cartItems, cartBun]);
 
   return (
@@ -40,7 +39,7 @@ const ProductsItem: FC<TIngredient> = item => {
         state={{backgroundLocation: location}}
         className={styles.link}
       >
-        {count() !== 0 && <Counter count={count()} size="default"/>}
+        {count() > 0 && <Counter count={count()} size="default"/>}
         <div className={`${styles.card__image} mb-2 ml-4 mr-4`}>
           <img src={image_large} alt={name}/>
         </div>

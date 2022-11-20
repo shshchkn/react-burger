@@ -1,7 +1,7 @@
 import styles from "./order-details.module.scss";
 import done from "../../images/done.png";
 import {FC} from "react";
-import {TOrderDetails} from "../../utils/types";
+import {TOrderDetails} from "../../services/types";
 
 const OrderDetails: FC<TOrderDetails> = ({orderNumber}) => {
   return (

@@ -4,13 +4,11 @@ import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-deve
 
 import styles from './burger-constructor.module.scss';
 
-import {AppDispatch, TIngredientSingle} from '../../utils/types';
-
 import OrderDetails from '../order-details/OrderDetails';
 import Ingredient from "../ingredient/Ingredient";
 import Modal from "../modal/Modal";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../utils/types";
+import {RootState, AppDispatch, TIngredientSingle} from "../../services/types";
 import {useDrop} from "react-dnd";
 import classNames from "classnames/bind";
 
@@ -95,7 +93,7 @@ const BurgerConstructor = () => {
   let cx = classNames.bind(styles);
   const dropZoneClass = cx('dropzone', {
     'isHover': isHover,
-    'isEmpty': !cartItems.length && !cartBun
+    'isEmpty': !cartItems['length'] && !cartBun
   });
 
   return (
@@ -108,16 +106,16 @@ const BurgerConstructor = () => {
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={`${cartBun.name} (верх)`}
-              price={cartBun.price}
-              thumbnail={cartBun.image_mobile}
+              text={`${cartBun['name']} (верх)`}
+              price={cartBun['price']}
+              thumbnail={cartBun['image_mobile']}
             />
           </div>)}
 
-        {!cartItems.length && !cartBun && (<p className={styles.dropzoneNotice}>Перетащите ингредиенты</p>)}
+        {!cartItems['length'] && !cartBun && (<p className={styles.dropzoneNotice}>Перетащите ингредиенты</p>)}
 
         <div className={`board__body ${styles.items} custom-scroll mt-4 mb-4`}>
-          {cartItems && cartItems.map((item: TIngredientSingle, id: number) => renderItems(item, id))}
+          {cartItems && [...cartItems].map((item: TIngredientSingle, id: number) => renderItems(item, id))}
         </div>
 
         {cartBun &&
@@ -125,9 +123,9 @@ const BurgerConstructor = () => {
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={`${cartBun.name} (низ)`}
-              price={cartBun.price}
-              thumbnail={cartBun.image_mobile}
+              text={`${cartBun['name']} (низ)`}
+              price={cartBun['price']}
+              thumbnail={cartBun['image_mobile']}
             />
           </div>)}
       </div>

@@ -1,6 +1,6 @@
 import styles from './ingredient-details.module.scss';
 import {useSelector} from "react-redux";
-import {RootState, TIngredient, TIngredientDetails} from "../../utils/types";
+import {RootState, TIngredient, TIngredientDetails} from "../../services/types";
 import {useParams} from "react-router-dom";
 import {FC} from "react";
 

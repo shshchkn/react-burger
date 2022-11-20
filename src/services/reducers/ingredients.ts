@@ -3,14 +3,15 @@ import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
 } from "../actions/ingredients";
+import {TGetItemsActions, TIngredientsState} from "../types/ingredients";
 
-const initialState = {
+const initialState: TIngredientsState = {
   items: [],
   itemsRequest: false,
   itemsFailed: false,
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TGetItemsActions) => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {

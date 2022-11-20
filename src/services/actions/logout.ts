@@ -1,11 +1,12 @@
 import {BASE_URL} from "../../utils/burger-api";
 import {deleteCookie, getCookie} from "../../utils/helpers";
+import {AppDispatch} from "../types";
 
 export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST';
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
 export const LOGOUT_USER_FAILED = 'LOGOUT_USER_FAIL';
 
-export const logoutRequest = () => async dispatch => {
+export const logoutRequest = () => async (dispatch: AppDispatch) => {
   dispatch({type: LOGOUT_USER_REQUEST});
   return await fetch(`${BASE_URL}/auth/logout`, {
       method: 'POST',

@@ -1,10 +1,11 @@
 import {BASE_URL, apiRequest} from "../../utils/burger-api";
+import {AppDispatch} from "../types";
 
 export const RESET_PASSWORD_USER_REQUEST = 'RESET_PASSWORD_USER_REQUEST';
 export const RESET_PASSWORD_USER_SUCCESS = 'RESET_PASSWORD_USER_SUCCESS';
 export const RESET_PASSWORD_USER_FAILED = 'RESET_PASSWORD_USER_FAILED';
 
-export const resetPasswordRequest = (password, token) => async dispatch => {
+export const resetPasswordRequest = (password: string, token: string) => async (dispatch: AppDispatch) => {
   dispatch({type: RESET_PASSWORD_USER_REQUEST});
   return await apiRequest(`${BASE_URL}/password-reset/reset`, {
     method: 'POST',

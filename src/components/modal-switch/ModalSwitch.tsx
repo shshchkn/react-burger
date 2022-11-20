@@ -21,7 +21,7 @@ import IngredientDetails from "../ingredient-details/IngredientDetails";
 import ProtectedRoute from "../../hocs/protected-route/ProtectedRoute";
 import ProfileForm from "../profile/profile-form/ProfileForm";
 import ProfileOrders from "../profile/profile-orders/ProfileOrders";
-import {AppDispatch} from "../../utils/types";
+import {AppDispatch} from "../../services/types";
 
 const ModalSwitch = () => {
   const dispatch: AppDispatch = useDispatch();

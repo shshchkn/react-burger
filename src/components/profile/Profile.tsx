@@ -1,4 +1,4 @@
-import {AppDispatch, RootState} from "../../utils/types";
+import {AppDispatch, RootState} from "../../services/types";
 import {useDispatch, useSelector} from "react-redux";
 import React from "react";
 import {logoutRequest} from "../../services/actions/logout";

@@ -1,5 +1,5 @@
 import React from "react";
-import {store} from "../services/store";
+import {store} from "../store";
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;
@@ -51,4 +51,8 @@ export type TModalOverlay = {
 
 export type TOrderDetails = {
   readonly orderNumber: number
+}
+
+export type TSetCookieOptions = {
+  [name: string]: string | number
 }

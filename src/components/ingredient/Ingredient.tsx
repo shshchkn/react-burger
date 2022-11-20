@@ -1,6 +1,6 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.scss";
-import {AppDispatch, TIngredientProps, TIngredientSingle} from '../../utils/types';
+import {AppDispatch, TIngredientProps, TIngredientSingle} from '../../services/types';
 import {useDispatch} from "react-redux";
 import {REMOVE_CART_ITEM} from "../../services/actions/cart";
 import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";

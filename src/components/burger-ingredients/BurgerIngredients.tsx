@@ -4,7 +4,7 @@ import ProductsList from '../products-list/ProductsList';
 
 import styles from './burger-ingredients.module.scss';
 import {useSelector} from "react-redux";
-import {RootState, TIngredient} from "../../utils/types";
+import {RootState, TIngredient} from "../../services/types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useInView} from "react-intersection-observer";
 

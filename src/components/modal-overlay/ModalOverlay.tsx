@@ -1,5 +1,5 @@
 import styles from './modal-overlay.module.scss';
-import {TModalOverlay} from "../../utils/types";
+import {TModalOverlay} from "../../services/types";
 import {FC} from "react";
 
 const ModalOverlay: FC<TModalOverlay> = ({onClose}) => {

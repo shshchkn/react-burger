@@ -1,6 +1,6 @@
 import React, {FC, useMemo} from "react";
 import styles from "./products-list.module.scss";
-import {TIngredientsTypes} from "../../utils/types";
+import {TIngredientsTypes} from "../../services/types";
 import ProductsItem from "../products-item/ProductsItem";
 
 const ProductsList: FC<TIngredientsTypes> = ({title, data, type}) => {
