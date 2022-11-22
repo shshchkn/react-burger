@@ -17,7 +17,7 @@ export const ResetPasswordPage = () => {
     (!forgotPasswordSuccess || resetPasswordSuccess) && navigate('/login');
   }, [forgotPasswordSuccess, resetPasswordSuccess, navigate]);
 
-  const onResetPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
+  const onResetPasswordSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     values.password && values.token && dispatch(resetPasswordRequest(values.password, values.token));
   }, [dispatch, values]);

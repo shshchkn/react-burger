@@ -13,11 +13,9 @@ export const RegisterPage = () => {
 
   const {values, handleChange} = useForm({});
 
-  const onRegisterSubmit = useCallback((e: React.SyntheticEvent) => {
+  const onRegisterSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
-    values.name &&
-    values.email &&
-    values.password &&
+    values &&
     dispatch(registerRequest(values, navigate));
   }, [dispatch, values, navigate]);
 
@@ -28,7 +26,7 @@ export const RegisterPage = () => {
           type={'text'}
           placeholder={'Имя'}
           onChange={handleChange}
-          value={values?.name || ''}
+          value={values.name || ''}
           name={'name'}
           error={registerFailed}
           errorText={'Ошибка'}

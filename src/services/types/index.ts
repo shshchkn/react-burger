@@ -76,3 +76,9 @@ export type TProfileUser = {
     disabled: boolean
   }
 }
+
+export type TInputNames = 'password' | 'email' | 'token' | 'name'
+
+export type TUseForm<T extends string> = {
+  [key in T]?: string
+}

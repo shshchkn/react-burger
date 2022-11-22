@@ -6,7 +6,7 @@ export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAILED = 'LOGIN_USER_FAILED';
 
-export const loginRequest = (form: string[]) => async (dispatch: AppDispatch) => {
+export const loginRequest = (email: string, password: string) => async (dispatch: AppDispatch) => {
   dispatch({type: LOGIN_USER_REQUEST});
   return await apiRequest(`${BASE_URL}/auth/login`, {
       method: 'POST',
@@ -18,7 +18,7 @@ export const loginRequest = (form: string[]) => async (dispatch: AppDispatch) =>
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
-      body: JSON.stringify(form)
+      body: JSON.stringify({email, password})
     })
     .then(data => {
       if (data.success) {
