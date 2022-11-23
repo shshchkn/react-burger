@@ -13,7 +13,7 @@ export const RegisterPage = () => {
 
   const {values, handleChange} = useForm({});
 
-  const onRegisterSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e: React.SyntheticEvent) => {
+  const onRegisterSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     values &&
     dispatch(registerRequest(values, navigate));

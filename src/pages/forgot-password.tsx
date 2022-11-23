@@ -13,7 +13,7 @@ export const ForgotPasswordPage = () => {
 
   const {values, handleChange} = useForm({});
 
-  const onForgotPasswordSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e: React.SyntheticEvent) => {
+  const onForgotPasswordSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     values?.email && dispatch(forgotPasswordRequest(values.email));
   }, [dispatch, values]);

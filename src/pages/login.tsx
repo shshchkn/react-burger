@@ -13,7 +13,7 @@ export const LoginPage = () => {
 
   const {values, handleChange} = useForm({});
 
-  const onLoginSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e: React.SyntheticEvent) => {
+  const onLoginSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     values.email && values.password && dispatch(loginRequest(values.email, values.password));
     !loginFailed && navigate('/');

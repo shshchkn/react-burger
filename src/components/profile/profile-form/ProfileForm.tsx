@@ -64,7 +64,7 @@ const ProfileForm = () => {
     });
   }, [profileState]);
 
-  const onSubmit = useCallback((e: React.SyntheticEvent) => {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     dispatch(updateUserRequest({
       name: profileState.name.value,

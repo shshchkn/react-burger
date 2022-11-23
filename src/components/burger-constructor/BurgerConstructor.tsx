@@ -33,7 +33,7 @@ const BurgerConstructor = () => {
   const {orderNumber} = useSelector((store: RootState) => store.order);
   const cartTotalPrice = useSelector(totalPriceSelector);
 
-  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
+  const moveCard: (dragIndex: number, hoverIndex: number) => void = useCallback((dragIndex, hoverIndex) => {
     const dragCard = cartItems[dragIndex];
     const newCards = [...cartItems];
     newCards.splice(dragIndex, 1);
