@@ -5,7 +5,7 @@ import BurgerIngredients from "../components/burger-ingredients/BurgerIngredient
 import BurgerConstructor from "../components/burger-constructor/BurgerConstructor";
 import styles from "../components/app/app.module.scss";
 import loader from "../images/loader.gif";
-import {RootState} from "../index";
+import {RootState} from "../services/types";
 
 export const HomePage = () => {
   const {itemsRequest, itemsFailed} = useSelector((store: RootState) => store.ingredients);

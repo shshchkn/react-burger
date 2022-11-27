@@ -1,11 +1,12 @@
 import {BASE_URL, apiRequest} from "../../utils/burger-api";
 import {deleteCookie, getCookie, setCookie} from "../../utils/helpers";
+import {AppDispatch} from "../types";
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
 
-export const getUserRequest = () => async dispatch => {
+export const getUserRequest = () => async (dispatch: AppDispatch) => {
   dispatch({type: GET_USER_REQUEST});
   return await apiRequest(`${BASE_URL}/auth/user`, {
       method: 'GET',
@@ -34,7 +35,7 @@ export const getUserRequest = () => async dispatch => {
     });
 };
 
-export const updateUserRequest = form => async dispatch => {
+export const updateUserRequest = (form: {name: string, email: string, password: string}) => async (dispatch: AppDispatch) => {
   dispatch({type: GET_USER_REQUEST});
   return await apiRequest(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
@@ -65,24 +66,24 @@ export const updateUserRequest = form => async dispatch => {
     });
 };
 
-export const updateTokenRequest = callback => async dispatch => {
-  return await fetch(`${BASE_URL}/auth/token`, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: 'token: ' + getCookie('refreshToken')
-    })
+export const updateTokenRequest = (afterRefresh: (dispatch: AppDispatch) => Promise<void>) => async (dispatch: AppDispatch) => {
+  return await apiRequest(`${BASE_URL}/auth/token`, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: 'token: ' + getCookie('refreshToken')
+  })
     .then(data => {
-      if (data.success) {
-        setCookie('accessToken', data.accessToken);
-        setCookie('refreshToken', data.refreshToken);
-        dispatch(callback);
+      if (data && data.success) {
+        setCookie('accessToken', data.accessToken, {'max-age': 1200});
+        setCookie('refreshToken', data.refreshToken, {'max-age': 1200});
+        dispatch(afterRefresh);
         console.log(data)
       }
     })

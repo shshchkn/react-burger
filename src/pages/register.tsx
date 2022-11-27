@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {AppDispatch, RootState} from "../index";
+import {AppDispatch, RootState} from "../services/types";
 import {useDispatch, useSelector} from "react-redux";
 import {registerRequest} from "../services/actions/register";
 import {useForm} from "../hooks/useForm";
@@ -13,11 +13,9 @@ export const RegisterPage = () => {
 
   const {values, handleChange} = useForm({});
 
-  const onRegisterSubmit = useCallback((e: React.SyntheticEvent) => {
+  const onRegisterSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
-    values.name &&
-    values.email &&
-    values.password &&
+    values &&
     dispatch(registerRequest(values, navigate));
   }, [dispatch, values, navigate]);
 
@@ -28,7 +26,7 @@ export const RegisterPage = () => {
           type={'text'}
           placeholder={'Имя'}
           onChange={handleChange}
-          value={values?.name || ''}
+          value={values.name || ''}
           name={'name'}
           error={registerFailed}
           errorText={'Ошибка'}

@@ -28,6 +28,7 @@
 }
 
 .card {
+  $self: &;
 	width: 100%;
 	display: block;
 	position: relative;
@@ -58,10 +59,24 @@
 		align-items: center;
 		justify-content: center;
 		color: $color-primary-light;
+    transition: color 0.3s;
+
+    #{$self}:hover & {
+      color: $color-green;
+    }
 	}
 
 	&__title {
 		min-height: 48px;
 		color: $color-primary-light;
+    transition: color 0.3s;
+
+    #{$self}:hover & {
+      color: $color-green;
+    }
 	}
+}
+
+.link {
+  text-decoration: none;
 }

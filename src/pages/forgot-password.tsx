@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {AppDispatch, RootState} from "../index";
+import {AppDispatch, RootState} from "../services/types";
 import {useDispatch, useSelector} from "react-redux";
 import {forgotPasswordRequest} from "../services/actions/forgot-password";
 import {useForm} from "../hooks/useForm";
@@ -13,9 +13,9 @@ export const ForgotPasswordPage = () => {
 
   const {values, handleChange} = useForm({});
 
-  const onForgotPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
+  const onForgotPasswordSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
-    values.email && dispatch(forgotPasswordRequest(values.email));
+    values?.email && dispatch(forgotPasswordRequest(values.email));
   }, [dispatch, values]);
 
   useEffect(() => {

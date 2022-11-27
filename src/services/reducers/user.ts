@@ -33,8 +33,9 @@ import {
   RESET_PASSWORD_USER_SUCCESS,
   RESET_PASSWORD_USER_FAILED
 } from "../actions/reset-password";
+import {TUserActions, userState} from "../types/user";
 
-const initialState = {
+const initialState: userState = {
   user: null,
   isLoggedIn: false,
 
@@ -60,7 +61,7 @@ const initialState = {
   resetPasswordFailed: false,
 }
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserActions) => {
   switch (action.type) {
     case GET_USER_REQUEST: {
       return {

@@ -4,7 +4,7 @@ import {getCookie} from "../../../utils/helpers";
 
 import styles from "./profile-form.module.scss";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../../../index";
+import {AppDispatch, RootState, TProfileUser} from "../../../services/types";
 import {getUserRequest, updateUserRequest} from "../../../services/actions/user";
 
 const ProfileForm = () => {
@@ -15,7 +15,7 @@ const ProfileForm = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const [profileState, setProfileState] = useState({
+  const [profileState, setProfileState] = useState<TProfileUser>({
     name: {
       value: user?.name || '',
       disabled: true,
@@ -64,12 +64,12 @@ const ProfileForm = () => {
     });
   }, [profileState]);
 
-  const onSubmit = useCallback((e: React.SyntheticEvent) => {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     dispatch(updateUserRequest({
-      'name': profileState.name.value,
-      'email': profileState.email.value,
-      'password': profileState.password.value
+      name: profileState.name.value,
+      email: profileState.email.value,
+      password: profileState.password.value
     }));
   }, [dispatch, profileState]);
 
@@ -78,11 +78,11 @@ const ProfileForm = () => {
       ...profileState,
       name: {
         ...profileState.name,
-        value: user?.name
+        value: String(user?.name)
       },
       email: {
         ...profileState.email,
-        value: user?.email
+        value: String(user?.email)
       }
     });
   }, [profileState, user?.name, user?.email]);

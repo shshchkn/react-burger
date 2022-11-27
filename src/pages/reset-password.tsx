@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {AppDispatch, RootState} from "../index";
+import {AppDispatch, RootState} from "../services/types";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordRequest} from "../services/actions/reset-password";
 import {useForm} from "../hooks/useForm";
@@ -17,7 +17,7 @@ export const ResetPasswordPage = () => {
     (!forgotPasswordSuccess || resetPasswordSuccess) && navigate('/login');
   }, [forgotPasswordSuccess, resetPasswordSuccess, navigate]);
 
-  const onResetPasswordSubmit = useCallback((e: React.SyntheticEvent) => {
+  const onResetPasswordSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
     values.password && values.token && dispatch(resetPasswordRequest(values.password, values.token));
   }, [dispatch, values]);

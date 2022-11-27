@@ -1,15 +1,9 @@
-import React, {useMemo} from "react";
+import React, {FC, useMemo} from "react";
 import styles from "./products-list.module.scss";
-import {TIngredient} from "../../utils/types";
+import {TIngredientsTypes} from "../../services/types";
 import ProductsItem from "../products-item/ProductsItem";
 
-type IngredientsTypes = {
-  title: string,
-  type: string,
-  data: TIngredient[],
-}
-
-const ProductsList = ({title, data, type}: IngredientsTypes) => {
+const ProductsList: FC<TIngredientsTypes> = ({title, data, type}) => {
   const content = useMemo(() => data && data.map(item => <ProductsItem key={item._id} {...item}/>), [data]);
 
   return (

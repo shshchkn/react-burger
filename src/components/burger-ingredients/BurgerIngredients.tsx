@@ -4,13 +4,12 @@ import ProductsList from '../products-list/ProductsList';
 
 import styles from './burger-ingredients.module.scss';
 import {useSelector} from "react-redux";
-import {RootState} from "../../index";
-import {TIngredient} from "../../utils/types";
+import {RootState, TIngredient} from "../../services/types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
-  const [current, setCurrent] = useState('bun');
+  const [current, setCurrent] = useState<string>('bun');
   const scrollRef = useRef<HTMLDivElement>(null);
   const {items} = useSelector((store: RootState) => store.ingredients);
 

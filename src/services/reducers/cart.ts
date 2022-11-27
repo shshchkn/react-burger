@@ -5,15 +5,17 @@ import {
   UPDATE_CART,
   CLEAN_CART,
 } from "../actions/cart";
+import {TCartActions, TCartState} from "../types/cart";
+import {TIngredientSingle} from "../types";
 
-const initialState = {
+const initialState: TCartState = {
   cartItems: [],
   cartBun: null,
   cartRequest: false,
   cartFailed: false,
 }
 
-export const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action: TCartActions) => {
   switch (action.type) {
     case ADD_CART_BUN: {
       return {
@@ -33,7 +35,7 @@ export const cartReducer = (state = initialState, action) => {
     case REMOVE_CART_ITEM: {
       return {
         ...state,
-        cartItems: [...state.cartItems].filter(item => item.dragId !== action.item.dragId)
+        cartItems: [...state.cartItems].filter((el: TIngredientSingle) => el.dragId !== (action.item && action.item.dragId))
       };
     }
     case UPDATE_CART: {

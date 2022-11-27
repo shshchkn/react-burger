@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {loginRequest} from "../services/actions/login";
-import {AppDispatch, RootState} from "../index";
+import {AppDispatch, RootState} from "../services/types";
 import {useForm} from "../hooks/useForm";
 
 export const LoginPage = () => {
@@ -13,9 +13,9 @@ export const LoginPage = () => {
 
   const {values, handleChange} = useForm({});
 
-  const onLoginSubmit = useCallback((e: React.SyntheticEvent) => {
+  const onLoginSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
     e.preventDefault();
-    values.email && values.password && dispatch(loginRequest(values));
+    values.email && values.password && dispatch(loginRequest(values.email, values.password));
     !loginFailed && navigate('/');
   }, [dispatch, values, loginFailed, navigate]);
 
