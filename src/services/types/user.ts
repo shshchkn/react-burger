@@ -16,7 +16,7 @@ import {
 } from "../actions/forgot-password";
 import {RESET_PASSWORD_USER_REQUEST} from "../actions/reset-password";
 
-export type userState = {
+export type TUserState = {
   user: TUser | null,
   isLoggedIn: boolean,
   userRequest: boolean,

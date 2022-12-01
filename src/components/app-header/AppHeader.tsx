@@ -29,7 +29,7 @@ const AppHeader = () => {
                 </NavLink>
               </li>
               <li className={styles.menu__item}>
-                <NavLink to="orders" className={linkClasses} >
+                <NavLink to="feed" className={linkClasses} >
                   <ListIcon type="secondary"/> Лента заказов
                 </NavLink>
               </li>

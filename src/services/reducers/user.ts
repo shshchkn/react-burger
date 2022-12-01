@@ -33,9 +33,9 @@ import {
   RESET_PASSWORD_USER_SUCCESS,
   RESET_PASSWORD_USER_FAILED
 } from "../actions/reset-password";
-import {TUserActions, userState} from "../types/user";
+import {TUserActions, TUserState} from "../types/user";
 
-const initialState: userState = {
+const initialState: TUserState = {
   user: null,
   isLoggedIn: false,
 

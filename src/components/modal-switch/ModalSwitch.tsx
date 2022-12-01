@@ -12,7 +12,8 @@ import {
   ResetPasswordPage,
   ProfilePage,
   IngredientPage,
-  NotFoundPage
+  NotFoundPage,
+  FeedPage
 } from "../../pages";
 import Modal from "../modal/Modal";
 import {useDispatch} from "react-redux";
@@ -53,6 +54,8 @@ const ModalSwitch = () => {
           </Route>
         </Route>
 
+        <Route path="feed" element={<FeedPage />} />
+        {/*<Route path="feed/:id" element={<IngredientPage />} />*/}
         <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
