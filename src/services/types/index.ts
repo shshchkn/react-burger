@@ -22,6 +22,7 @@ export type TIngredient = {
   readonly fat: number,
   readonly carbohydrates: number,
   readonly type: string,
+  readonly qty?: number
 }
 
 export type TIngredientDetails = {
@@ -82,3 +83,37 @@ export type TInputNames = 'password' | 'email' | 'token' | 'name'
 export type TUseForm<T extends string> = {
   [key in T]?: string
 }
+
+export type TWs = {
+  wsConnected: boolean,
+  orders: TWsOrder[] | null,
+  total: number | null,
+  totalToday: number | null,
+  error: string | null,
+};
+
+export type TOwner = {
+  name: string,
+  email: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type TWsOrder = {
+  createdAt: string,
+  ingredients: string[],
+  name: string,
+  number: number,
+  owner?: TOwner,
+  price?: number,
+  status: string,
+  updatedAt: string,
+  _id: string,
+};
+
+export type TWsResponse = {
+  success: boolean;
+  orders: TWsOrder[];
+  total: number;
+  totalToday: number;
+};

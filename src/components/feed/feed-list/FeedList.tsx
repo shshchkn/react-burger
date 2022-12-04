@@ -1,18 +1,19 @@
 import styles from './feed-list.module.scss';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Link} from "react-router-dom";
 
 const FeedList = () => {
   return (
     <div className={`${styles.wrapper} custom-scroll`}>
       <ul className={styles.orders}>
         <li className='ordersItem order mb-4'>
-          <a href="#" className={styles.orderLink}>
-            <div className="orderRow mb-6">
+          <Link to=":id" className={styles.orderLink}>
+            <div className={`${styles.orderRow} mb-6`}>
               <span className="orderNumber text_color_primary">#034535</span>
               <span className="orderTime text_color_inactive">Сегодня, 16:20</span>
             </div>
             <div className="orderRow mb-6">
-              <span className="orderName text_color_primary">Death Star Starship Main бургер</span>
+              <span className="orderName text text_type_main-medium text_color_primary">Death Star Starship Main бургер</span>
             </div>
             <div className={styles.orderRow}>
               <div className={styles.orderList}>
@@ -31,7 +32,7 @@ const FeedList = () => {
                 <CurrencyIcon type="primary"/>
               </span>
             </div>
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

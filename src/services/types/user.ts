@@ -5,16 +5,16 @@ import * as logoutTypes from "../actions/logout";
 import * as forgotPasswordTypes from "../actions/forgot-password";
 import * as resetPasswordTypes from "../actions/reset-password";
 import {TUser} from "./index";
-import * as types from "../actions/ingredients";
-import {GET_USER_FAILED, GET_USER_REQUEST, GET_USER_SUCCESS} from "../actions/user";
-import {REGISTER_USER_REQUEST} from "../actions/register";
-import {LOGIN_USER_REQUEST} from "../actions/login";
-import {
-  FORGOT_PASSWORD_USER_FAILED,
-  FORGOT_PASSWORD_USER_REQUEST,
-  FORGOT_PASSWORD_USER_SUCCESS
-} from "../actions/forgot-password";
-import {RESET_PASSWORD_USER_REQUEST} from "../actions/reset-password";
+// import * as types from "../actions/ingredients";
+// import {GET_USER_FAILED, GET_USER_REQUEST, GET_USER_SUCCESS} from "../actions/user";
+// import {REGISTER_USER_REQUEST} from "../actions/register";
+// import {LOGIN_USER_REQUEST} from "../actions/login";
+// import {
+//   FORGOT_PASSWORD_USER_FAILED,
+//   FORGOT_PASSWORD_USER_REQUEST,
+//   FORGOT_PASSWORD_USER_SUCCESS
+// } from "../actions/forgot-password";
+// import {RESET_PASSWORD_USER_REQUEST} from "../actions/reset-password";
 
 export type TUserState = {
   user: TUser | null,

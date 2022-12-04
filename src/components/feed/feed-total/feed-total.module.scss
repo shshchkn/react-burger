@@ -1,0 +1,42 @@
+@import "../../../scss/utils/variables";
+@import "../../../scss/utils/mixins";
+
+.total {
+  width: 100%;
+
+  @include media-up(lg) {
+    max-width: 580px;
+    flex: 1;
+  }
+}
+
+.orders {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ordersColumn {
+  flex: 1;
+
+  &:not(:last-child) {
+    margin-right: 16px;
+
+    @include media-up(sm) {
+      margin-right: 36px;
+    }
+  }
+}
+
+.list {
+  list-style: none;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.count {
+  text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+
+  @include media-down(xs) {
+    font-size: 84px;
+  }
+}
