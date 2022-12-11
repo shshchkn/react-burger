@@ -6,18 +6,13 @@ import BurgerConstructor from "../components/burger-constructor/BurgerConstructo
 import styles from "../components/app/app.module.scss";
 import loader from "../images/loader.gif";
 import {RootState} from "../services/types";
+import {Loader} from "../ui/loader/Loader";
 
 export const HomePage = () => {
   const {itemsRequest, itemsFailed} = useSelector((store: RootState) => store.ingredients);
 
   const content =  itemsRequest || itemsFailed ? (
-    <div className={styles.loading}>
-      {itemsRequest ? (
-        <img src={loader} alt="Logo"/>
-      ) : (
-        <p>Ошибка загрузки данных!</p>
-      )}
-    </div>
+    <Loader request={itemsRequest}/>
   ) : (
     <DndProvider backend={HTML5Backend}>
       <BurgerIngredients/>

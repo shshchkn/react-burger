@@ -13,7 +13,7 @@ import {
   ProfilePage,
   IngredientPage,
   NotFoundPage,
-  FeedPage
+  FeedPage, FeedOrderPage
 } from "../../pages";
 import Modal from "../modal/Modal";
 import {useDispatch} from "react-redux";
@@ -55,7 +55,7 @@ const ModalSwitch = () => {
         </Route>
 
         <Route path="feed" element={<FeedPage />} />
-        {/*<Route path="feed/:id" element={<IngredientPage />} />*/}
+        <Route path="feed/:id" element={<FeedOrderPage />} />
         <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
@@ -63,6 +63,11 @@ const ModalSwitch = () => {
       {state?.backgroundLocation && (
         <Routes>
           <Route path="ingredients/:id" element={
+            <Modal headerTitle="Детали ингредиента" onClose={handleModalClose}>
+              <IngredientDetails />
+            </Modal>
+          } />
+          <Route path="feed/:id" element={
             <Modal headerTitle="Детали ингредиента" onClose={handleModalClose}>
               <IngredientDetails />
             </Modal>

@@ -1,36 +1,50 @@
 import styles from './feed-total.module.scss';
+import {useSelector} from "react-redux";
+import {RootState, TWsOrder} from "../../../services/types";
+import {useMemo} from "react";
 
 const FeedTotal = () => {
+  const {orders, total, totalToday} = useSelector((store: RootState) => store.ws);
+
+  const doneOrders = useMemo(() => orders && orders.filter((order: TWsOrder) => order.status === 'done'), [orders]);
+  const pendingOrders = useMemo(() => orders && orders.filter((order: TWsOrder) => order.status === 'pending'), [orders]);
+
   return (
     <div className={styles.total}>
       <div className={`${styles.orders} mb-15`}>
-        <div className={styles.ordersColumn}>
-          <h2 className="text text_type_main-medium text_color_primary mb-6">Готовы:</h2>
-          <ul className={`${styles.list} custom-scroll`}>
-            <li className="text text_type_digits-default text_color_success mb-2">034533</li>
-            <li className="text text_type_digits-default text_color_success mb-2">034532</li>
-            <li className="text text_type_digits-default text_color_success mb-2">034530</li>
-            <li className="text text_type_digits-default text_color_success mb-2">034527</li>
-            <li className="text text_type_digits-default text_color_success mb-2">034525</li>
-          </ul>
+        {doneOrders && (
+          <div className={styles.ordersColumn}>
+            <h2 className="text text_type_main-medium text_color_primary mb-6">Готовы:</h2>
+            <ul className={`${styles.list} custom-scroll`}>
+              {doneOrders.map((order: TWsOrder) => {
+                return <li key={order._id} className="text text_type_digits-default text_color_success mb-2">{order.number}</li>;
+              })}
+            </ul>
+          </div>
+        )}
+        {pendingOrders && (
+          <div className={styles.ordersColumn}>
+            <h2 className="text text_type_main-medium text_color_primary mb-6">В работе:</h2>
+            <ul className={`${styles.list} custom-scroll`}>
+              {pendingOrders.map(order => {
+                return <li key={order._id} className="text text_type_digits-default text_color_primary mb-2">{order.number}</li>
+              })}
+            </ul>
+          </div>
+        )}
+      </div>
+      {total && (
+        <div className="all mb-15">
+          <h2 className="text text_type_main-medium text_color_primary">Выполнено за все время:</h2>
+          <p className={`${styles.count} text text_type_digits-large text_color_primary`}>{total}</p>
         </div>
-        <div className={styles.ordersColumn}>
-          <h2 className="text text_type_main-medium text_color_primary mb-6">В работе:</h2>
-          <ul className={`${styles.list} custom-scroll`}>
-            <li className="text text_type_digits-default text_color_primary mb-2">034538</li>
-            <li className="text text_type_digits-default text_color_primary mb-2">034541</li>
-            <li className="text text_type_digits-default text_color_primary mb-2">034542</li>
-          </ul>
+      )}
+      {totalToday && (
+        <div className="all">
+          <h2 className="text text_type_main-medium text_color_primary">Выполнено за сегодня:</h2>
+          <p className={`${styles.count} text text_type_digits-large text_color_primary`}>{totalToday}</p>
         </div>
-      </div>
-      <div className="all mb-15">
-        <h2 className="text text_type_main-medium text_color_primary">Выполнено за все время:</h2>
-        <p className={`${styles.count} text text_type_digits-large text_color_primary`}>28 752</p>
-      </div>
-      <div className="all">
-        <h2 className="text text_type_main-medium text_color_primary">Выполнено за сегодня:</h2>
-        <p className={`${styles.count} text text_type_digits-large text_color_primary`}>138</p>
-      </div>
+      )}
     </div>
   );
 }

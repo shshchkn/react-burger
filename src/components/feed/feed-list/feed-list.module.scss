@@ -5,10 +5,11 @@
   width: 100%;
 
   @include media-up(lg) {
-    max-height: calc(100vh - 128px);
+    max-height: calc(100vh - 200px);
     max-width: 608px;
     flex: 1;
     margin-right: 24px;
+    overflow-y: auto;
   }
 }
 
@@ -50,6 +51,7 @@
   display: flex;
   border-radius: 50%;
   background: linear-gradient(63.18deg, #801ab3, #4c4cff);
+  position: relative;
 
   & + .orderListItem {
     margin-right: -16px;
@@ -70,6 +72,16 @@
     height: 100%;
     object-fit: cover;
   }
+}
+
+.orderListItemExtra {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #F2F2F3;
 }
 
 .orderTotal {

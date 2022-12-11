@@ -117,3 +117,24 @@ export type TWsResponse = {
   total: number;
   totalToday: number;
 };
+
+export type TOrder = {
+  data: TOrderIngredient;
+  total: number;
+}
+
+export type TOrderIngredient = {
+  [key: string]: {
+    id: string
+    name: string,
+    image: string,
+    price: number,
+    amount: number,
+  }
+}
+
+export type TOrderProduct = {
+  name: string;
+  image_mobile: string;
+  price: number;
+};
