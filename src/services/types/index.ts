@@ -7,7 +7,7 @@ export type AppDispatch = typeof store.dispatch;
 export type TModal = {
   readonly children: React.ReactNode,
   readonly onClose: () => void,
-  readonly headerTitle: string
+  readonly headerTitle?: string
 }
 
 export type TIngredient = {

@@ -23,6 +23,7 @@ import ProtectedRoute from "../../hocs/protected-route/ProtectedRoute";
 import ProfileForm from "../profile/profile-form/ProfileForm";
 import ProfileOrders from "../profile/profile-orders/ProfileOrders";
 import {AppDispatch} from "../../services/types";
+import FeedOrderDetails from "../feed/feed-order-details/FeedOrderDetails";
 
 const ModalSwitch = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -68,8 +69,8 @@ const ModalSwitch = () => {
             </Modal>
           } />
           <Route path="feed/:id" element={
-            <Modal headerTitle="Детали ингредиента" onClose={handleModalClose}>
-              <IngredientDetails />
+            <Modal onClose={handleModalClose}>
+              <FeedOrderDetails />
             </Modal>
           } />
         </Routes>
