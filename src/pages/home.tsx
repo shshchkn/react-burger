@@ -4,7 +4,6 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import BurgerIngredients from "../components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../components/burger-constructor/BurgerConstructor";
 import styles from "../components/app/app.module.scss";
-import loader from "../images/loader.gif";
 import {RootState} from "../services/types";
 import {Loader} from "../ui/loader/Loader";
 

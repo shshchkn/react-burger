@@ -19,7 +19,7 @@ const FeedList = () => {
             return items.filter((item: TIngredient) => item._id === orderID)
           }).flat();
           const products = productsAll.slice(0, 6);
-          const productsPrice = productsAll.reduce((item: number, curr: TIngredient) => curr.price + item, 0);
+          const productsPrice = productsAll.reduce((curr: number, item: TIngredient) => item.price + curr, 0);
           const productsCount = productsAll.length - 6;
           return (
             <li key={order._id} className='ordersItem order mb-4'>
@@ -43,7 +43,11 @@ const FeedList = () => {
                             <div className={styles.orderListItemInner}>
                               <img src={item.image_mobile} alt={item.name} />
                               {products[0]._id === item._id &&
-                                productsCount > 0 && (<span className={`${styles.orderListItemExtra} text text_type_main-default text_color_active`}>+{productsCount}</span>)
+                                productsCount > 0 && (
+                                  <span className={`${styles.orderListItemExtra} text text_type_main-default text_color_active`}>
+                                    +{productsCount}
+                                  </span>
+                                )
                               }
                             </div>
                           </div>
@@ -57,7 +61,7 @@ const FeedList = () => {
                 </div>
               </Link>
             </li>
-          )
+          );
         })}
       </ul>
     </div>

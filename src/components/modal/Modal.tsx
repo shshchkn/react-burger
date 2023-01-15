@@ -7,7 +7,7 @@ import {TModal} from "../../services/types";
 
 const modalRoot = document.getElementById("modals");
 
-const Modal: FC<TModal> = ({children, headerTitle, onClose}) => {
+const Modal: FC<TModal> = ({children, headerTitle, onClose, extraStyle}) => {
 
   useEffect(() => {
     const closeOnEscape = (e: KeyboardEvent) => e.key === "Escape" ? onClose && onClose() : null;
@@ -22,7 +22,7 @@ const Modal: FC<TModal> = ({children, headerTitle, onClose}) => {
 
   return createPortal(
     <>
-      <div className={styles.popup}>
+      <div className={styles.popup} style={extraStyle}>
         <div className={styles.popup__header}>
           {headerTitle || null}
           <button className={styles.popup__close} onClick={onClose}>

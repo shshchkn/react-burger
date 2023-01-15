@@ -1,5 +1,6 @@
 import React from "react";
 import {store} from "../store";
+import type * as CSS from 'csstype';
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;
@@ -7,7 +8,9 @@ export type AppDispatch = typeof store.dispatch;
 export type TModal = {
   readonly children: React.ReactNode,
   readonly onClose: () => void,
-  readonly headerTitle?: string
+  readonly headerTitle?: string,
+
+  readonly extraStyle?: CSS.Properties
 }
 
 export type TIngredient = {
