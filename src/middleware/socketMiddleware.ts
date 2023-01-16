@@ -39,7 +39,7 @@ export const createSocketMiddleware = (): Middleware => {
         socket.onmessage = event => {
           const { data } = event;
           dispatch({ type: WS_GET_MESSAGE, payload: JSON.parse(data) });
-          console.log(JSON.parse(data));
+          // console.log(JSON.parse(data));
         };
 
         socket.onclose = event => {
