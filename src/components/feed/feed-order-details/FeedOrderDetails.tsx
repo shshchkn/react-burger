@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 import {RootState, TIngredient, TWsOrder} from "../../../services/types";
 import styles from './feed-order-details.module.scss';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useEffect} from "react";
 import {setOrderTime} from "../../../utils/helpers";
 
 const FeedOrderDetails = () => {
@@ -15,11 +14,6 @@ const FeedOrderDetails = () => {
   const orderIngredients = orderItem && orderItem.ingredients.map((id: string) => {
     return items.filter(item => item._id === id);
   }).flat();
-
-  useEffect(() => {
-    console.log(orderItem)
-  }, [orderItem]);
-
 
   const renderOrderStatus = (status: string) => {
     switch (status) {

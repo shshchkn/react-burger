@@ -1,12 +1,6 @@
 import * as websocketTypes from "../actions/feed";
 import {TWsResponse} from "./index";
 
-export enum WSStatus {
-  created = 'Создан',
-  pending = 'Готовится',
-  done = 'Выполнен'
-}
-
 type TWsConnectionStart = {
   type: typeof websocketTypes.WS_CONNECTION_START,
   payload: {

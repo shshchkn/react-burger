@@ -7,6 +7,7 @@ import {setOrderTime} from "../../../utils/helpers";
 
 const FeedList = () => {
   const location = useLocation();
+  const {pathname} = useLocation();
   const {orders} = useSelector((store: RootState) => store.ws);
   const {items} = useSelector((store: RootState) => store.ingredients);
 
@@ -24,7 +25,7 @@ const FeedList = () => {
           return (
             <li key={order._id} className='ordersItem order mb-4'>
               <Link
-                to={{pathname: `/feed/${order._id}`}}
+                to={{pathname: `${pathname}/${order._id}`}}
                 state={{backgroundLocation: location}}
                 className={styles.orderLink}>
                 <div className={`${styles.orderRow} mb-6`}>

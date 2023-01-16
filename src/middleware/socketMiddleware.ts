@@ -26,9 +26,10 @@ export const createSocketMiddleware = (): Middleware => {
         const token = getCookie('accessToken').replace('Bearer ', '');
         socket = new WebSocket(action.payload.secure ? `${action.payload.url}?token=${token}` : action.payload.url);
       }
+
       if (socket) {
         socket.onopen = event => {
-          dispatch({ type: WS_CONNECTION_SUCCESS, payload: event.isTrusted });
+          dispatch({ type: WS_CONNECTION_SUCCESS, payload: event });
         };
 
         socket.onerror = event => {
@@ -38,7 +39,7 @@ export const createSocketMiddleware = (): Middleware => {
         socket.onmessage = event => {
           const { data } = event;
           dispatch({ type: WS_GET_MESSAGE, payload: JSON.parse(data) });
-          // console.log(JSON.parse(data));
+          console.log(JSON.parse(data));
         };
 
         socket.onclose = event => {
@@ -46,7 +47,7 @@ export const createSocketMiddleware = (): Middleware => {
         };
 
         if (action.type === WS_CONNECTION_STOP) {
-          socket.close(action.payload);
+          socket.close();
         }
       }
 

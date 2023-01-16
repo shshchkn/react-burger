@@ -2,7 +2,7 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
-  WS_GET_MESSAGE
+  WS_GET_MESSAGE, WS_CONNECTION_STOP
 } from '../actions/feed';
 import type { TWsActions } from '../types/websocket';
 import {TWs} from "../types";
@@ -38,6 +38,7 @@ export const wsReducer = (state = initialState, action: TWsActions) => {
         wsConnected: false
       };
     case WS_CONNECTION_CLOSED:
+    case WS_CONNECTION_STOP:
       return {
         ...state,
         error: null,

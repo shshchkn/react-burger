@@ -73,6 +73,11 @@ const ModalSwitch = () => {
               <FeedOrderDetails />
             </Modal>
           } />
+          <Route path="profile/orders/:id" element={
+            <Modal onClose={handleModalClose} extraStyle={{maxWidth: '720px'}}>
+              <FeedOrderDetails />
+            </Modal>
+          } />
         </Routes>
       )}
     </>

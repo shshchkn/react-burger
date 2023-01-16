@@ -1,5 +1,6 @@
 import {BASE_URL, apiRequest} from "../../utils/burger-api";
 import {AppDispatch, TIngredient} from "../types";
+import {getCookie} from "../../utils/helpers";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -10,7 +11,10 @@ export const getOrderedItems = (items: TIngredient[]) => (dispatch: AppDispatch)
   dispatch({type: GET_ORDER_REQUEST});
   const getOrder = () => apiRequest(`${BASE_URL}/orders`, {
     method: 'POST',
-    headers: { "Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: getCookie('accessToken')
+    },
     body: JSON.stringify({'ingredients': items.map((item: TIngredient) => item._id)})
   });
 
