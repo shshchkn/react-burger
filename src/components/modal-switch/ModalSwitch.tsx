@@ -16,16 +16,18 @@ import {
   FeedPage, FeedOrderPage
 } from "../../pages";
 import Modal from "../modal/Modal";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {REMOVE_INGREDIENT_DETAILS} from "../../services/actions/ingredientDetails";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import ProtectedRoute from "../../hocs/protected-route/ProtectedRoute";
 import ProfileForm from "../profile/profile-form/ProfileForm";
 import ProfileOrders from "../profile/profile-orders/ProfileOrders";
-import {AppDispatch} from "../../services/types";
+import {AppDispatch, RootState} from "../../services/types";
 import FeedOrderDetails from "../feed/feed-order-details/FeedOrderDetails";
 
 const ModalSwitch = () => {
+  const {feed} = useSelector((store: RootState) => store.ws);
+  const {orders} = useSelector((store: RootState) => store.orders);
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,12 +72,12 @@ const ModalSwitch = () => {
           } />
           <Route path="feed/:id" element={
             <Modal onClose={handleModalClose} extraStyle={{maxWidth: '720px'}}>
-              <FeedOrderDetails />
+              <FeedOrderDetails orders={feed} />
             </Modal>
           } />
           <Route path="profile/orders/:id" element={
             <Modal onClose={handleModalClose} extraStyle={{maxWidth: '720px'}}>
-              <FeedOrderDetails />
+              <FeedOrderDetails orders={orders} />
             </Modal>
           } />
         </Routes>

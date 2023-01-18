@@ -1,13 +1,13 @@
 import styles from './feed-total.module.scss';
 import {useSelector} from "react-redux";
 import {RootState, TWsOrder} from "../../../services/types";
-import {useMemo} from "react";
+import {useEffect, useMemo} from "react";
 
 const FeedTotal = () => {
-  const {orders, total, totalToday} = useSelector((store: RootState) => store.ws);
+  const {feed, total, totalToday} = useSelector((store: RootState) => store.ws);
 
-  const doneOrders = useMemo(() => orders && orders.filter((order: TWsOrder) => order.status === 'done'), [orders]);
-  const pendingOrders = useMemo(() => orders && orders.filter((order: TWsOrder) => order.status === 'pending'), [orders]);
+  const doneOrders = useMemo(() => feed && feed.filter((order: TWsOrder) => order.status === 'done'), [feed]);
+  const pendingOrders = useMemo(() => feed && feed.filter((order: TWsOrder) => order.status === 'pending'), [feed]);
 
   return (
     <div className={styles.total}>

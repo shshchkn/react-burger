@@ -1,11 +1,11 @@
 import {
-  WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_CLOSED,
-  WS_GET_MESSAGE,
-  WS_CONNECTION_STOP
-} from '../actions/feed';
-import type { TWsActions } from '../types/websocket';
+  ORDERS_CONNECTION_SUCCESS,
+  ORDERS_CONNECTION_ERROR,
+  ORDERS_CONNECTION_CLOSED,
+  ORDERS_GET_MESSAGE,
+  ORDERS_CONNECTION_STOP
+} from '../actions/orders';
+import type { TOrdersActions } from '../types/websocket';
 import {TWs} from "../types";
 
 const initialState: TWs = {
@@ -17,29 +17,27 @@ const initialState: TWs = {
   error: null
 };
 
-export const wsReducer = (state = initialState, action: TWsActions) => {
+export const ordersReducer = (state = initialState, action: TOrdersActions) => {
   switch (action.type) {
-    case WS_CONNECTION_SUCCESS:
+    case ORDERS_CONNECTION_SUCCESS:
       return {
         ...state,
         error: null,
         wsConnected: true
       };
-    case WS_GET_MESSAGE:
+    case ORDERS_GET_MESSAGE:
       return {
         ...state,
         error: null,
-        feed: action.payload.orders,
-        total: action.payload.total,
-        totalToday: action.payload.totalToday,
+        orders: action.payload.orders,
       };
-    case WS_CONNECTION_ERROR:
+    case ORDERS_CONNECTION_ERROR:
       return {
         ...state,
         wsConnected: false
       };
-    case WS_CONNECTION_CLOSED:
-    case WS_CONNECTION_STOP:
+    case ORDERS_CONNECTION_CLOSED:
+    case ORDERS_CONNECTION_STOP:
       return {
         ...state,
         error: null,

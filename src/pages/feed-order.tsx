@@ -10,7 +10,7 @@ import {WS_URL} from "../utils/burger-api";
 
 export const FeedOrderPage = () => {
   const {id} = useParams<{ id?: string }>();
-  const {orders} = useSelector((store: RootState) => store.ws);
+  const {feed} = useSelector((store: RootState) => store.ws);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const FeedOrderPage = () => {
     });
   }, [dispatch]);
 
-  const orderItem: TWsOrder | null | undefined = orders && orders.find(order => order._id === id);
+  const orderItem: TWsOrder | null | undefined = feed && feed.find(order => order._id === id);
 
   useEffect(() => {
     console.log(orderItem)
@@ -33,7 +33,7 @@ export const FeedOrderPage = () => {
   return (
     orderItem ? (
       <div className={`${styles.page} mt-30`}>
-        <FeedOrderDetails />
+        <FeedOrderDetails orders={feed} />
       </div>
     ) : (
       <NotFoundPage/>

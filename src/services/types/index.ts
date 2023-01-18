@@ -89,6 +89,7 @@ export type TUseForm<T extends string> = {
 
 export type TWs = {
   wsConnected: boolean,
+  feed: TWsOrder[] | null,
   orders: TWsOrder[] | null,
   total: number | null,
   totalToday: number | null,

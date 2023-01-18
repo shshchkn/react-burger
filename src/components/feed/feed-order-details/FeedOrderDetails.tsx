@@ -5,10 +5,10 @@ import styles from './feed-order-details.module.scss';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {setOrderTime} from "../../../utils/helpers";
 
-const FeedOrderDetails = () => {
+const FeedOrderDetails = ({orders}: {orders: TWsOrder[] | null}) => {
   const {id} = useParams<{ id?: string }>();
   const {items} = useSelector((store: RootState) => store.ingredients);
-  const {orders} = useSelector((store: RootState) => store.ws);
+  // const {orders} = useSelector((store: RootState) => store.ws);
 
   const orderItem: TWsOrder | null | undefined = orders && orders.find(order => order._id === id);
   const orderIngredients = orderItem && orderItem.ingredients.map((id: string) => {

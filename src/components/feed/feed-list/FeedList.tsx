@@ -5,10 +5,9 @@ import {useSelector} from "react-redux";
 import {RootState, TIngredient, TWsOrder} from "../../../services/types";
 import {setOrderTime} from "../../../utils/helpers";
 
-const FeedList = () => {
+const FeedList = ({orders}: {orders: TWsOrder[] | null}) => {
   const location = useLocation();
   const {pathname} = useLocation();
-  const {orders} = useSelector((store: RootState) => store.ws);
   const {items} = useSelector((store: RootState) => store.ingredients);
 
   return (
