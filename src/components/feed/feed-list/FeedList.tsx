@@ -3,7 +3,7 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState, TIngredient, TWsOrder} from "../../../services/types";
-import {setOrderTime} from "../../../utils/helpers";
+import {renderOrderStatus, setOrderTime} from "../../../utils/helpers";
 
 const FeedList = ({orders}: {orders: TWsOrder[] | null}) => {
   const location = useLocation();
@@ -31,9 +31,14 @@ const FeedList = ({orders}: {orders: TWsOrder[] | null}) => {
                   <span className="orderNumber text_color_primary">{order.number}</span>
                   <span className="orderTime text_color_inactive">{setOrderTime(order.createdAt)}</span>
                 </div>
-                <div className="orderRow mb-6">
+                <div className="orderRow mb-2">
                   <span className="orderName text text_type_main-medium text_color_primary">{order.name}</span>
                 </div>
+                {order.status && (
+                  <p className="text text_type_main-default text_color_success mb-6 text-left">
+                    {renderOrderStatus(order.status)}
+                  </p>
+                )}
                 <div className={styles.orderRow}>
                   <div className={styles.orderList}>
                     {products !== null &&

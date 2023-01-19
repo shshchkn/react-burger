@@ -3,34 +3,26 @@ import {useSelector} from "react-redux";
 import {RootState, TIngredient, TWsOrder} from "../../../services/types";
 import styles from './feed-order-details.module.scss';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {setOrderTime} from "../../../utils/helpers";
+import {renderOrderStatus, setOrderTime} from "../../../utils/helpers";
 
 const FeedOrderDetails = ({orders}: {orders: TWsOrder[] | null}) => {
   const {number} = useParams<{ number?: string }>();
   const {items} = useSelector((store: RootState) => store.ingredients);
-  // const {orders} = useSelector((store: RootState) => store.ws);
 
   const orderItem: TWsOrder | null | undefined = orders && orders.find(order => order.number.toString() === number);
   const orderIngredients = orderItem && orderItem.ingredients.map((id: string) => {
     return items.filter(item => item._id === id);
   }).flat();
 
-  const renderOrderStatus = (status: string) => {
-    switch (status) {
-      case 'done':
-        return 'Выполнен';
-      case 'pending':
-        return 'Готовится';
-      default:
-        return 'Создан';
-    }
-  }
-
   return (
     <div className="w-100">
       <p className={`${styles.orderNumber} text text_type_digits-default text-center mb-10`}>#{orderItem?.number}</p>
       <h2 className="text text_type_main-medium mb-3 text-left">{orderItem?.name}</h2>
-      {orderItem?.status && <p className="text text_type_main-default text_color_success mb-15 text-left">{renderOrderStatus(orderItem.status)}</p>}
+      {orderItem?.status && (
+        <p className="text text_type_main-default text_color_success mb-15 text-left">
+          {renderOrderStatus(orderItem.status)}
+        </p>
+      )}
       <p className="text text_type_main-medium mb-6 text-left">Состав:</p>
       <div className={`${styles.wrapper} custom-scroll mb-10`}>
         <ul className={styles.list}>

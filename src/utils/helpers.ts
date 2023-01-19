@@ -44,3 +44,14 @@ export const setOrderTime = (time: string | undefined) => {
 
   return `${daysCreated}, ${hours}:${minutes}`;
 }
+
+export const renderOrderStatus = (status: string) => {
+  switch (status) {
+    case 'done':
+      return 'Выполнен';
+    case 'pending':
+      return 'Готовится';
+    default:
+      return 'Создан';
+  }
+}
