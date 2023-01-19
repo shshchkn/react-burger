@@ -9,7 +9,7 @@ const Feed = () => {
   const {feed} = useSelector((store: RootState) => store.ws);
 
   useEffect(() => {
-    console.log(feed)
+    // console.log(feed)
   }, [feed])
 
   return (

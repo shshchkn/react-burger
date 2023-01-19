@@ -6,11 +6,11 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {setOrderTime} from "../../../utils/helpers";
 
 const FeedOrderDetails = ({orders}: {orders: TWsOrder[] | null}) => {
-  const {id} = useParams<{ id?: string }>();
+  const {number} = useParams<{ number?: string }>();
   const {items} = useSelector((store: RootState) => store.ingredients);
   // const {orders} = useSelector((store: RootState) => store.ws);
 
-  const orderItem: TWsOrder | null | undefined = orders && orders.find(order => order._id === id);
+  const orderItem: TWsOrder | null | undefined = orders && orders.find(order => order.number.toString() === number);
   const orderIngredients = orderItem && orderItem.ingredients.map((id: string) => {
     return items.filter(item => item._id === id);
   }).flat();

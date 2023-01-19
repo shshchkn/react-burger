@@ -24,7 +24,7 @@ const FeedList = ({orders}: {orders: TWsOrder[] | null}) => {
           return (
             <li key={order._id} className='ordersItem order mb-4'>
               <Link
-                to={{pathname: `${pathname}/${order._id}`}}
+                to={{pathname: `${pathname}/${order.number}`}}
                 state={{backgroundLocation: location}}
                 className={styles.orderLink}>
                 <div className={`${styles.orderRow} mb-6`}>

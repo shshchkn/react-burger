@@ -24,6 +24,7 @@ import ProfileForm from "../profile/profile-form/ProfileForm";
 import ProfileOrders from "../profile/profile-orders/ProfileOrders";
 import {AppDispatch, RootState} from "../../services/types";
 import FeedOrderDetails from "../feed/feed-order-details/FeedOrderDetails";
+import {ProfileOrderPage} from "../../pages/profile-order";
 
 const ModalSwitch = () => {
   const {feed} = useSelector((store: RootState) => store.ws);
@@ -55,10 +56,11 @@ const ModalSwitch = () => {
             <Route index element={<ProfileForm />} />
             <Route path="orders" element={<ProfileOrders />} />
           </Route>
+          <Route path="profile/orders/:number" element={<ProfileOrderPage />} />
         </Route>
 
         <Route path="feed" element={<FeedPage />} />
-        <Route path="feed/:id" element={<FeedOrderPage />} />
+        <Route path="feed/:number" element={<FeedOrderPage />} />
         <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
@@ -70,14 +72,14 @@ const ModalSwitch = () => {
               <IngredientDetails />
             </Modal>
           } />
-          <Route path="feed/:id" element={
+          <Route path="feed/:number" element={
             <Modal onClose={handleModalClose} extraStyle={{maxWidth: '720px'}}>
               <FeedOrderDetails orders={feed} />
             </Modal>
           } />
-          <Route path="profile/orders/:id" element={
+          <Route path="profile/orders/:number" element={
             <Modal onClose={handleModalClose} extraStyle={{maxWidth: '720px'}}>
-              <FeedOrderDetails orders={orders} />
+              <FeedOrderDetails orders={orders && orders.reverse()} />
             </Modal>
           } />
         </Routes>
