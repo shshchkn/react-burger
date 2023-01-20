@@ -1,5 +1,8 @@
 import {useEffect, useMemo} from "react";
-import {ORDERS_CONNECTION_START, ORDERS_CONNECTION_STOP} from "../../../services/actions/orders";
+import {
+  ORDERS_CONNECTION_CLOSED,
+  ORDERS_CONNECTION_START,
+} from "../../../services/actions/orders";
 import {WS_URL} from "../../../utils/burger-api";
 import FeedList from "../../feed/feed-list/FeedList";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
@@ -16,6 +19,9 @@ const ProfileOrders = () => {
         secure: true
       }
     });
+    return () => {
+      dispatch({type: ORDERS_CONNECTION_CLOSED})
+    }
   }, [dispatch]);
 
   const sortOrders = useMemo(() => {

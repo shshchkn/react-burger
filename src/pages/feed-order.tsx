@@ -21,9 +21,9 @@ export const FeedOrderPage = () => {
         secure: false
       }
     });
-    return (() => {
+    return () => {
       dispatch({type: WS_CONNECTION_STOP})
-    })
+    }
   }, [dispatch]);
 
   const orderItem: TWsOrder | null | undefined = feed && feed.find(order => order.number.toString() === number);

@@ -46,7 +46,7 @@ export const createSocketMiddleware = (wsActions: TwsActions): Middleware => {
         };
 
         if (type === wsClose) {
-          socket.close();
+          socket.close(action.payload);
         }
       }
 

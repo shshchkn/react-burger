@@ -5,7 +5,7 @@ import styles from "../components/ingredient-details/ingredient-details.module.s
 import {NotFoundPage} from "./not-found";
 import {useEffect} from "react";
 import {WS_URL} from "../utils/burger-api";
-import {ORDERS_CONNECTION_START} from "../services/actions/orders";
+import {ORDERS_CONNECTION_CLOSED, ORDERS_CONNECTION_START} from "../services/actions/orders";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 
 export const ProfileOrderPage = () => {
@@ -21,6 +21,9 @@ export const ProfileOrderPage = () => {
         secure: true
       }
     });
+    return () => {
+      dispatch({type: ORDERS_CONNECTION_CLOSED})
+    }
   }, [dispatch]);
 
   const orderItem: TWsOrder | null | undefined = orders && orders.find(order => order.number.toString() === number);
