@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.scss';
 import OrderDetails from '../order-details/OrderDetails';
@@ -14,11 +14,12 @@ import {
   UPDATE_CART,
   CLEAN_CART
 } from '../../services/actions/cart';
-import { totalPriceSelector } from '../../services/actions'
-import { getOrderedItems, CLOSE_ORDER, } from '../../services/actions/order';
+import {totalPriceSelector} from '../../services/actions'
+import {getOrderedItems, CLOSE_ORDER,} from '../../services/actions/order';
 import {getCookie} from "../../utils/helpers";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {Loader} from "../../ui/loader/Loader";
 
 const BurgerConstructor = () => {
   const token = getCookie('accessToken');
@@ -27,6 +28,8 @@ const BurgerConstructor = () => {
   const {cartBun, cartItems} = useAppSelector(store => store.cart);
   const {orderNumber} = useAppSelector(store => store.order);
   const cartTotalPrice = useAppSelector(totalPriceSelector);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const moveCard: (dragIndex: number, hoverIndex: number) => void = useCallback((dragIndex, hoverIndex) => {
     const dragCard = cartItems[dragIndex];
@@ -37,8 +40,11 @@ const BurgerConstructor = () => {
   }, [cartItems, dispatch]);
 
   const handleSetOrder = useCallback(() => {
+    setOpen(true);
+    setLoading(true);
     if (token) {
       cartBun && dispatch(getOrderedItems([cartBun, ...cartItems, cartBun]));
+      console.log(loading, orderNumber)
     } else {
       navigate('/login');
     }
@@ -47,10 +53,18 @@ const BurgerConstructor = () => {
     cartItems,
     dispatch,
     token,
-    navigate
+    navigate,
+    loading,
+    orderNumber
   ]);
 
+  useEffect(() => {
+    orderNumber && setLoading(false);
+  }, [orderNumber]);
+
+
   const handleCloseModal = () => {
+    setOpen(false);
     dispatch({type: CLOSE_ORDER});
     dispatch({type: CLEAN_CART});
   };
@@ -74,16 +88,16 @@ const BurgerConstructor = () => {
   });
 
   const renderItems = useCallback(
-  (item: TIngredientSingle, index: number) => {
-    return (
-      <Ingredient
-        key={item.dragId}
-        index={index}
-        item={item}
-        moveCard={moveCard}
-      />
-    )
-  }, [moveCard]);
+    (item: TIngredientSingle, index: number) => {
+      return (
+        <Ingredient
+          key={item.dragId}
+          index={index}
+          item={item}
+          moveCard={moveCard}
+        />
+      )
+    }, [moveCard]);
 
   let cx = classNames.bind(styles);
   const dropZoneClass = cx('dropzone', {
@@ -129,16 +143,18 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium mr-2">{cartTotalPrice}</p>
           <CurrencyIcon type="primary"/>
         </div>
-        <Button type="primary" size="large" htmlType="button" onClick={handleSetOrder} disabled={!cartBun}>Оформить заказ</Button>
+        <Button type="primary" size="large" htmlType="button" onClick={handleSetOrder} disabled={!cartBun}>Оформить
+          заказ</Button>
       </div>
-      {
-        orderNumber &&
-        (<Modal
-          onClose={handleCloseModal}
-          headerTitle={''}
-        >
-          <OrderDetails orderNumber={orderNumber}/>
-        </Modal>)
+      {open && (
+          <Modal onClose={handleCloseModal} headerTitle={''}>
+            {loading ? (
+              <Loader request={loading}/>
+            ) : (
+              orderNumber && <OrderDetails orderNumber={orderNumber}/>
+            )}
+          </Modal>
+        )
       }
     </div>
   );
