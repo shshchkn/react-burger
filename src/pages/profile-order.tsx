@@ -1,17 +1,17 @@
 import FeedOrderDetails from "../components/feed/feed-order-details/FeedOrderDetails";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState, TWsOrder} from "../services/types";
+import {TWsOrder} from "../services/types";
 import {useParams} from "react-router-dom";
 import styles from "../components/ingredient-details/ingredient-details.module.scss";
 import {NotFoundPage} from "./not-found";
 import {useEffect} from "react";
 import {WS_URL} from "../utils/burger-api";
 import {ORDERS_CONNECTION_START} from "../services/actions/orders";
+import {useAppDispatch, useAppSelector} from "../hooks/redux";
 
 export const ProfileOrderPage = () => {
   const {number} = useParams<{ number?: string }>();
-  const {orders} = useSelector((store: RootState) => store.orders);
-  const dispatch = useDispatch();
+  const {orders} = useAppSelector(store => store.orders);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch({

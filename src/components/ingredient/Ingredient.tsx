@@ -1,14 +1,14 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.scss";
-import {AppDispatch, TIngredientProps, TIngredientSingle} from '../../services/types';
-import {useDispatch} from "react-redux";
+import {TIngredientProps, TIngredientSingle} from '../../services/types';
 import {REMOVE_CART_ITEM} from "../../services/actions/cart";
 import {DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 import type { Identifier, XYCoord } from 'dnd-core'
 import {useRef} from "react";
+import {useAppDispatch} from "../../hooks/redux";
 
 const Ingredient = ({item, index, moveCard}: TIngredientProps) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null)
 
   const removeCartItem = () => {

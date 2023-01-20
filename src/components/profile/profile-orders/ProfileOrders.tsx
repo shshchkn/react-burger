@@ -1,13 +1,12 @@
-import {useDispatch, useSelector} from "react-redux";
-import {RootState, TWsOrder} from "../../../services/types";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo} from "react";
 import {ORDERS_CONNECTION_START, ORDERS_CONNECTION_STOP} from "../../../services/actions/orders";
 import {WS_URL} from "../../../utils/burger-api";
 import FeedList from "../../feed/feed-list/FeedList";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 
 const ProfileOrders = () => {
-  const {orders} = useSelector((store: RootState) => store.orders);
-  const dispatch = useDispatch();
+  const {orders} = useAppSelector(store => store.orders);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch({

@@ -1,15 +1,13 @@
-import {AppDispatch, RootState} from "../../services/types";
-import {useDispatch, useSelector} from "react-redux";
 import React from "react";
 import {logoutRequest} from "../../services/actions/logout";
 import {NavLink, Outlet, useNavigate} from "react-router-dom";
-
 import styles from "./profile.module.scss";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const {logoutFailed} = useSelector((store: RootState) => store.user);
-  const dispatch: AppDispatch = useDispatch();
+  const {logoutFailed} = useAppSelector(store => store.user);
+  const dispatch = useAppDispatch();
 
   const logout = (e: React.SyntheticEvent) => {
     e.preventDefault();

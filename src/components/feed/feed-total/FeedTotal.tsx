@@ -1,10 +1,10 @@
 import styles from './feed-total.module.scss';
-import {useSelector} from "react-redux";
-import {RootState, TWsOrder} from "../../../services/types";
-import {useEffect, useMemo} from "react";
+import {TWsOrder} from "../../../services/types";
+import {useMemo} from "react";
+import {useAppSelector} from "../../../hooks/redux";
 
 const FeedTotal = () => {
-  const {feed, total, totalToday} = useSelector((store: RootState) => store.ws);
+  const {feed, total, totalToday} = useAppSelector(store => store.ws);
 
   const doneOrders = useMemo(() => feed && feed.filter((order: TWsOrder) => order.status === 'done'), [feed]);
   const pendingOrders = useMemo(() => feed && feed.filter((order: TWsOrder) => order.status === 'pending'), [feed]);

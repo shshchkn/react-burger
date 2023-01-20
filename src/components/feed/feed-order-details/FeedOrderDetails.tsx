@@ -1,13 +1,13 @@
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState, TIngredient, TWsOrder} from "../../../services/types";
+import {TIngredient, TWsOrder} from "../../../services/types";
 import styles from './feed-order-details.module.scss';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {renderOrderStatus, setOrderTime} from "../../../utils/helpers";
+import {useAppSelector} from "../../../hooks/redux";
 
 const FeedOrderDetails = ({orders}: {orders: TWsOrder[] | null}) => {
   const {number} = useParams<{ number?: string }>();
-  const {items} = useSelector((store: RootState) => store.ingredients);
+  const {items} = useAppSelector(store => store.ingredients);
 
   const orderItem: TWsOrder | null | undefined = orders && orders.find(order => order.number.toString() === number);
   const orderIngredients = orderItem && orderItem.ingredients.map((id: string) => {

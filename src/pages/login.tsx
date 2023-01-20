@@ -1,15 +1,14 @@
 import React, {useCallback} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {loginRequest} from "../services/actions/login";
-import {AppDispatch, RootState} from "../services/types";
 import {useForm} from "../hooks/useForm";
+import {useAppDispatch, useAppSelector} from "../hooks/redux";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const {loginFailed} = useSelector((store: RootState) => store.user);
-  const dispatch: AppDispatch = useDispatch();
+  const {loginFailed} = useAppSelector(store => store.user);
+  const dispatch = useAppDispatch();
 
   const {values, handleChange} = useForm({});
 

@@ -1,11 +1,11 @@
 import Feed from "../components/feed/Feed";
-import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {WS_CONNECTION_START} from "../services/actions/feed";
 import {WS_URL} from "../utils/burger-api";
+import {useAppDispatch} from "../hooks/redux";
 
 export const FeedPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch({

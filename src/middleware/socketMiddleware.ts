@@ -1,8 +1,6 @@
 // socketMiddleware.ts
 import type { Middleware, MiddlewareAPI } from 'redux';
-
 import type { AppDispatch, RootState } from '../services/types';
-import type { TWsActions } from '../services/types/websocket';
 import {getCookie} from "../utils/helpers";
 
 export type TwsActions = {
@@ -47,9 +45,9 @@ export const createSocketMiddleware = (wsActions: TwsActions): Middleware => {
           dispatch({ type: onClose, payload: event });
         };
 
-        // if (type === wsClose) {
-        //   socket.close();
-        // }
+        if (type === wsClose) {
+          socket.close();
+        }
       }
 
       next(action);

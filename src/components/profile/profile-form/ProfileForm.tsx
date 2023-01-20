@@ -1,15 +1,14 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {RefObject, useCallback, useEffect, useRef, useState} from "react";
 import {getCookie} from "../../../utils/helpers";
-
 import styles from "./profile-form.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState, TProfileUser} from "../../../services/types";
+import {TProfileUser} from "../../../services/types";
 import {getUserRequest, updateUserRequest} from "../../../services/actions/user";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
 
 const ProfileForm = () => {
-  const {user} = useSelector((store: RootState) => store.user);
-  const dispatch: AppDispatch = useDispatch();
+  const {user} = useAppSelector(store => store.user);
+  const dispatch = useAppDispatch();
   const token = getCookie('accessToken');
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);

@@ -1,19 +1,13 @@
 import {useCallback} from 'react';
-
 import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-
 import styles from './burger-constructor.module.scss';
-
 import OrderDetails from '../order-details/OrderDetails';
 import Ingredient from "../ingredient/Ingredient";
 import Modal from "../modal/Modal";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState, AppDispatch, TIngredientSingle} from "../../services/types";
+import {TIngredientSingle} from "../../services/types";
 import {useDrop} from "react-dnd";
 import classNames from "classnames/bind";
-
 import {v4 as uuidv4} from 'uuid';
-
 import {
   ADD_CART_BUN,
   ADD_CART_ITEM,
@@ -24,14 +18,15 @@ import { totalPriceSelector } from '../../services/actions'
 import { getOrderedItems, CLOSE_ORDER, } from '../../services/actions/order';
 import {getCookie} from "../../utils/helpers";
 import {useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 const BurgerConstructor = () => {
   const token = getCookie('accessToken');
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const {cartBun, cartItems} = useSelector((store: RootState) => store.cart);
-  const {orderNumber} = useSelector((store: RootState) => store.order);
-  const cartTotalPrice = useSelector(totalPriceSelector);
+  const {cartBun, cartItems} = useAppSelector(store => store.cart);
+  const {orderNumber} = useAppSelector(store => store.order);
+  const cartTotalPrice = useAppSelector(totalPriceSelector);
 
   const moveCard: (dragIndex: number, hoverIndex: number) => void = useCallback((dragIndex, hoverIndex) => {
     const dragCard = cartItems[dragIndex];

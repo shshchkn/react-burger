@@ -3,14 +3,13 @@ import ErrorBoundary from '../error-boundry/ErrorBoundary';
 import AppHeader from '../app-header/AppHeader';
 import styles from './app.module.scss';
 import ModalSwitch from "../modal-switch/ModalSwitch";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../../services/types";
 import {useEffect} from "react";
 import {getItems} from "../../services/actions/ingredients";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 const App = () => {
-  const dispatch: AppDispatch = useDispatch();
-  const {items} = useSelector((store: RootState) => store.ingredients);
+  const dispatch = useAppDispatch();
+  const {items} = useAppSelector(store => store.ingredients);
 
   useEffect(() => {
     !items.length && dispatch(getItems());

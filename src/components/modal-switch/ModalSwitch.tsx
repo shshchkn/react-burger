@@ -16,20 +16,19 @@ import {
   FeedPage, FeedOrderPage
 } from "../../pages";
 import Modal from "../modal/Modal";
-import {useDispatch, useSelector} from "react-redux";
 import {REMOVE_INGREDIENT_DETAILS} from "../../services/actions/ingredientDetails";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import ProtectedRoute from "../../hocs/protected-route/ProtectedRoute";
 import ProfileForm from "../profile/profile-form/ProfileForm";
 import ProfileOrders from "../profile/profile-orders/ProfileOrders";
-import {AppDispatch, RootState} from "../../services/types";
 import FeedOrderDetails from "../feed/feed-order-details/FeedOrderDetails";
 import {ProfileOrderPage} from "../../pages/profile-order";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 const ModalSwitch = () => {
-  const {feed} = useSelector((store: RootState) => store.ws);
-  const {orders} = useSelector((store: RootState) => store.orders);
-  const dispatch: AppDispatch = useDispatch();
+  const {feed} = useAppSelector(store => store.ws);
+  const {orders} = useAppSelector(store => store.orders);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };

@@ -1,15 +1,14 @@
 import React, {useCallback, useEffect} from "react";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {AppDispatch, RootState} from "../services/types";
-import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordRequest} from "../services/actions/reset-password";
 import {useForm} from "../hooks/useForm";
+import {useAppDispatch, useAppSelector} from "../hooks/redux";
 
 export const ResetPasswordPage = () => {
   const navigate = useNavigate();
-  const {forgotPasswordSuccess, resetPasswordSuccess} = useSelector((store: RootState) => store.user)
-  const dispatch: AppDispatch = useDispatch();
+  const {forgotPasswordSuccess, resetPasswordSuccess} = useAppSelector(store => store.user)
+  const dispatch = useAppDispatch();
 
   const {values, handleChange} = useForm({});
 

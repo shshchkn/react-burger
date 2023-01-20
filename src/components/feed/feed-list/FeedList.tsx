@@ -1,14 +1,14 @@
 import styles from './feed-list.module.scss';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState, TIngredient, TWsOrder} from "../../../services/types";
+import {TIngredient, TWsOrder} from "../../../services/types";
 import {renderOrderStatus, setOrderTime} from "../../../utils/helpers";
+import {useAppSelector} from "../../../hooks/redux";
 
 const FeedList = ({orders}: {orders: TWsOrder[] | null}) => {
   const location = useLocation();
   const {pathname} = useLocation();
-  const {items} = useSelector((store: RootState) => store.ingredients);
+  const {items} = useAppSelector(store => store.ingredients);
 
   return (
     <div className={`${styles.wrapper} custom-scroll`}>

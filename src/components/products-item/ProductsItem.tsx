@@ -1,16 +1,15 @@
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-
 import styles from "./products-item.module.scss";
-import {useSelector} from "react-redux";
 import {FC, useCallback} from "react";
 import {useDrag} from "react-dnd";
-import {RootState, TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types";
 import {Link, useLocation} from "react-router-dom";
+import {useAppSelector} from "../../hooks/redux";
 
 const ProductsItem: FC<TIngredient> = item => {
   const location = useLocation();
   const {name, image_large, price} = item;
-  const {cartItems, cartBun} = useSelector((store: RootState) => store.cart);
+  const {cartItems, cartBun} = useAppSelector(store => store.cart);
   const ingredientId = item['_id'];
 
   const [{opacity}, dragRef] = useDrag({

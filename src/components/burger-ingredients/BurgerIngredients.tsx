@@ -1,17 +1,15 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
-
 import ProductsList from '../products-list/ProductsList';
-
 import styles from './burger-ingredients.module.scss';
-import {useSelector} from "react-redux";
-import {RootState, TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useInView} from "react-intersection-observer";
+import {useAppSelector} from "../../hooks/redux";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState<string>('bun');
   const scrollRef = useRef<HTMLDivElement>(null);
-  const {items} = useSelector((store: RootState) => store.ingredients);
+  const {items} = useAppSelector(store => store.ingredients);
 
   const onTabClick = (current: string) => {
     setCurrent(current);
