@@ -57,6 +57,7 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^8.3.4",
+    "cypress": "^12.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
     "fetch-mock": "^9.11.0",
