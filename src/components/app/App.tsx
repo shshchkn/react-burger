@@ -1,4 +1,4 @@
-import {BrowserRouter as Router} from 'react-router-dom';
+import {HashRouter} from 'react-router-dom';
 import ErrorBoundary from '../error-boundry/ErrorBoundary';
 import AppHeader from '../app-header/AppHeader';
 import styles from './app.module.scss';
@@ -18,14 +18,14 @@ const App = () => {
   return (
     <div className={styles.wrapper}>
       <ErrorBoundary>
-        <Router>
+        <HashRouter>
           <AppHeader/>
           <main className={styles.main}>
             <div className="container">
               <ModalSwitch />
             </div>
           </main>
-        </Router>
+        </HashRouter>
       </ErrorBoundary>
     </div>
   );
