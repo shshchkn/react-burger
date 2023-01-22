@@ -61,6 +61,7 @@
     "enzyme-adapter-react-16": "^1.15.7",
     "fetch-mock": "^9.11.0",
     "jest": "^29.3.1",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "redux-mock-store": "^1.5.4"
   }
 }
