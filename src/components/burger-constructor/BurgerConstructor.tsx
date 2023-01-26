@@ -75,11 +75,11 @@ const BurgerConstructor = () => {
       item.type !== 'bun'
         ? dispatch({
           type: ADD_CART_ITEM,
-          item: {...item, dragId: uuidv4(), count: 2}
+          item: {...item, dragId: uuidv4()}
         })
         : dispatch({
           type: ADD_CART_BUN,
-          item: {...item, dragId: uuidv4()}
+          item: {...item, dragId: uuidv4(), count: 2}
         });
     },
     collect: monitor => ({
