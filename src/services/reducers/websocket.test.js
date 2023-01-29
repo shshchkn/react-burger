@@ -1,5 +1,14 @@
-import {ordersReducer} from './orders';
-import * as types from '../actions/orders.ts';
+import {wsReducer} from './websocket';
+import * as types from '../actions/feed';
+
+const initialState = {
+  orders: null,
+  feed: null,
+  total: null,
+  totalToday: null,
+  wsConnected: false,
+  error: null
+};
 
 const testData = {
   success: true,
@@ -36,24 +45,15 @@ const testData = {
   totalToday: 65
 }
 
-const initialState = {
-  orders: null,
-  feed: null,
-  total: null,
-  totalToday: null,
-  wsConnected: false,
-  error: null
-};
-
-describe('orders reducer', () => {
+describe('websocket reducer', () => {
   it('should return the initial state', () => {
-    expect(ordersReducer(undefined, {})).toEqual(initialState)
+    expect(wsReducer(undefined, {})).toEqual(initialState)
   })
 
-  it('should handle ORDERS_CONNECTION_SUCCESS', () => {
+  it('should handle WS_CONNECTION_SUCCESS', () => {
     expect(
-      ordersReducer(initialState, {
-        type: types.ORDERS_CONNECTION_SUCCESS,
+      wsReducer(initialState, {
+        type: types.WS_CONNECTION_SUCCESS,
       })
     ).toEqual({
       ...initialState,
@@ -62,23 +62,25 @@ describe('orders reducer', () => {
     })
   })
 
-  it('should handle ORDERS_GET_MESSAGE', () => {
+  it('should handle WS_GET_MESSAGE', () => {
     expect(
-      ordersReducer(initialState, {
-        type: types.ORDERS_GET_MESSAGE,
+      wsReducer(initialState, {
+        type: types.WS_GET_MESSAGE,
         payload: testData
       })
     ).toEqual({
       ...initialState,
       error: null,
-      orders: testData.orders,
+      feed: testData.orders,
+      total: testData.total,
+      totalToday: testData.totalToday,
     })
   })
 
-  it('should handle ORDERS_CONNECTION_ERROR', () => {
+  it('should handle WS_CONNECTION_ERROR', () => {
     expect(
-      ordersReducer(initialState, {
-        type: types.ORDERS_CONNECTION_ERROR,
+      wsReducer(initialState, {
+        type: types.WS_CONNECTION_ERROR,
       })
     ).toEqual({
       ...initialState,
@@ -86,10 +88,10 @@ describe('orders reducer', () => {
     })
   })
 
-  it('should handle ORDERS_CONNECTION_CLOSED', () => {
+  it('should handle WS_CONNECTION_CLOSED', () => {
     expect(
-      ordersReducer(initialState, {
-        type: types.ORDERS_CONNECTION_CLOSED,
+      wsReducer(initialState, {
+        type: types.WS_CONNECTION_CLOSED,
       })
     ).toEqual({
       ...initialState,

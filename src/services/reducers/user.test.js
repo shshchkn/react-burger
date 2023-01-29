@@ -5,11 +5,6 @@ import * as loginTypes from "../actions/login";
 import * as logoutTypes from "../actions/logout";
 import * as forgotPasswordTypes from "../actions/forgot-password";
 import * as resetPasswordTypes from "../actions/reset-password";
-import {
-  RESET_PASSWORD_USER_FAILED,
-  RESET_PASSWORD_USER_REQUEST,
-  RESET_PASSWORD_USER_SUCCESS
-} from "../actions/reset-password";
 
 const initialState = {
   user: null,
