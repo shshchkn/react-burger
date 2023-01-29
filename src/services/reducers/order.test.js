@@ -1,6 +1,5 @@
 import * as types from "../actions/order";
 import {orderReducer} from "./order";
-import {CLOSE_ORDER, GET_ORDER_FAILED} from "../actions/order";
 
 const initialState = {
   orderNumber: null,

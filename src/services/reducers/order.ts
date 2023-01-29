@@ -23,7 +23,6 @@ export const orderReducer = (state = initialState, action: TOrderActions) => {
       };
     }
     case GET_ORDER_SUCCESS: {
-      console.log(action)
       return {
         ...state,
         orderRequest: false,
