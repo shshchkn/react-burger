@@ -109,6 +109,7 @@ const BurgerConstructor = () => {
     <div className={`dashboard__constructor ${styles.board}`}>
       <div
         className={dropZoneClass}
+        data-drop='dropzone'
         ref={dropTarget}>
         {cartBun &&
           (<div className={`board__top ${styles.bun} ml-8`}>
@@ -143,7 +144,7 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium mr-2">{cartTotalPrice}</p>
           <CurrencyIcon type="primary"/>
         </div>
-        <Button type="primary" size="large" htmlType="button" onClick={handleSetOrder} disabled={!cartBun}>Оформить
+        <Button type="primary" size="large" data-send htmlType="button" onClick={handleSetOrder} disabled={!cartBun}>Оформить
           заказ</Button>
       </div>
       {open && (
