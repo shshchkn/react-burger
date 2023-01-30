@@ -5,7 +5,7 @@ import {
 } from "../actions/ingredients";
 import {TGetItemsActions, TIngredientsState} from "../types/ingredients";
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   items: [],
   itemsRequest: false,
   itemsFailed: false,

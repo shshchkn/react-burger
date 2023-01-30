@@ -1,14 +1,5 @@
-import {wsReducer} from './websocket';
+import {wsReducer, initialState} from './websocket';
 import * as types from '../actions/feed';
-
-const initialState = {
-  orders: null,
-  feed: null,
-  total: null,
-  totalToday: null,
-  wsConnected: false,
-  error: null
-};
 
 const testData = {
   success: true,

@@ -1,36 +1,10 @@
-import {userReducer} from './user';
+import {userReducer, initialState} from './user';
 import * as userTypes from "../actions/user";
 import * as registerTypes from "../actions/register";
 import * as loginTypes from "../actions/login";
 import * as logoutTypes from "../actions/logout";
 import * as forgotPasswordTypes from "../actions/forgot-password";
 import * as resetPasswordTypes from "../actions/reset-password";
-
-const initialState = {
-  user: null,
-  isLoggedIn: false,
-
-  userRequest: false,
-  userFailed: false,
-
-  registerRequest: false,
-  registerSuccess: false,
-  registerFailed: false,
-
-  loginRequest: false,
-  loginFailed: false,
-
-  logoutRequest: false,
-  logoutFailed: false,
-
-  forgotPasswordRequest: false,
-  forgotPasswordSuccess: false,
-  forgotPasswordFailed: false,
-
-  resetPasswordRequest: false,
-  resetPasswordSuccess: false,
-  resetPasswordFailed: false,
-}
 
 describe('user reducer', () => {
   it('should return the initial state', () => {

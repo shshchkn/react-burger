@@ -1,9 +1,5 @@
 import * as types from "../actions/ingredientDetails";
-import {ingredientDetailsReducer} from "./ingredientDetails";
-
-const initialState = {
-  details: null
-}
+import {ingredientDetailsReducer, initialState} from "./ingredientDetails";
 
 const testData = {
   _id: '60d3b41abdacab0026a733c9',

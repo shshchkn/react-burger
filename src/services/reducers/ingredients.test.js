@@ -1,12 +1,5 @@
 import * as types from "../actions/ingredients";
-import {ingredientsReducer} from "./ingredients";
-import {GET_ITEMS_FAILED} from "../actions/ingredients";
-
-const initialState = {
-  items: [],
-  itemsRequest: false,
-  itemsFailed: false,
-}
+import {ingredientsReducer, initialState} from "./ingredients";
 
 const testData = [
   {

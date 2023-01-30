@@ -35,7 +35,7 @@ import {
 } from "../actions/reset-password";
 import {TUserActions, TUserState} from "../types/user";
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: null,
   isLoggedIn: false,
 

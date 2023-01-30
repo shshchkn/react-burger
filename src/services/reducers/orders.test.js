@@ -1,4 +1,4 @@
-import {ordersReducer} from './orders';
+import {ordersReducer, initialState} from './orders';
 import * as types from '../actions/orders.ts';
 
 const testData = {
@@ -35,15 +35,6 @@ const testData = {
   total: 8456,
   totalToday: 65
 }
-
-const initialState = {
-  orders: null,
-  feed: null,
-  total: null,
-  totalToday: null,
-  wsConnected: false,
-  error: null
-};
 
 describe('orders reducer', () => {
   it('should return the initial state', () => {

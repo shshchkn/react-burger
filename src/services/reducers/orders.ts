@@ -8,7 +8,7 @@ import {
 import type { TOrdersActions } from '../types/websocket';
 import {TWs} from "../types";
 
-const initialState: TWs = {
+export const initialState: TWs = {
   orders: null,
   feed: null,
   total: null,

@@ -1,13 +1,5 @@
-import {cartReducer} from './cart';
+import {cartReducer, initialState} from './cart';
 import * as types from '../actions/cart';
-import {ADD_CART_ITEM, CLEAN_CART, REMOVE_CART_ITEM, UPDATE_CART} from "../actions/cart";
-
-const initialState = {
-  cartBun: null,
-  cartItems: [],
-  cartRequest: false,
-  cartFailed: false,
-}
 
 const testBun = {
   _id: '60d3b41abdacab0026a733c7',

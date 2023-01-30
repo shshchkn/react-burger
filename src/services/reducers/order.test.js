@@ -1,12 +1,5 @@
 import * as types from "../actions/order";
-import {orderReducer} from "./order";
-
-const initialState = {
-  orderNumber: null,
-  orderRequest: false,
-  orderFailed: false,
-  openModal: false
-}
+import {orderReducer, initialState} from "./order";
 
 const testData = {
   _id: '60d3b41abdacab0026a733c9',

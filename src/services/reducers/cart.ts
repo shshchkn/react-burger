@@ -8,7 +8,7 @@ import {
 import {TCartActions, TCartState} from "../types/cart";
 import {TIngredientSingle} from "../types";
 
-const initialState: TCartState = {
+export const initialState: TCartState = {
   cartItems: [],
   cartBun: null,
   cartRequest: false,
