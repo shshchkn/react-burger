@@ -34,6 +34,7 @@ const ProductsItem: FC<TIngredient> = item => {
       title={name}
       style={{opacity: opacity}}>
       <Link
+        data-modal={ingredientId}
         key={ingredientId}
         to={{pathname: `/ingredients/${ingredientId}`}}
         state={{backgroundLocation: location}}
