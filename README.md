@@ -2,6 +2,12 @@
 
 React + Redux
 
+`git clone https://github.com/shshchkn/react-burger.git`
+
+`cd react-burger`
+
+`yarn` or `npm install`
+
 ## Available Scripts
 
 In the project directory, you can run:
