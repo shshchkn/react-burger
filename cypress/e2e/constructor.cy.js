@@ -11,7 +11,7 @@ describe('Burger constructor behavior', () => {
   });
 
   it('drag & drop ingredients', () => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
 
     cy.get('[data-target="60d3b41abdacab0026a733c6"]')
       .should('exist')
