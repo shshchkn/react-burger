@@ -37,7 +37,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "./node_modules/.bin/cypress open",
-    "deploy-script": "npm run build && scp -r ./build/* alex@158.160.57.133:/var/www/alex.nomoredomains.rocks/html"
+    "deploy": "npm run build && scp -r ./build/* alex@158.160.57.133:/var/www/alex.nomoredomains.rocks/html"
   },
   "eslintConfig": {
     "extends": [
