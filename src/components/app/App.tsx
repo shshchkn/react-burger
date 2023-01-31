@@ -13,6 +13,7 @@ const App = () => {
 
   useEffect(() => {
     !items.length && dispatch(getItems());
+    console.log(items)
   }, [dispatch, items]);
 
   return (

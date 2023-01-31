@@ -3,6 +3,8 @@ describe('Burger constructor behavior', () => {
     cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' });
     cy.intercept('POST', 'api/orders', { fixture: 'order.json' }).as('postOrder');
 
+    cy.intercept('GET', 'https://norma.nomoreparties.space/api/ingredients', { fixture: 'ingredients.json' });
+
     window.localStorage.setItem(
       'refreshToken',
       JSON.stringify('test-refreshToken')
@@ -14,17 +16,10 @@ describe('Burger constructor behavior', () => {
     cy.visit('/');
 
     cy.get('[data-target="60d3b41abdacab0026a733c6"]')
-      .should('exist')
-      .trigger('dragstart')
-      .trigger('dragleave');
+      .trigger('dragstart');
 
     cy.get('[data-drop="dropzone"]')
-      .trigger("dragenter")
-      .trigger("dragover")
       .trigger("drop")
-      .trigger("dragend");
-
-    cy.wait(500);
 
     cy.get('[data-send]').click();
 
