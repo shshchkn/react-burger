@@ -16,7 +16,8 @@ export const logoutRequest = () => async (dispatch: AppDispatch) => {
       body: JSON.stringify({'token': getCookie('refreshToken')})
     })
     .then(data => {
-      if (data.ok) {
+      console.log(data)
+      if (data.success) {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
         dispatch({type: LOGOUT_USER_SUCCESS});

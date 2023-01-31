@@ -6,7 +6,7 @@ import {
 } from "../actions/order";
 import {TOrderActions, TOrderState} from "../types/order";
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orderNumber: null,
   orderRequest: false,
   orderFailed: false,
@@ -23,7 +23,6 @@ export const orderReducer = (state = initialState, action: TOrderActions) => {
       };
     }
     case GET_ORDER_SUCCESS: {
-      console.log(action)
       return {
         ...state,
         orderRequest: false,

@@ -30,12 +30,14 @@
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cypress:open": "./node_modules/.bin/cypress open"
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "deploy": "npm run build && scp -r ./build/* alex@158.160.57.133:/var/www/alex.nomoredomains.rocks/html"
   },
   "eslintConfig": {
     "extends": [
@@ -63,6 +65,7 @@
     "enzyme-adapter-react-16": "^1.15.7",
     "eslint-plugin-cypress": "^2.12.1",
     "fetch-mock": "^9.11.0",
+    "gh-pages": "^5.0.0",
     "jest": "^29.3.1",
     "react-test-renderer": "^18.2.0",
     "redux-mock-store": "^1.5.4"

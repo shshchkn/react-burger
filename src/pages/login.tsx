@@ -38,7 +38,7 @@ export const LoginPage = () => {
           value={values?.password || ''}
           name={'password'} />
       </div>
-      <Button type="primary" size="medium" htmlType="submit">
+      <Button type="primary" data-signin size="medium" htmlType="submit">
         Войти
       </Button>
     </form>

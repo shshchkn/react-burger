@@ -22,7 +22,7 @@ const Modal: FC<TModal> = ({children, headerTitle, onClose, extraStyle}) => {
 
   return createPortal(
     <>
-      <div className={styles.popup} style={extraStyle}>
+      <div className={styles.popup} style={extraStyle} data-modal="popup">
         <div className={styles.popup__header}>
           {headerTitle || null}
           <button className={styles.popup__close} onClick={onClose}>

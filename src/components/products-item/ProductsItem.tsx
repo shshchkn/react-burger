@@ -29,10 +29,12 @@ const ProductsItem: FC<TIngredient> = item => {
     <li
       className={`${styles.ingredients__list_item} ${styles.card}`}
       draggable
+      data-target={ingredientId}
       ref={dragRef}
       title={name}
       style={{opacity: opacity}}>
       <Link
+        data-modal={ingredientId}
         key={ingredientId}
         to={{pathname: `/ingredients/${ingredientId}`}}
         state={{backgroundLocation: location}}
